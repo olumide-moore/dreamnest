@@ -18,12 +18,12 @@ import com.vaadin.flow.server.PWA;
 import java.util.Collections;
 
 //@PWA(name = "Flow CRM Tutorial", shortName = "Flow CRM Tutorial", enableInstallPrompt = false)
-@PageTitle("Basket | Vaadin CRM")
+@PageTitle  ("Basket | Vaadin CRM")
 @Route(value = "/basket", layout = MainLayout.class)  //ListView still matches the empty path, but now uses MainLayout as its parent.
 
 
 public class Basket extends VerticalLayout {
-    Grid<Product> grid = new Grid<>(Product.class);
+    Grid<Product>  grid = new Grid<>(Product.class);
     TextField filterText = new TextField();
     ProductForm form;
     CrmService service;
