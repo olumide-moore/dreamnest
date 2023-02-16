@@ -1,0 +1,190 @@
+/* General page styling*/
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Spartan',sans-serif;
+}
+
+body{
+	width: 100%;
+}
+
+/*Header styling*/
+#header{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 20px 80px;
+	background: #FDFBFE;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+	z-index: 999;
+	position: sticky;
+	top: 0;
+	left: 0;
+}
+
+#navbar{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#navbar li{
+	list-style: none;
+	padding: 0 20px;
+	position: relative;
+}
+
+#navbar li a{
+	text-decoration: none;
+	font-size: 16px;
+	font-weight: 600;
+	color: #1a1a1a;
+	transition: 0.3s ease;
+}
+
+#navbar li a:hover,
+#navbar li a.active{
+	color: #452ADA;
+}
+
+#navbar li a.active::after, 
+#navbar li a:hover::after{
+	content: "";
+	width: 30%;
+	height: 2px;
+	background-color: #452ADA;
+	position: absolute;
+	bottom: -4px;
+	left: 20px;
+}
+
+#mobile{
+	display: none;
+	align-items: center;
+}
+
+#close{
+	display: none;
+}
+
+/*Media query for header*/
+@media (max-width:799px){
+	#navbar{
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: flex-start;
+		position: fixed;
+		top: 0;
+		right: -300px;
+		height: 100vh;
+		width: 175px;
+		background-color: #FDFBFE;
+		box-shadow: 0 40px 60px rgba(0, 0, 0, 0.1);
+		padding: 80px 0 0 10px;
+		transition: 0.3s;
+	}
+
+	#navbar.active{
+		right: 0px;
+	}
+
+	#navbar li{
+		margin-bottom: 25px;
+	}
+
+	#mobile{
+		display: flex;
+		align-items: center;
+	}
+
+	#mobile i{
+		color: #1a1a1a;
+		font-size: 20 px;
+		padding-left: 20px;
+	}
+
+	#close{
+		position: absolute;
+		top: 30px;
+		left: 30px;
+		color: #222;
+		font-size: 20px;
+		display: initial;
+	}
+}
+
+/*Footer Styling*/
+
+footer{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	position: absolute;
+	top: 100%;
+	width: 100%;
+	background: #FDFBFE;
+	
+	
+}
+
+footer .col{
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	margin-bottom: 20px;
+	margin-right: 125px;
+	margin-left: 125px;
+}
+
+footer .logo{
+	margin-bottom: 30px;
+}
+
+footer h4{
+	font-size: 16px;
+	padding-bottom: 20px;
+}
+
+footer p{
+	font-size: 13px;
+	margin: 0 0 8px 0;
+}
+
+footer a{
+	font-size: 13px;
+	text-decoration: none;
+	color: #222;
+	margin-bottom: 10px;
+}
+
+footer .follow{
+	margin-top: 20px;
+}
+
+
+footer .follow i{
+	padding-right: 4px;
+	cursor: pointer;
+}
+
+footer .install .row img{
+	border: 1px solid #452ADA;
+	border-radius: 6px;
+}
+
+footer .install img{
+	margin-top: 10px 0 15px 0;
+}
+
+footer .follow i:hover, footer a:hover{
+	color: #452ADA;
+}
+
+footer .copyright{
+	width: 100%;
+	text-align: center;
+}
+
