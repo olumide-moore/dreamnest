@@ -71,7 +71,7 @@ const getStyleModule = (id) => {
       .join(" ");
   return cssText;
 };
-import stylesCss from 'themes/flowcrmtutorial/styles.css';
+import stylesCss from 'themes/styles/main.css';
 import '@vaadin/vaadin-lumo-styles/typography.js';
 import '@vaadin/vaadin-lumo-styles/color.js';
 import '@vaadin/vaadin-lumo-styles/spacing.js';
