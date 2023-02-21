@@ -13,3 +13,39 @@ a[highlight] {
       text-decoration: underline;
   }
 
+  /* General page styling*/
+  *{
+
+  	font-family: 'Spartan',sans-serif;
+  }
+
+/*Header styling*/
+.header{
+	background: #FDFBFE;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+	z-index: 999;
+}
+
+vaadin-menu-bar.menuBar::part(menu-bar-button){
+ 	font-size: 16px;
+ 	color: #1a1a1a;
+ 	transition: 0.3s ease;
+}
+
+vaadin-menu-bar.menuBar::part.active(menu-bar-button){
+	color: #452ADA;
+}
+
+vaadin-menu-bar.menuBar::part::after(menu-bar-button),
+vaadin-menu-bar.menuBar::part:hover:after (menu-bar-button){
+	content: "";
+	width: 30%;
+	height: 2px;
+	background-color: #452ADA;
+	position: absolute;
+	bottom: -4px;
+	left: 20px;
+}
+
+
+

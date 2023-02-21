@@ -18,7 +18,7 @@ import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.theme.Theme;
 
 @Theme(themeFolder = "css")
-@CssImport(value = "./css/style.css")
+@CssImport(value = "./css/main.css")
 public class MainLayout extends AppLayout {
     public MainLayout(){
 //        System.out.println(3);
@@ -30,14 +30,11 @@ public class MainLayout extends AppLayout {
         H1 logo=new H1("Dreamnest");
         logo.addClassNames("text-l", "m-m");//vaadin utility classes
 
-
-
         //Top Menubar
         MenuBar menuBar= new MenuBar();
-        menuBar.addClassName("menuBar");
+        menuBar.addClassName("menuBar"); //set class for menubar
+        //Set menu items
         MenuItem home= menuBar.addItem("Home");
-
-
         MenuItem products = menuBar.addItem("Products");
         MenuItem about = menuBar.addItem("About Us");
         MenuItem contact = menuBar.addItem("Contact");
@@ -45,14 +42,19 @@ public class MainLayout extends AppLayout {
         SubMenu userSubMenu= user.getSubMenu();
         userSubMenu.addItem("Sign out");
         createIconItem(menuBar,VaadinIcon.CART,"Basket");
+        //Set class for all menuitems
+//        menuBar.getItems().forEach(item -> item.getElement().getClassList().add("navbar-buttons"));
+        home.getElement().getClassList().add("menu-buttons");
 
-        menuBar.setOpenOnHover(true);
+//        menuBar.setOpenOnHover(true);
 
         HorizontalLayout header = new HorizontalLayout(new DrawerToggle(), logo, menuBar);
         header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
         header.expand(logo);
         header.setWidthFull();
-        header.addClassNames("py-0", "px-m");
+//        header.addClassNames("py-0", "px-m");
+        header.addClassName("header");
+
         addToNavbar(header);
 
     }
