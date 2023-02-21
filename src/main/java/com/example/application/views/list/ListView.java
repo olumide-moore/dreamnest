@@ -18,7 +18,7 @@ import java.util.Collections;
 
 //@PWA(name = "Flow CRM Tutorial", shortName = "Flow CRM Tutorial", enableInstallPrompt = false)
 @PageTitle("Products | Vaadin CRM")
-@Route(value = "", layout = MainLayout.class)  //ListView still matches the empty path, but now uses MainLayout as its parent.
+@Route(value = "products", layout = MainLayout.class)  //ListView still matches the empty path, but now uses MainLayout as its parent.
 
 
 public class ListView extends VerticalLayout {
