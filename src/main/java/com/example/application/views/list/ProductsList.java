@@ -1,7 +1,8 @@
 package com.example.application.views.list;
 
 import com.example.application.data.entity.Product;
-import com.example.application.data.service.CrmService;
+import com.example.application.data.service.ProductService;
+import com.example.application.data.service.ProductService;
 import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
@@ -18,16 +19,16 @@ import java.util.Collections;
 
 //@PWA(name = "Flow CRM Tutorial", shortName = "Flow CRM Tutorial", enableInstallPrompt = false)
 @PageTitle("Products | Vaadin CRM")
-@Route(value = "products", layout = MainLayout.class)  //ListView still matches the empty path, but now uses MainLayout as its parent.
+//@Route(value = "products", layout = MainLayout.class)  //ListView still matches the empty path, but now uses MainLayout as its parent.
 
 
-public class ListView extends VerticalLayout {
+public class ProductsList extends VerticalLayout {
     Grid<Product> grid = new Grid<>(Product.class);
     TextField filterText = new TextField();
     ProductForm form;
-    CrmService service;
+    ProductService service;
 
-    public ListView(CrmService service) {
+    public ProductsList(ProductService service) {
         this.service=service;
         addClassName("list-view");
         setSizeFull();
@@ -85,7 +86,6 @@ public class ListView extends VerticalLayout {
             form.setVisible(true);
             addClassName("editing");
         }
-
     }
 
     private Component getContent() {
@@ -113,7 +113,7 @@ public class ListView extends VerticalLayout {
         closeEditor();
     }
 
-    private  void saveProduct(ProductForm.SaveEvent event) {
+    private void saveProduct(ProductForm.SaveEvent event) {
         service.saveProduct(event.getProduct());
         updateList();
         closeEditor();

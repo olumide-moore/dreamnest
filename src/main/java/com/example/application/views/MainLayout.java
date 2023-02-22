@@ -1,6 +1,10 @@
 package com.example.application.views;
 
-import com.example.application.views.list.ListView;
+import com.example.application.data.entity.User;
+import com.example.application.data.entity.Role;
+import com.example.application.data.service.AuthService;
+import com.example.application.views.list.ProductsList;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.contextmenu.MenuItem;
@@ -15,13 +19,16 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.RouterLink;
+import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.theme.Theme;
 
 @Theme(themeFolder = "css")
-@CssImport(value = "./css/main.css")
 public class MainLayout extends AppLayout {
-    public MainLayout(){
-//        System.out.println(3);
+    private AuthService authService;
+    private VerticalLayout drawer_layout;
+
+    public MainLayout(AuthService authService){
+        this.authService = authService;
         createHeader();
         createDrawer();
     }
@@ -41,6 +48,7 @@ public class MainLayout extends AppLayout {
         MenuItem user =createIconItem(menuBar,VaadinIcon.USER,"User");
         SubMenu userSubMenu= user.getSubMenu();
         userSubMenu.addItem("Sign out");
+
         createIconItem(menuBar,VaadinIcon.CART,"Basket");
         //Set class for all menuitems
 //        menuBar.getItems().forEach(item -> item.getElement().getClassList().add("navbar-buttons"));
@@ -58,15 +66,25 @@ public class MainLayout extends AppLayout {
         addToNavbar(header);
 
     }
+    private void createDrawer(){
 
-    private void createDrawer() {
-        RouterLink listView  = new RouterLink("List", ListView.class);
-        listView.setHighlightCondition(HighlightConditions.sameLocation());
+        User user= VaadinSession.getCurrent().getAttribute(User.class);
+        if (user!=null) {
+            authService.getAuthorizedRoutes(user.getRole()).stream()
+                    .forEach(r -> createDrawerItem(r.name(), r.view()));
 
-        addToDrawer(
-                new VerticalLayout(
-                        listView
-                ));
+            addToDrawer(
+                    drawer_layout);
+        }
+
+    }
+    private void createDrawerItem(String text, Class<? extends Component> target) {
+        drawer_layout.add(new RouterLink(text, target));
+        //Removed for now as authorization needed to create routes
+//        RouterLink productsList  = new RouterLink("List", ProductsList.class);
+//        productsList.setHighlightCondition(HighlightConditions.sameLocation());
+        //Get user stored in current session
+
     }
 
     private MenuItem createIconItem(MenuBar menu, VaadinIcon iconName,

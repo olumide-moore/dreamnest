@@ -1,0 +1,4 @@
+/* Import your application global css files here or add the styles directly to this file */
+@import url('lumo-css-framework/all-classes.css');
+@import url('line-awesome/dist/line-awesome/css/line-awesome.min.css');
+@import "main.css";
