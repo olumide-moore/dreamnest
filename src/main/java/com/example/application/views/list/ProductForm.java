@@ -37,17 +37,14 @@ public class ProductForm extends FormLayout {
         binder.bindInstanceFields(this);
 
         add(category,
-                name,
-                description,
-                price,
-                stock,
-                imgPath,
-                createButtonsLayout());
-
-
+            name,
+            description,
+            price,
+            stock,
+            imgPath,
+            createButtonsLayout());
     }
     public void setProduct(Product product){
-
         this.product = product;
         binder.readBean(product);
     }
@@ -71,7 +68,6 @@ public class ProductForm extends FormLayout {
         try{
             binder.writeBean(product);
             fireEvent(new SaveEvent(this, product));
-
         }catch (ValidationException e){
             e.printStackTrace();
         }
