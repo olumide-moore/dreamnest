@@ -14,27 +14,31 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 
-@Route(value="login", layout = MainLayout.class)
+//@Route(value="login", layout = MainLayout.class)
 @PageTitle("Login")
-@RouteAlias(value="", layout = MainLayout.class)
+//@RouteAlias(value="", layout = MainLayout.class)
 public class LoginForm extends FormLayout {
     private EmailField email;
     private PasswordField password;
     public LoginForm( AuthService authService){
          email= new EmailField("Email");
          password = new PasswordField("Password");
+         Button button = new Button("Login");
+//        button.addClickListener(e -> button.getUI().ifPresent(ui -> ui.navigate("edit-products")));
+        button.addClickListener(event -> {
+            try {
+                authService.authenticate(email.getValue(), password.getValue());
+                UI.getCurrent().navigate("edit-products");
+//                UI.getCurrent().getPage().setLocation("/templates/welcome.html");
+            } catch (AuthService.AuthException e) {
+                Notification.show("Invalid details");
+            }
+            });
+
         add(    new H1("Welcome"),
                 email,
                 password,
-                new Button("Login", event -> {
-                    try {
-                        authService.authenticate(email.getValue(), password.getValue());
-                        UI.getCurrent().navigate("edit-products");
-                    } catch (AuthService.AuthException e) {
-                        Notification.show("Invalid details");
-                    }
-
-                })
+                button
         );
 
         setWidth("25em");
