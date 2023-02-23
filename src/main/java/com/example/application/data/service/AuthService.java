@@ -21,16 +21,24 @@ public class AuthService {
         this.userRepository = userRepository;
     }
 
-    public void authenticate(String email, String password) throws AuthException {
+    public User authenticate(String email, String password) throws AuthException {
          User user =userRepository.getByEmail(email);
          if (user != null && user.verifyPassword(password)){
             //Store user object in session
              VaadinSession.getCurrent().setAttribute(User.class,user);
-             createRoutes(user.getRole());
+             return user;
+            //  createRoutes(user.getRole());
          } else {
              throw new AuthException();
          }
+    }
 
+    public boolean isLoggedIn(){
+        if (VaadinSession.getCurrent().getAttribute(User.class)!=null){
+            return  true;
+        }else {
+            return false;
+        }
     }
 
     //Create routes for this session

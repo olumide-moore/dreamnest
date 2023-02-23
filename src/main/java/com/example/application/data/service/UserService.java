@@ -27,5 +27,15 @@ public class UserService {
         userRepository.save(user);
     }
 
+    //verify user
+    public boolean verifyUser(String email, String password) {
+        User user = userRepository.getByEmail(email);
+        if (user != null && user.verifyPassword(password)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 }
