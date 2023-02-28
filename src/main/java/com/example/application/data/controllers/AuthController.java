@@ -57,11 +57,16 @@ public class AuthController {
 
     @GetMapping("/")
     public String welcome(HttpSession session, Model model) {
-        User user = (User) session.getAttribute("user");
+        User user =null;
+        if (session.getAttribute("user")!=null){
+            user = (User) session.getAttribute("user");
+        }
         if (user == null) {
-            return  "login";
+//            return  "login";
 //            return "redirect:/edit-products";
 //            return "login";
+            return home(model ,null);
+
         }else {
             return home(model,user);
         }
@@ -81,6 +86,8 @@ public class AuthController {
         }
 //        Notification.show("User: "+user);
     }
+
+
     @GetMapping("/home")
     public String home(Model model, User user) {
         if (user!=null)
@@ -103,6 +110,23 @@ public class AuthController {
             return "signup";
         }
     }
+
+    @GetMapping("/contactus")
+    public String contactus(){
+        return "contactus";
+    }
+    @GetMapping("/aboutus")
+    public String aboutus(){
+        return "aboutus";
+    }
+    @GetMapping("/user")
+    public String userClicked(HttpSession session){
+        if (session.getAttribute("user") != null) {
+            return  "logout";
+        }else {
+            return "login";
+        }
+    }
     @PostMapping("/register")
     public String register(@RequestParam String email, @RequestParam String password, @RequestParam String firstName, @RequestParam String lastName, Model model, HttpSession session) {
         if (userService.emailExists(email)){
@@ -115,8 +139,8 @@ public class AuthController {
             user.setLastName(lastName);
             user.hashPassword();
             userService.saveUser(user);
-            model.addAttribute("user", email);
-            session.setAttribute("user",email);
+            model.addAttribute("user", user);
+            session.setAttribute("user",user);
             return "home";
         }
     }

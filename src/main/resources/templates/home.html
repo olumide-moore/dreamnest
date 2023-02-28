@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="base.html :: head(title='Home')">
+</head>
+
+<body>
+<header th:replace="base.html :: header">
+</header>
+
+
+<!----Carousel------>
+<div id="carousel" class="carousel slide" data-bs-ride="carousel">
+	<div class="carousel-indicators">
+		<button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+		<button type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+		<button type="button" data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+		<button type="button" data-bs-target="#carousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+		<button type="button" data-bs-target="#carousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+	</div>
+	<div class="carousel-inner">
+		<div class="carousel-item active c-item">
+			<img src="/images/1.jpg" class="d-block w-100 c-img" alt="Slide 1">
+			<div class="carousel-caption">
+				<button class="bttn">Shop Now</button>
+			</div>
+		</div>
+		<div class="carousel-item c-item">
+			<img src="/images/2.jpg" class="d-block w-100 c-img" alt="Slide 2">
+			<div class="carousel-caption">
+				<button class="bttn">Shop Now</button>
+			</div>
+		</div>
+		<div class="carousel-item c-item">
+			<img src="images/3.png" class="d-block w-100 c-img" alt="Slide 3">
+			<div class="carousel-caption">
+				<button class="bttn">Shop Now</button>
+			</div>
+		</div>
+		<div class="carousel-item c-item">
+			<img src="images/4.jpg" class="d-block w-100 c-img" alt="Slide 4">
+			<div class="carousel-caption">
+				<button class="bttn">Shop Now</button>
+			</div>
+		</div>
+		<div class="carousel-item c-item">
+			<img src="images/5.jpg" class="d-block w-100 c-img" alt="Slide 5">
+			<div class="carousel-caption">
+				<button class="bttn">Shop Now</button>
+			</div>
+		</div>
+	</div>
+	<button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Previous</span>
+	</button>
+	<button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Next</span>
+	</button>
+</div>
+
+<!----Card------>
+<h2 class="underline"><strong>Featured</strong></h2>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+	<div class="col">
+		<div class="card h-100">
+			<img src="images/c1.jpg" class="card-img-top" alt="...">
+			<div class="card-body">
+				<h5 class="card-title">Artificial Plant</h5>
+				<p class="card-text">£12<br>Great for home offices or to liven up a living space </p>
+			</div>
+			<div class="text-center">
+				<button type="button" class="btn btn-primary">Shop</button>
+				<div class="card-footer">
+					<small class="text-muted">@DreamNest, 2023</small>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		<div class="card h-100">
+			<img src="images/c2.jpg" class="card-img-top" alt="...">
+			<div class="card-body">
+				<h5 class="card-title">Scented Candle</h5>
+				<p class="card-text">£8<br>Buy this vanilla scented candle to brighten up your room and make it smell good</p>
+			</div>
+			<div class="text-center">
+				<button type="button" class="btn btn-primary">Shop</button>
+				<div class="card-footer">
+					<small class="text-muted">@DreamNest, 2023</small>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		<div class="card h-100">
+			<img src="images/c3.jpg" class="card-img-top" alt="...">
+			<div class="card-body">
+				<h5 class="card-title">Sunset Canvas Set</h5>
+				<p class="card-text">£12<br>Great for home offices or to liven up a living space</p>
+			</div>
+			<div class="text-center">
+				<button type="button" class="btn btn-primary">Shop</button>
+				<div class="card-footer">
+					<small class="text-muted">@DreamNest, 2023</small>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		<div class="card h-100">
+			<img src="images/c4.jpg" class="card-img-top" alt="...">
+			<div class="card-body">
+				<h5 class="card-title">Lightning Symbol Light</h5>
+				<p class="card-text">£12<br>Great for home offices or to liven up a living space.</p>
+			</div>
+			<div class="text-center">
+				<button type="button" class="btn btn-primary">Shop</button>
+				<div class="card-footer">
+					<small class="text-muted">@DreamNest, 2023</small>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		<div class="card h-100">
+			<img src="images/c5.jpg" class="card-img-top" alt="...">
+			<div class="card-body">
+				<h5 class="card-title">Bonsai Tree</h5>
+				<p class="card-text">£12<br>Great for home offices or to liven up a living space</p>
+			</div>
+			<div class="text-center">
+				<button type="button" class="btn btn-primary">Shop</button>
+				<div class="card-footer">
+					<small class="text-muted">@DreamNest, 2023</small>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		<div class="card h-100">
+			<img src="images/c6.jpg" class="card-img-top" alt="...">
+			<div class="card-body">
+				<h5 class="card-title">Wooden Lamp</h5>
+				<p class="card-text">£12<br>Great for home offices or to liven up a living space</p>
+			</div>
+			<div class="text-center">
+				<button type="button" class="btn btn-primary">Shop</button>
+				<div class="card-footer">
+					<small class="text-muted">@DreamNest, 2023</small>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-----Who we are box----->
+<div class="container1">
+	<h5 class="underline">Who We Are</h5>
+	<p class="who">We are a small business dedicated to bringing beautiful and functional homeware products to your home. We understand the importance of creating a space that is comfortable, stylish, and reflects your personal taste. Our collection includes a variety of high-quality items that range from practical essentials to decorative accents. Whether you're looking for lamps, home decor, or to just liven up your living space, we have carefully curated a selection that will elevate your living space. We are passionate about providing exceptional customer service and ensuring that every customer is completely satisfied with their purchase. At our core, we believe that a well-designed home can enhance your quality of life, and we are committed to helping you achieve that goal.</p>
+</div>
+
+<!-----Card Categories----->
+<h2 class="underline"><strong>Categories</strong></h2>
+<div class="container">
+	<div class="scard">
+		<img src="images/1.jpg" class="scard-img">
+		<div class="scard-body">
+			<h4 class="scard-title">Plants</h4>
+			<p class="scard-sub-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+			<button class="scard-btn">Shop Now</button>
+		</div>
+	</div>
+	<div class="scard">
+		<img src="images/2.jpg" class="scard-img">
+		<div class="scard-body">
+			<h4 class="scard-title">Lamps</h4>
+			<p class="scard-sub-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+			<button class="scard-btn">Shop Now</button>
+		</div>
+	</div>
+	<div class="scard">
+		<img src="images/3.png" class="scard-img">
+		<div class="scard-body">
+			<h4 class="scard-title">Artwork</h4>
+			<p class="scard-sub-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+			<button class="scard-btn">Shop Now</button>
+		</div>
+	</div>
+	<div class="scard">
+		<img src="images/4.jpg" class="scard-img">
+		<div class="scard-body">
+			<h4 class="scard-title">Lights</h4>
+			<p class="scard-sub-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+			<button class="scard-btn">Shop Now</button>
+		</div>
+	</div>
+	<div class="scard">
+		<img src="images/5.jpg" class="scard-img">
+		<div class="scard-body">
+			<h4 class="scard-title">Candles</h4>
+			<p class="scard-sub-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+			<button class="scard-btn">Shop Now</button>
+		</div>
+	</div>
+</div>
+
+
+
+<footer th:replace="base.html :: footer">
+</footer>
+
+	<script type="text/javascript" th:src="@{/js/script.js}"></script>
+</body>
+</html>

@@ -71,11 +71,9 @@ const getStyleModule = (id) => {
       .join(" ");
   return cssText;
 };
-import stylesCss from 'themes/css/main.css';
-import '@vaadin/vaadin-lumo-styles/typography.js';
+import stylesCss from 'themes/styles/styles.css';
 import '@vaadin/vaadin-lumo-styles/color.js';
-import '@vaadin/vaadin-lumo-styles/spacing.js';
-import '@vaadin/vaadin-lumo-styles/badge.js';
+import '@vaadin/vaadin-lumo-styles/typography.js';
 
 window.Vaadin = window.Vaadin || {}; 
 window.Vaadin.theme = window.Vaadin.theme || {};
@@ -126,15 +124,11 @@ export const applyTheme = (target) => {
 // For the document, we need to be compatible with flow-generated-imports and add missing <style> tags.
 const shadowRoot = (target instanceof ShadowRoot);
 if (shadowRoot) {
-injectGlobalCss(getStyleModule("lumo-typography"), target, true);
 injectGlobalCss(getStyleModule("lumo-color"), target, true);
-injectGlobalCss(getStyleModule("lumo-spacing"), target, true);
-injectGlobalCss(getStyleModule("lumo-badge"), target, true);
+injectGlobalCss(getStyleModule("lumo-typography"), target, true);
 } else if (!document['_vaadinthemelumoimports_']) {
-addStyleInclude("lumo-typography", target);
 addStyleInclude("lumo-color", target);
-addStyleInclude("lumo-spacing", target);
-addStyleInclude("lumo-badge", target);
+addStyleInclude("lumo-typography", target);
 document['_vaadinthemelumoimports_'] = true;
 }
 

@@ -1,0 +1,22 @@
+/* Import your application global css files here or add the styles directly to this file */
+/*@import url('lumo-css-framework/all-classes.css');
+@import url('line-awesome/dist/line-awesome/css/line-awesome.min.css');*/
+
+.menuBar .menu-buttons:hover {
+  background-color: red !important;
+}
+.menu-buttons:hover {
+  background-color: red !important;
+
+}
+vaadin-menu-bar::part(menu-bar){
+  background-color: red !important;
+  color:red !important;
+}
+.menuBar .navbar-buttons:hover {
+  background-color: red !important;
+}
+vaadin-menu-bar .menu-item:hover {
+    background: red !important;
+    color: red !important;
+}

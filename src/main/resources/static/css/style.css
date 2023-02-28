@@ -53,14 +53,14 @@ body {
     max-width: 80%;
 }
 
-h1 {
+.login-h1 {
     text-align: center;
     font-size: 25px;
     margin-bottom: 30px;
     color: #6a11cb
 }
 
-h2 {
+.login-h2 {
     text-align: center;
     font-size: 15px;
     margin-bottom: 10px;
@@ -72,7 +72,7 @@ h2 {
     font-size: 15px;
 }
 
-label {
+.login-label {
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
