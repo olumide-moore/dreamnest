@@ -5,6 +5,7 @@ import com.example.application.data.service.ProductService;
 import com.example.application.data.service.ProductService;
 import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -18,10 +19,9 @@ import com.vaadin.flow.server.PWA;
 import java.util.Collections;
 
 //@PWA(name = "Flow CRM Tutorial", shortName = "Flow CRM Tutorial", enableInstallPrompt = false)
-@PageTitle("Products | Vaadin CRM")
-//@Route(value = "products", layout = MainLayout.class)  //ListView still matches the empty path, but now uses MainLayout as its parent.
 
-
+@PageTitle("Products")
+@Route(value = "edit-products", layout = MainLayout.class)  //ListView still matches the empty path, but now uses MainLayout as its parent.
 public class ProductsList extends VerticalLayout {
     Grid<Product> grid = new Grid<>(Product.class);
     TextField filterText = new TextField();

@@ -16,14 +16,13 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-
-
     public void saveUser(User user) {
-        if (user == null) {
-            Notification.show("User is null");
-//            System.err.println("User is null");
-            return;
-        }
+        
+//         if (user == null) {
+//             Notification.show("User is null");
+// //            System.err.println("User is null");
+//             return;
+//         }
         userRepository.save(user);
     }
 
@@ -35,6 +34,21 @@ public class UserService {
         } else {
             return false;
         }
+    }
+
+    //check if email exists
+    public boolean emailExists(String email) {
+        User user = userRepository.getByEmail(email);
+        if (user != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //get user by email
+    public User getUserByEmail(String email) {
+        return userRepository.getByEmail(email);
     }
 
 

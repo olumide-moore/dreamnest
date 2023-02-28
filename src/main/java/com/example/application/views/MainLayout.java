@@ -5,6 +5,7 @@ import com.example.application.data.entity.Role;
 import com.example.application.data.service.AuthService;
 import com.example.application.views.list.ProductsList;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.contextmenu.MenuItem;
@@ -22,7 +23,8 @@ import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.theme.Theme;
 
-@Theme(themeFolder = "css")
+@Theme(themeFolder = "styles")
+//@CssImport(value = "./themes/styles/styles.css", themeFor="vaadin-menu-bar")
 public class MainLayout extends AppLayout {
     private AuthService authService;
     private VerticalLayout drawer_layout;
@@ -30,7 +32,13 @@ public class MainLayout extends AppLayout {
     public MainLayout(AuthService authService){
         this.authService = authService;
         createHeader();
-        createDrawer();
+//        remove Drawer
+// Remove the DrawerToggle component by ID
+        getElement().getChild(0).removeChild(getElement().getChild(0).getChild(0));
+
+//// Remove the Drawer component by ID
+//        getElement().getChild(0).removeChild(getElement().getChild(0).getChild(1));
+//        createDrawer();
     }
 
     private void createHeader() {
@@ -41,18 +49,22 @@ public class MainLayout extends AppLayout {
         MenuBar menuBar= new MenuBar();
         menuBar.addClassName("menuBar"); //set class for menubar
         //Set menu items
-        MenuItem home= menuBar.addItem("Home");
+//        MenuItem home= menuBar.addItem("Home");
         MenuItem products = menuBar.addItem("Products");
-        MenuItem about = menuBar.addItem("About Us");
-        MenuItem contact = menuBar.addItem("Contact");
+//        MenuItem about = menuBar.addItem("About Us");
+//        MenuItem contact = menuBar.addItem("Contact");
         MenuItem user =createIconItem(menuBar,VaadinIcon.USER,"User");
         SubMenu userSubMenu= user.getSubMenu();
-        userSubMenu.addItem("Sign out");
+        userSubMenu.addItem("Sign out").addClickListener( event->
+                UI.getCurrent().navigate("logout")
+        );
 
-        createIconItem(menuBar,VaadinIcon.CART,"Basket");
-        //Set class for all menuitems
-//        menuBar.getItems().forEach(item -> item.getElement().getClassList().add("navbar-buttons"));
-        home.getElement().getClassList().add("menu-buttons");
+//        createIconItem(menuBar,VaadinIcon.CART,"Basket");
+//        //Set class for all menuitems
+////        menuBar.getItems().forEach(item -> item.getElement().getClassList().add("navbar-buttons"));
+//        home.getElement().getClassList().add("menu-buttons");
+//        home.getElement().setAttribute("theme", "icon-on-top");
+//        home.getElement().getClassList().add("home-menu-item");
 
 //        menuBar.setOpenOnHover(true);
 

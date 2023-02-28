@@ -66,6 +66,7 @@ public class AuthService {
         return authorizedRoutes;
     }
     
+    
     public class  AuthException extends Exception{
 
     }
