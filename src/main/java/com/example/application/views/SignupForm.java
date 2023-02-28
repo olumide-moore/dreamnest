@@ -49,7 +49,7 @@ public class SignupForm extends FormLayout {
             binder.writeBean(user);
             user.hashPassword();
             service.saveUser(user);
-            System.out.print("Fine");
+            // System.out.print("Fine");
         }catch (ValidationException e){
             Notification.show("Fill boxes");
         }
