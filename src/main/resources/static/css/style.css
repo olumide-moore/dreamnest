@@ -1,0 +1,184 @@
+body {
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.image {
+    width: 100%;
+    max-width: 400px;
+    height: 50%;
+    background-color: #ffffff;
+    overflow: hidden;
+    box-shadow: 0px 0px 10px #000;
+}
+
+.image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    max-height: 100%;
+}
+
+.form-wrapper {
+    width: 100%;
+    max-width: 400px;
+    height: 50%;
+    background-color: #ffffff;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0px 0px 10px #000;
+}
+
+.Logo-image {
+    width: 200px;
+    margin: 0 auto;
+    text-align: center;
+    max-width: 80%;
+}
+
+h1 {
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 30px;
+    color: #6a11cb
+}
+
+h2 {
+    text-align: center;
+    font-size: 15px;
+    margin-bottom: 10px;
+    color: grey
+}
+
+.Forgot-pass {
+    margin-top: 40px;
+    font-size: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #6a11cb
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #3631e1;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border-radius: 30px;
+    box-shadow: 0px 0px 3.5px #6a11cb;
+}
+
+input[type="submit"] {
+    background-color: #3631e1;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    box-shadow: 0px 0px 3.5px #000;
+}
+
+input[type="submit"]:hover {
+    background-color: #3631e1;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+
+/* Media queries */
+
+@media only screen and (max-width: 768px) {
+    .container {
+        height: auto;
+    }
+    .image,
+    .form-wrapper {
+        width: 100%;
+        max-width: none;
+        height: auto;
+    }
+    .image img {
+        height: 100%;
+    }
+    h1 {
+        font-size: 24px;
+    }
+    input[type="text"],
+    input[type="password"] {
+        font-size: 14px;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .container {
+        position: relative;
+        width: 80%;
+        height: 100vh;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        /* center container */
+        margin: 0 auto;
+        /* needs to be a little higher */
+    }
+    .image {
+        width: 100%;
+        max-width: 400px;
+        height: 70%;
+        background-color: #ffffff;
+        overflow: hidden;
+        box-shadow: 0px 0px 10px #000;
+    }
+    .image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        max-height: 100%;
+    }
+    .form-wrapper {
+        width: 100%;
+        max-width: 400px;
+        height: 70%;
+        background-color: #ffffff;
+        padding-left: 20px;
+        padding-right: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        box-shadow: 0px 0px 10px #000;
+        /* make it responsive */
+        max-height: 100%;
+    }
+}
