@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Sign up</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <h1 class="text-center mb-3">Sign up</h1>
+                <form  id="myForm" th:action="@{/register}" method="post">
+                    <div id="passwordError" class="alert alert-danger" hidden="true"></div>
+                    <div id="serviceerror"  class="alert alert-danger">
+                        <!-- Invalid username or password. -->
+                        <p th:if="${error}" th:text="${error}"></p>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="firstName">First name</label>
+                        <input type="text" class="form-control" name="firstName" id="firstName" th:value="${param.firstName}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName">Last name</label>
+                        <input type="text" class="form-control" name="lastName" id="lastName" th:value="${param.lastName}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="email" id="email" th:value="${param.email}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" name="password" id="password" th:value="${param.password}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm password</label>
+                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" th:value="${param.confirmPassword}" required>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById("myForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    validatePassword();
+});
+
+function validatePassword() {
+    var password = document.getElementById("password").value;
+    var confirmPassword = document.getElementById("confirmPassword").value;
+    var passwordError = document.getElementById("passwordError");
+    passwordError.hidden = false;
+
+    var serviceerror = document.getElementById("serviceerror");
+    serviceerror.hidden = true;
+    // Check password length
+    if (password.length < 8) {
+        passwordError.innerHTML = "Password must be at least 8 characters long";
+        return false;
+    } else {
+        passwordError.innerHTML = "";
+    }
+
+    // Check if passwords match
+    if (password != confirmPassword) {
+        passwordError.innerHTML = "Passwords do not match";
+        return false;
+    } else {
+        passwordError.innerHTML = "";
+    }
+    passwordError.hidden = true;
+    document.getElementById("myForm").submit();
+    // Password is valid
+    return true;
+}
+        </script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

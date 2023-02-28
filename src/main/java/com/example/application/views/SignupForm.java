@@ -15,7 +15,7 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.router.Route;
 
-@Route("signup")
+@Route("staffsignup")
 public class SignupForm extends FormLayout {
     private TextField firstName;
     private TextField lastName;

@@ -56,7 +56,7 @@ public class MainLayout extends AppLayout {
         MenuItem user =createIconItem(menuBar,VaadinIcon.USER,"User");
         SubMenu userSubMenu= user.getSubMenu();
         userSubMenu.addItem("Sign out").addClickListener( event->
-                UI.getCurrent().navigate("logout")
+                UI.getCurrent().navigate("stafflogout")
         );
 
 //        createIconItem(menuBar,VaadinIcon.CART,"Basket");

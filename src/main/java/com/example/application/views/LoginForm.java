@@ -14,7 +14,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 
-//@Route(value="login", layout = MainLayout.class)
+@Route(value="stafflogin", layout = MainLayout.class)
 //@RouteAlias(value="", layout = MainLayout.class)
 @PageTitle("Login")
 public class LoginForm extends FormLayout {
