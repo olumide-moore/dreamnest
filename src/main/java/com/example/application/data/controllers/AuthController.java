@@ -122,7 +122,7 @@ public class AuthController {
     @GetMapping("/user")
     public String userClicked(HttpSession session){
         if (session.getAttribute("user") != null) {
-            return  "logout";
+            return  logout(session);
         }else {
             return "login";
         }
@@ -139,7 +139,7 @@ public class AuthController {
             user.setLastName(lastName);
             user.hashPassword();
             userService.saveUser(user);
-            model.addAttribute("user", user);
+            model.addAttribute("user", user.getFirstName());
             session.setAttribute("user",user);
             return "home";
         }
