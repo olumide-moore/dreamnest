@@ -79,9 +79,9 @@ body {
     color: #6a11cb
 }
 
-input[type="email"],
-input[type="password"],
-input[type="text"]{
+#myForm input[type="email"],
+#myForm input[type="password"],
+#myForm input[type="text"]{
     width: 100%;
     padding: 10px;
     border-radius: 3px;
