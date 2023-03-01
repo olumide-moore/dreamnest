@@ -57,19 +57,16 @@ public class AuthController {
 
     @GetMapping("/")
     public String welcome(HttpSession session, Model model) {
-        User user =null;
+
         if (session.getAttribute("user")!=null){
-            user = (User) session.getAttribute("user");
+            User user = (User) session.getAttribute("user");
+            return home(model,user);
         }
-        if (user == null) {
 //            return  "login";
 //            return "redirect:/edit-products";
 //            return "login";
             return home(model ,null);
 
-        }else {
-            return home(model,user);
-        }
     }
 
     @PostMapping("/login") //add session
@@ -90,8 +87,10 @@ public class AuthController {
 
     @GetMapping("/home")
     public String home(Model model, User user) {
-        if (user!=null)
+        if (user!=null) {
+
             model.addAttribute("user", user.getFirstName());
+        }
         return "home";
     }
     @GetMapping("/logout")
@@ -103,9 +102,9 @@ public class AuthController {
 
     //sign up page
     @GetMapping("/signup")
-    public String signup(HttpSession session) {
+    public String signup(HttpSession session, Model model) {
         if (session.getAttribute("user") != null) {
-            return "home";
+            return home(model,(User)session.getAttribute("user"));
         }else {
             return "signup";
         }
@@ -120,7 +119,7 @@ public class AuthController {
         return "aboutus";
     }
     @GetMapping("/user")
-    public String userClicked(HttpSession session){
+    public String userClicked(HttpSession session, Model model){
         if (session.getAttribute("user") != null) {
             return  logout(session);
         }else {

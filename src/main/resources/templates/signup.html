@@ -22,11 +22,12 @@
                 <img src="images/logo1.png">
             </div> -->
                 <h1 class="login-h1">Sign up</h1>
-                <div  th:if="${error}" id="serviceerror"  class="alert alert-danger">
+                <div id ="passwordError"  class="alert alert-danger" hidden="true"></div>
+                <div  th:if="${error}"  id="serviceerror"  class="alert alert-danger">
                     <!-- Invalid username or password. -->
                     <p th:text="${error}"></p>
                 </div>
-                <form  id="myForm" th:action="@{/register}" method="post">
+                <form  id="myForm" onsubmit="return validatePassword()" th:action="@{/register}" method="post">
                     <!--                 <div id="passwordError"></div>-->
 
                     <div class="input-field">
@@ -69,31 +70,38 @@
 function validatePassword() {
     var password = document.getElementById("password").value;
     var confirmPassword = document.getElementById("confirmPassword").value;
-
+    var passwordError = document.getElementById("passwordError");
     var serviceerror = document.getElementById("serviceerror");
+    if (serviceerror!=null) {
+        serviceerror.hidden=true;
+    }
+    var passwordError = document.getElementById("passwordError");
+    passwordError.innerHTML = "";
     // Check password length
     if (password.length < 8) {
-        serviceerror.innerHTML = "<p>Password must be at least 8 characters long</p>";
+        passwordError.hidden=false;
+        passwordError.innerHTML = "<p>Password must be at least 8 characters long</p>";
         return false;
     } else {
-        serviceerror.innerHTML = "";
+        passwordError.innerHTML = "";
     }
 
     // Check if passwords match
     if (password != confirmPassword) {
-        serviceerror.innerHTML = "<p>Passwords do not match</p>";
+        passwordError.hidden=false;
+        passwordError.innerHTML = "<p>Passwords do not match</p>";
         return false;
     } else {
-        serviceerror.innerHTML = "";
+        passwordError.innerHTML = "";
     }
     document.getElementById("myForm").submit();
     // Password is valid
     return true;
 }
-// document.getElementById("myForm").addEventListener("submit", function(event) {
-//     event.preventDefault();
-//     validatePassword();
-// });
+document.getElementById("myForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    // validatePassword();
+});
 
 </script>
 
