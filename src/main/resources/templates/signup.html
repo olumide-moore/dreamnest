@@ -1,93 +1,103 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<!-- <head>
     <meta charset="utf-8">
     <title>Sign up</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-</head>
+</head> -->
+<head th:replace="base.html :: head(title='Sign up')">
+
 <body>
-    <div class="container">
-        <div class="row justify-content-center mt-5">
-            <div class="col-md-6">
-                <h1 class="text-center mb-3">Sign up</h1>
+    <header th:replace="base.html :: header">
+    </header>
+    <div class="login-container">
+        <div class="image">
+            <img src="images/3.png" alt="Your image description">
+        </div>
+        <div class="form-wrapper">
+            <!-- <div class="Logo-image">
+                <img src="images/logo1.png">
+            </div> -->
+                <h1 class="login-h1">Sign up</h1>
+                <div  th:if="${error}" id="serviceerror"  class="alert alert-danger">
+                    <!-- Invalid username or password. -->
+                    <p th:text="${error}"></p>
+                </div>
                 <form  id="myForm" th:action="@{/register}" method="post">
-                    <div id="passwordError" class="alert alert-danger" hidden="true"></div>
-                    <div id="serviceerror"  class="alert alert-danger">
-                        <!-- Invalid username or password. -->
-                        <p th:if="${error}" th:text="${error}"></p>
+                    <!--                 <div id="passwordError"></div>-->
+
+                    <div class="input-field">
+                        <!-- <label for="firstName">First name</label> -->
+                        <input type="text" class="form-control" placeholder="First Name" name="firstName" id="firstName" th:value="${param.firstName}" required>
+                    </div>
+
+                    <div class="input-field">
+                        <!-- <label for="lastName">Last name</label> -->
+                        <input type="text" class="form-control" placeholder="Last Name" name="lastName" id="lastName" th:value="${param.lastName}" required>
                     </div>
 
 
-                    <div class="form-group">
-                        <label for="firstName">First name</label>
-                        <input type="text" class="form-control" name="firstName" id="firstName" th:value="${param.firstName}" required>
+                   
+                    <div class="input-field">
+                        <!-- <label for="email">Email</label> -->
+                        <input type="email" class="form-control" name="email" placeholder="Enter Email" id="email" th:value="${param.email}" required>
                     </div>
 
-                    <div class="form-group">
-                        <label for="lastName">Last name</label>
-                        <input type="text" class="form-control" name="lastName" id="lastName" th:value="${param.lastName}" required>
+                    <div class="input-field">
+                        <!-- <label for="password">Password</label> -->
+                        <input type="password" class="form-control" placeholder="Enter Password" name="password" id="password" th:value="${param.password}" minlength="8" required >
                     </div>
 
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" name="email" id="email" th:value="${param.email}" required>
+                    <div class="input-field">
+                        <!-- <label for="confirmPassword">Confirm password</label> -->
+                        <input type="password" class="form-control" placeholder="Confirm Password" name="confirmPassword" id="confirmPassword"  minlength="8" th:value="${param.confirmPassword}" required>
                     </div>
 
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" name="password" id="password" th:value="${param.password}" required>
-                    </div>
+                <input type="submit" value="Register">
 
-                    <div class="form-group">
-                        <label for="confirmPassword">Confirm password</label>
-                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" th:value="${param.confirmPassword}" required>
-                    </div>
-
-                    <div class="form-group text-center">
+                    <!-- <div class="input-field text-center">
                         <button type="submit" class="btn btn-primary btn-lg">Register</button>
-                    </div>
+                    </div> -->
                 </form>
             </div>
         </div>
-    </div>
-    <script>
-        document.getElementById("myForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    validatePassword();
-});
-
+    
+    <script defer>
 function validatePassword() {
     var password = document.getElementById("password").value;
     var confirmPassword = document.getElementById("confirmPassword").value;
-    var passwordError = document.getElementById("passwordError");
-    passwordError.hidden = false;
 
     var serviceerror = document.getElementById("serviceerror");
-    serviceerror.hidden = true;
     // Check password length
     if (password.length < 8) {
-        passwordError.innerHTML = "Password must be at least 8 characters long";
+        serviceerror.innerHTML = "<p>Password must be at least 8 characters long</p>";
         return false;
     } else {
-        passwordError.innerHTML = "";
+        serviceerror.innerHTML = "";
     }
 
     // Check if passwords match
     if (password != confirmPassword) {
-        passwordError.innerHTML = "Passwords do not match";
+        serviceerror.innerHTML = "<p>Passwords do not match</p>";
         return false;
     } else {
-        passwordError.innerHTML = "";
+        serviceerror.innerHTML = "";
     }
-    passwordError.hidden = true;
     document.getElementById("myForm").submit();
     // Password is valid
     return true;
 }
-        </script>
+// document.getElementById("myForm").addEventListener("submit", function(event) {
+//     event.preventDefault();
+//     validatePassword();
+// });
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</script>
+
+   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>
