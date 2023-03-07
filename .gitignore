@@ -3,6 +3,9 @@
 .settings
 .project
 .classpath
+package-lock.json
+package.jsontheme.json
+application.properties
 
 *.iml
 .DS_Store
