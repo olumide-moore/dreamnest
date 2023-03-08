@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Admin</title>
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous"> -->
+    <!-- <style>
+        .selected {
+            background-color: #88b9eb;
+        }
+    </style> -->
+    <link rel="stylesheet" href=
+    "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+     
+        <script src=
+    "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+        </script>
+     
+        <script src=
+    "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js">
+        </script>
+</head>
+<body>
+<div class="container-fluid">
+
+    <div class="row">
+        <!-- Products Table -->
+        <div class="col-sm-8">
+            <h2>Products Admin</h2>
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Image Path</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                 <tr class="selectable" th:each="product : ${products}" th:data-id="${product.id}">
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.description}"></td>
+                    <td th:text="${product.category}"></td>
+                    <td th:text="${product.price}"></td>
+                    <td th:text="${product.stock}"></td>
+                    <td th:text="${product.imagePath}"></td>
+                    <img th:src="${product.imagePath}" alt="Product Image">
+
+                    <!-- <img th:src="@{/images/{imagePath}(imagePath=${product.imagePath})}" alt="image" width="100" height="100"> -->
+
+                    <td>
+                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#productModal">Edit</button>
+                        <a><button type="button" onclick="deleteProduct(this)" class="btn btn-sm btn-danger">Delete</button></a>
+                    </td></tr>   
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productModal" id="addProduct">New Product</button>
+
+        </div>
+
+        <!-- Add/Edit Product Form -->
+        <div class="col-sm-4">
+            <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel"
+                 aria-hidden="true">
+               <div class="modal-dialog" role="document">
+                   <div class="modal-content">
+                       <div class="modal-header">
+                           <h5 class="modal-title" id="productModalLabel">Add Product</h5>
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                               <span aria-hidden="true">&times;</span>
+                           </button>
+                       </div>
+                        <div class="modal-body">
+                            <form id="productForm" th:action="@{/update-products}" method="post"  enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <textarea class="form-control" id="description" rows="3" name="description" placeholder="Enter description"></textarea>
+                                </div>
+                                <div class="form-group">
+                                <label for="category">Category</label>
+                                <select class="form-control" name="category" id="category" required>
+                                <option value="Plants">Plants</option>
+                                <option value="Lights">Lights</option>
+                                <option value="Artworks">Artworks</option>
+                                <option value="Lamps">Lamps</option>
+                                <option value="Candles">Candles</option>
+                                </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="price">Price</label>
+                                    <input type="number" class="form-control" id="price" name="price" placeholder="Enter price" step="0.01" min="0" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="stock">Stock</label>
+                                    <input type="number" class="form-control" id="stock" name="stock" placeholder="Enter stock" min="0" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="imagePath">Image Path</label>
+                                    <input type="file" class="form-control" id="imagePath" name="imagePath" placeholder="Enter image path" accept="image/*">
+
+                                <input type="hidden" id="id" name="id">
+                                <input type="submit" class="btn btn-primary" value="Submit">
+                            </form>
+                       </div>
+                   </div>
+               </div>
+           </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    //Connect add product button to reset form
+    const addProduct = document.getElementById('addProduct');
+    addProduct.addEventListener('click', () => {
+        document.getElementById('productForm').reset();
+    });
+
+    const rows = document.querySelectorAll('.selectable');
+  
+    // Add click event listener to each row (edit product)
+    rows.forEach(row => {
+      row.addEventListener('click', () => {
+        // Remove highlighting from previously selected row
+        const prevSelected = document.querySelector('.selected');
+        if (prevSelected) {
+          prevSelected.classList.remove('selected');
+        }
+  
+        // Highlight selected row
+        row.classList.add('selected');
+  
+        // Get product id of selected row
+        const id = row.getAttribute('data-id');
+  
+        // Display selected product details in form for editing
+        const form = document.getElementById('productForm');
+        form.querySelector('#id').value = id;
+        form.querySelector('#name').value = row.querySelector('td:nth-child(1)').textContent;
+        form.querySelector('#description').value = row.querySelector('td:nth-child(2)').textContent;
+        form.querySelector('#category').value = row.querySelector('td:nth-child(3)').textContent;
+        form.querySelector('#price').value = row.querySelector('td:nth-child(4)').textContent;
+        form.querySelector('#stock').value = row.querySelector('td:nth-child(5)').textContent;
+        // form.querySelector('#imagePath').value = imagePath;
+      });
+    });
+
+    // Delete product
+    function deleteProduct(button) {
+        const row = button.closest('tr');
+        const id = row.getAttribute('data-id');
+        const form = document.createElement('form');
+        form.method = 'POST';
+        //set form th:action to delete-product
+        form.action = '/delete-product'
+        ;
+
+        const hiddenField = document.createElement('input');
+        hiddenField.type = 'hidden';
+        hiddenField.name = 'id';
+        hiddenField.value = id;
+        form.appendChild(hiddenField);
+        document.body.appendChild(form);
+        form.submit();
+    }
+    
+  </script>
+</body>

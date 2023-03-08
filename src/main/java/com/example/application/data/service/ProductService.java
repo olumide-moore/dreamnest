@@ -23,6 +23,12 @@ public class ProductService {
             return productRepository.search(stringFilter);
         }
     }
+    public List<Product> findAllProduct() {
+        return productRepository.findAll();
+    }
+    public Product findProductById(Long id) {
+        return productRepository.findById(id).orElse(null);
+    }
 
     public long countProduct() {
         return productRepository.count();

@@ -21,7 +21,7 @@ import java.util.Collections;
 //@PWA(name = "Flow CRM Tutorial", shortName = "Flow CRM Tutorial", enableInstallPrompt = false)
 
 @PageTitle("Products")
-@Route(value = "edit-products", layout = MainLayout.class)  //ListView still matches the empty path, but now uses MainLayout as its parent.
+//@Route(value = "edit-products", layout = MainLayout.class)  //ListView still matches the empty path, but now uses MainLayout as its parent.
 public class ProductsList extends VerticalLayout {
     Grid<Product> grid = new Grid<>(Product.class);
     TextField filterText = new TextField();

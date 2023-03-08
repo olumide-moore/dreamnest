@@ -27,18 +27,18 @@
 </head>
 <body>
 <section th:fragment="header" id="header">
-		<a th:href="@{/home}"><img src="/images/logo1.png" class="logo"></a>
+		<a th:href="@{/}"><img src="/images/logo1.png" class="logo"></a>
 
 		<!-----Header----->
 		<div>
 			<ul id="navbar">
-				<li><a  th:href="@{/home}">Home</a></li>
+				<li><a  th:href="@{/}">Home</a></li>
 				<li><a th:href="@{/products}">Products</a></li>
 				<li><a th:href="@{/aboutus}">About Us</a></li>
 				<li><a th:href="@{/contactus}">Contact</a></li>
 				 <li><a th:href="@{/user}"><i class="fa-solid fa-user"></i></a></li>
 				<li><a href=""><i class="fa fa-basket-shopping"></i></a></li>
-				<li><a th:text="${user}"></a></li>
+				<li><a th:text="${user!=null ? user.getFirstName() : ''}"></a></li>
 
 				<a href="#" id="close"><i class="fa fa-times"></i></a>
 			</ul>
