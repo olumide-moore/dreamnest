@@ -40,11 +40,12 @@ public class ProductsController {
 
 
     @RequestMapping("/products")
-    public String products(HttpSession session) {
+    public String products(HttpSession session, Model model) {
 //        User user = (User) session.getAttribute("user");
 //        if (user == null) {
 //            return  "login";
 //        }else {
+            model.addAttribute("products",productservice.findAllProduct());
             return "products";
 //        }
     }
