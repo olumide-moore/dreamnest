@@ -40,12 +40,11 @@ public class ProductsController {
 
 
     @RequestMapping("/products")
-    public String products(HttpSession session, Model model) {
+    public String products(HttpSession session) {
 //        User user = (User) session.getAttribute("user");
 //        if (user == null) {
 //            return  "login";
 //        }else {
-            model.addAttribute("products",productservice.findAllProduct());
             return "products";
 //        }
     }
@@ -65,9 +64,9 @@ public class ProductsController {
     @PostMapping("/update-products")
     public String updateProducts(Long id, @RequestParam("name") String name, @RequestParam("category") String category, @RequestParam("price") float price, @RequestParam("stock") int stock, @RequestParam("description") String description, @RequestParam("imagePath") MultipartFile imagePath) {
         Product product;
-        if (id == null) {// new product
+        if (id == null) {
             product = new Product();
-        } else { // existing product
+        } else {
             product = productservice.findProductById(id);
         }
         product.setName(name);
@@ -78,30 +77,34 @@ public class ProductsController {
 
         if (!imagePath.isEmpty()){
             try {
-//                int i=2;
 
-//                File file = new File("src/main/resources/static/images/" + imagePath.getOriginalFilename());
-//                imagePath.transferTo(file);
-                 String fileName = imagePath.getOriginalFilename();
-//                 String extension = fileName.substring(fileName.lastIndexOf("."));
-//                 // Generate a unique file name
-//                 String newFileName = UUID.randomUUID().toString() + extension;
-//
-//                 // Get the bytes of the file
-                 byte[] bytes = imagePath.getBytes();
+                // File file = new File("src/main/resources/static/images/" + imagePath.getOriginalFilename());
+                // imagePath.transferTo(file);
+                // String fileName = imagePath.getOriginalFilename();
+                // String extension = fileName.substring(fileName.lastIndexOf("."));
+                // // Generate a unique file name
+                // String newFileName = UUID.randomUUID().toString() + extension;
 
-                 // Create a new file in the resources folder
-                 Path path = Paths.get("src/main/resources/static/images/" + fileName);
-                 Files.write(path, bytes);
-//
-//               // Set the imagePath property of the product object
-                 product.setImagePath("/images/" + fileName);
-//                product.setImagePath("/images/" + fileName + "?v=" + System.currentTimeMillis());
+                // // Get the bytes of the file
+                // byte[] bytes = fileName.getBytes();
+
+                // // Create a new file in the resources folder
+                // Path path = Paths.get("src/main/resources/static/images/" + newFileName);
+                // Files.write(path, bytes);
+
+                byte[] bytes = imagePath.getBytes();
+                Path path = Paths.get("src/main/resources/static/images/" + imagePath.getOriginalFilename());
+                Files.write(path, bytes);
+
+
+                // Set the imagePath property of the product object
+                product.setImagePath("/images/" + imagePath.getOriginalFilename());
             }
             catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        //        product.setImagePath(imagePath);
         productservice.saveProduct(product);
         return "redirect:/edit-products";
     }
@@ -111,6 +114,10 @@ public class ProductsController {
         productservice.deleteProduct(productservice.findProductById(id));
         return "redirect:/edit-products";
     }
+
+
+   
+
 
 
 
