@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Basket</title>
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous"> -->
+    <!-- <style>
+        .selected {
+            background-color: #88b9eb;
+        }
+    </style> -->
+    <link rel="stylesheet" href=
+            "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <script src=
+                    "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+
+    <script src=
+                    "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js">
+    </script>
+</head>
+<body>
+<div class="container-fluid">
+
+    <div class="row">
+        <!-- Products Table -->
+        <div class="col-sm-8">
+            <h2>Basket</h2>
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Image</th>
+                </tr>
+                </thead>
+                <tbody>
+
+<!--                <tr class="selectable" th:each="product : ${products}" th:data-id="${product.id}">-->
+<!--                    <td th:text="${product.name}"></td>-->
+<!--                    <td th:text="${product.description}"></td>-->
+<!--                    <td th:text="${product.category}"></td>-->
+<!--                    <td th:text="${product.price}"></td>-->
+<!--                    <td th:text="${product.stock}"></td>-->
+<!--                    <td th:text="${product.imagePath}"></td>-->
+<!--                    <td ><img th:src="${product.imagePath}" th:if="${product.imagePath!=''}" width="80" height="75" alt="Product Image"></td>-->
+
+<!--                    &lt;!&ndash; <img th:src="@{/images/{imagePath}(imagePath=${product.imagePath})}" alt="image" width="100" height="100"> &ndash;&gt;-->
+
+<!--                    <td>-->
+<!--                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#productModal">Edit</button>-->
+<!--                        <a><button type="button" onclick="deleteProduct(this)" class="btn btn-sm btn-danger">Delete</button></a>-->
+<!--                    </td> -->
+<!--</tr>-->
+                </tbody>
+            </table>
+<!--            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productModal" id="addProduct">New Product</button>-->
+
+
+        </div>
+        </div>
+</div>
+
+</body>
+</html>
