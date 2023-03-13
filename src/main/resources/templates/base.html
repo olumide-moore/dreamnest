@@ -35,7 +35,7 @@
 				<li><a th:href="@{/aboutus}">About Us</a></li>
 				<li><a th:href="@{/contactus}">Contact</a></li>
 				 <li><a th:href="@{/user}"><i class="fa-solid fa-user"></i></a></li>
-				<li><a href=""><i class="fa fa-basket-shopping"></i></a></li>
+				<li><a th:href="@{/basket}"><i class="fa fa-basket-shopping"></i></a></li>
 				<li><a th:text="${user!=null ? user.getFirstName() : ''}"></a></li>
 
 				<a href="#" id="close"><i class="fa fa-times"></i></a>
@@ -43,7 +43,7 @@
 		</div>
 		<div id="mobile">
 			<a th:href="@{/user}"><i class="fa-solid fa-user"></i></a>
-			<a href=""><i class="fa fa-basket-shopping"></i></a>
+			<a th:href="@{/basket}"><i class="fa fa-basket-shopping"></i></a>
 			<i id="bar" class="fas fa-outdent"></i>
 		</div>
 	</section>

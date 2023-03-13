@@ -111,7 +111,7 @@
                                 <div class="form-group">
                                     <label for="imagePath">Image Path</label>
                                     <input type="file" class="form-control" id="imagePath" name="imagePath" placeholder="Enter image path" accept="image/*">
-
+                                </div>
                                 <input type="hidden" id="id" name="id">
                                 <input type="submit" class="btn btn-primary" value="Submit">
                             </form>
@@ -166,8 +166,7 @@
         const form = document.createElement('form');
         form.method = 'POST';
         //set form th:action to delete-product
-        form.action = '/delete-product'
-        ;
+        form.action = '/delete-product';
 
         const hiddenField = document.createElement('input');
         hiddenField.type = 'hidden';

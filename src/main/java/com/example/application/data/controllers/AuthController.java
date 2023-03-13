@@ -5,6 +5,7 @@ import com.example.application.data.entity.User;
 import com.example.application.data.service.UserService;
 
 import com.vaadin.flow.component.UI;
+import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +34,7 @@ public class AuthController {
         return "home";
 
     }
-    @PostMapping("/login") //add session
+    @PostMapping("/authenticate") //add session
     public String authenticate(@RequestParam String email, @RequestParam String password, Model model, HttpSession session) {
         if (userService.verifyUser(email, password)){
             User user = userService.getUserByEmail(email);
@@ -66,6 +67,15 @@ public class AuthController {
             userService.saveUser(user);
             session.setAttribute("user",user);
             return "redirect:/";
+        }
+    }
+
+    @GetMapping("/login")
+    public String login(HttpSession session, Model model){
+        if (session.getAttribute("user")!=null){
+            return "redirect:/";
+        }else {
+            return "login";
         }
     }
 

@@ -2,30 +2,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Basket</title>
-    <!-- Bootstrap CSS -->
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-          crossorigin="anonymous"> -->
-    <!-- <style>
-        .selected {
-            background-color: #88b9eb;
-        }
-    </style> -->
-    <link rel="stylesheet" href=
-            "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-    <script src=
-                    "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
-    </script>
-
-    <script src=
-                    "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js">
-    </script>
+<head th:replace="base.html :: head(title='Basket')">
 </head>
 <body>
+<!--<link rel="stylesheet" href=-->
+<!--"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">-->
+<!--</script>-->
+
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js">-->
+<!--</script>-->
+
+<header th:replace="base.html :: header">
+</header>
 <div class="container-fluid">
 
     <div class="row">
@@ -36,37 +27,91 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Product</th>
+                    <th></th>
+                    <th></th>
                     <th>Price</th>
-                    <th>Image</th>
+                    <th></th>
+                    <th>Total</th>
+<!--                    <th>Product Id</th>-->
+<!--                    <th>Quantity</th>-->
                 </tr>
                 </thead>
                 <tbody>
 
-<!--                <tr class="selectable" th:each="product : ${products}" th:data-id="${product.id}">-->
-<!--                    <td th:text="${product.name}"></td>-->
-<!--                    <td th:text="${product.description}"></td>-->
-<!--                    <td th:text="${product.category}"></td>-->
-<!--                    <td th:text="${product.price}"></td>-->
-<!--                    <td th:text="${product.stock}"></td>-->
-<!--                    <td th:text="${product.imagePath}"></td>-->
-<!--                    <td ><img th:src="${product.imagePath}" th:if="${product.imagePath!=''}" width="80" height="75" alt="Product Image"></td>-->
+               <tr  th:each="item : ${basket}" th:data-id="${item.product_id}"  th:with="product=${products.get(item.product_id)}">
+                   <td ><img th:src="${product.imagePath}" th:if="${product.imagePath!=''}" width="80" height="75" alt="Product Image"></td>
+                   <td th:text="${product.name}"></td>
+                   <td th:text="${product.price}"></td>
+                   <td ><button class="btn btn-sm btn-secondary" id="minus-btn" onclick = "updateQuantity(this, -1)">-</button><span th:text="${item.quantity}" style="padding: 4px;">
 
-<!--                    &lt;!&ndash; <img th:src="@{/images/{imagePath}(imagePath=${product.imagePath})}" alt="image" width="100" height="100"> &ndash;&gt;-->
-
-<!--                    <td>-->
-<!--                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#productModal">Edit</button>-->
-<!--                        <a><button type="button" onclick="deleteProduct(this)" class="btn btn-sm btn-danger">Delete</button></a>-->
-<!--                    </td> -->
-<!--</tr>-->
+                   </span>   <button class="btn btn-sm btn-secondary" id="plus-btn" onclick = "updateQuantity(this, 1)">+</button>
+                       <button class="btn btn-sm btn-danger" onclick="updateQuantity(this, 0)">Delete</button>
+                   </td>
+                   <td th:text="${product.price * item.quantity}"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td th:text="${total}"></td></tr>
                 </tbody>
             </table>
-<!--            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productModal" id="addProduct">New Product</button>-->
-
+                <div class="row">
+                    <div class="col-sm-6">
+                      <a th:href=@{/products} class="btn btn-sm btn-primary" style="width:25%;">Continue Shopping</a>
+                    </div>
+                    <div class="col-sm-6">
+                      <a href="" class="btn btn-sm btn-success">Checkout</a>
+                    </div>
+                  </div>
+                  
 
         </div>
         </div>
 </div>
+<!-----footer----->
+<footer th:replace="base.html :: footer"></footer>
 
+
+<script> 
+    function updateQuantity(button, operation){
+    const productId = button.closest('tr').getAttribute('data-id');
+    const quantity = button.closest('td').querySelector('span').innerText;
+    // console.log(id);
+    // console.log(quantity);
+
+    const form = document.createElement('form');
+      form.method = 'POST';
+      //set form th:action to edit basket
+      form.action = '/basket/update';
+    //   console.log(parseInt(quantity)+operation);
+
+    //   var hiddenField = document.createElement('input'); //basket id
+    //   hiddenField.type = 'hidden';
+    //   hiddenField.name = 'id';
+    //   hiddenField.value = id;
+    //   form.appendChild(hiddenField);
+
+      hiddenField = document.createElement('input'); //product id
+      hiddenField.type = 'hidden';
+      hiddenField.name = 'productId';
+      hiddenField.value = productId;
+      form.appendChild(hiddenField);
+
+      hiddenField = document.createElement('input'); //quantity
+      hiddenField.type='hidden';
+      hiddenField.name= 'quantity';
+      if (operation==0){
+          hiddenField.value = 0;
+        }else{
+          hiddenField.value = parseInt(quantity) + operation;
+        }
+      form.appendChild(hiddenField);
+      
+      document.body.appendChild(form);
+      form.submit();
+    }
+    </script>
 </body>
 </html>
