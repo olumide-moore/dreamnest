@@ -5,6 +5,7 @@ import com.example.application.data.repository.ProductRepository;
 import com.vaadin.flow.component.notification.Notification;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -40,11 +41,13 @@ public class ProductService {
 
     public void saveProduct(Product product) {
         if (product == null) {
-            Notification.show("Product is null");
-//            System.err.println("Product is null");
+//            Notification.show("Product is null");
+            System.err.println("Product is null");
             return;
         }
         productRepository.save(product);
     }
+
+
 
 }

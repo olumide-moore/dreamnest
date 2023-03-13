@@ -4,16 +4,21 @@ import com.example.application.data.AbstractEntity;
 
 import javax.persistence.Entity;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 
 @Entity
 public class Basket extends AbstractEntity {
-    @NotEmpty
+
+
+    @NotNull
     private Long user_id;
 
-    @NotEmpty
+    @NotNull
     private Long product_id;
 
-    @NotEmpty
+    @NotNull
+    @PositiveOrZero
     private Integer quantity;
 
     @Override
