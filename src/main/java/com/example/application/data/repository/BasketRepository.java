@@ -16,7 +16,7 @@ public interface BasketRepository extends JpaRepository<Basket, Long> {
 
     //find all basket by user id and product id
     @Query("select c from Basket c " +
-            "where c.user_id = :user_id and c.product_id = :product_id")
+            "where c.user_id = :user_id and c.product.id = :product_id")
     Basket findByUserIdAndProductId(@Param("user_id") Long user_id, @Param("product_id") Long product_id);
 
 }

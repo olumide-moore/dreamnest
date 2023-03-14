@@ -16,7 +16,6 @@ public class ProductService {
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
-
     public List<Product> findAllProduct(String stringFilter) {
         if (stringFilter == null || stringFilter.isEmpty()) {
             return productRepository.findAll();
@@ -30,15 +29,12 @@ public class ProductService {
     public Product findProductById(Long id) {
         return productRepository.findById(id).orElse(null);
     }
-
     public long countProduct() {
         return productRepository.count();
     }
-
     public void deleteProduct(Product product) {
         productRepository.delete(product);
     }
-
     public void saveProduct(Product product) {
         if (product == null) {
 //            Notification.show("Product is null");
@@ -47,7 +43,4 @@ public class ProductService {
         }
         productRepository.save(product);
     }
-
-
-
 }

@@ -1,8 +1,13 @@
 package com.example.application.data.entity;
 
 import com.example.application.data.AbstractEntity;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
@@ -10,20 +15,25 @@ import javax.validation.constraints.PositiveOrZero;
 @Entity
 public class Basket extends AbstractEntity {
 
-
     @NotNull
     private Long user_id;
 
-    @NotNull
-    private Long product_id;
+//    @NotNull
+//    private Long product_id;
 
     @NotNull
     @PositiveOrZero
     private Integer quantity;
 
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Product product;
+
     @Override
     public String toString() {
-        return user_id + ": " + product_id;
+        return user_id + ": " + product.getName();
     }
 
     public Long getUser_id() {
@@ -34,14 +44,6 @@ public class Basket extends AbstractEntity {
         this.user_id = user_id;
     }
 
-    public Long getProduct_id() {
-        return product_id;
-    }
-
-    public void setProduct_id(Long product_id) {
-        this.product_id = product_id;
-    }
-
     public Integer getQuantity() {
         return quantity;
     }
@@ -50,5 +52,12 @@ public class Basket extends AbstractEntity {
         this.quantity = quantity;
     }
 
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
 }

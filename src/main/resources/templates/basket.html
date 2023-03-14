@@ -23,7 +23,6 @@
         <!-- Products Table -->
         <div class="col-sm-8">
             <h2>Basket</h2>
-
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -37,12 +36,11 @@
                 </tr>
                 </thead>
                 <tbody>
-
-               <tr  th:each="item : ${basket}" th:data-id="${item.product_id}"  th:with="product=${products.get(item.product_id)}">
-                   <td ><img th:src="${product.imagePath}" th:if="${product.imagePath!=''}" width="80" height="75" alt="Product Image"></td>
+               <tr th:each="item : ${basket}" th:data-id="${item.product.id}"  th:with="product=${products.get(item.product.id)}">
+                   <td><img th:src="${product.imagePath}" th:if="${product.imagePath!=''}" width="80" height="75" alt="Product Image"></td>
                    <td th:text="${product.name}"></td>
                    <td th:text="${product.price}"></td>
-                   <td ><button class="btn btn-sm btn-secondary" id="minus-btn" onclick = "updateQuantity(this, -1)">-</button><span th:text="${item.quantity}" style="padding: 4px;">
+                   <td><button class="btn btn-sm btn-secondary" id="minus-btn" onclick = "updateQuantity(this, -1)">-</button><span th:text="${item.quantity}" style="padding: 4px;">
 
                    </span>   <button class="btn btn-sm btn-secondary" id="plus-btn" onclick = "updateQuantity(this, 1)">+</button>
                        <button class="btn btn-sm btn-danger" onclick="updateQuantity(this, 0)">Delete</button>
@@ -62,11 +60,9 @@
                       <a th:href=@{/products} class="btn btn-sm btn-primary" style="width:25%;">Continue Shopping</a>
                     </div>
                     <div class="col-sm-6">
-                      <a href="" class="btn btn-sm btn-success">Checkout</a>
+                      <a href="@{/checkout}" class="btn btn-sm btn-success">Checkout</a>
                     </div>
                   </div>
-                  
-
         </div>
         </div>
 </div>

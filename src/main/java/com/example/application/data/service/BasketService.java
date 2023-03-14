@@ -1,8 +1,10 @@
 package com.example.application.data.service;
 
 import com.example.application.data.entity.Basket;
+import com.example.application.data.entity.Product;
 import com.example.application.data.repository.BasketRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.HashMap;
 import java.util.List;
@@ -35,12 +37,12 @@ public class BasketService {
         return basketrepository.findByUserIdAndProductId(userId,productId);
     }
 
-    public void updateBasket(Long userId, Long productId, Integer quantity) {
-        Basket basket = basketrepository.findByUserIdAndProductId(userId, productId);
+    public void updateBasket(Long userId, Product product, Integer quantity) {
+        Basket basket = basketrepository.findByUserIdAndProductId(userId, product.getId());
         if (basket == null) {
             basket = new Basket();
             basket.setUser_id(userId);
-            basket.setProduct_id(productId);
+            basket.setProduct(product);
         }
             basket.setQuantity(quantity);
         if (basket.getQuantity() == 0) {
