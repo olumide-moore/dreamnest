@@ -50,7 +50,7 @@ public class BasketController {
            List<Basket> basketList = basketService.findAllBasketByUserId(user.getId());
            float total = 0;
            for (Basket basket : basketList) {
-               Long productId = basket.getProduct_id();
+               Long productId = basket.getProduct().getId();
                products.put(productId, productService.findProductById(productId));
                 total += products.get(productId).getPrice() * basket.getQuantity();
            }
@@ -58,7 +58,7 @@ public class BasketController {
            model.addAttribute("products",products);
               model.addAttribute("total",total);
            return "basket";
-       }
+            }
        }
     @PostMapping("/basket/update")
     public String updateBasket(HttpSession session, @RequestParam("productId") Long productId, @RequestParam("quantity") Integer quantity) {
@@ -73,7 +73,7 @@ public class BasketController {
 
             // model.addAttribute("basket",user);
             Basket basket = basketService.findByUserIdAndProductId(user.getId(), productId);
-            basketService.updateBasket(user.getId(), productId, quantity);
+            basketService.updateBasket(user.getId(), productService.findProductById(productId), quantity);
         }
             return ("redirect:/basket");
     }
@@ -97,7 +97,7 @@ public class BasketController {
             if (basket!=null){
                 quantity = basket.getQuantity()+quantity;
             }
-            basketService.updateBasket(user.getId(), productId, quantity);
+            basketService.updateBasket(user.getId(), productService.findProductById(productId), quantity);
        }
 
             return ("redirect:/basket");
