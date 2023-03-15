@@ -40,13 +40,15 @@ public class ProductsController {
 
     @RequestMapping("/products")
     public String products(Model model) {
+        model.addAttribute("category", "ALL PRODUCTS");
         model.addAttribute("products",productservice.findAllProduct());
         return "products";
     }
 
-    @PostMapping("/products/category")
+    @PostMapping("/category")
     public String selectCategory(@RequestParam("category") String category, Model model) {
         List<Product> products =productservice.findAllProductByCategory(category);
+        model.addAttribute("category",category.toUpperCase());
         model.addAttribute("products",products);
         return "products";
     }
