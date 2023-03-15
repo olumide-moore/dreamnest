@@ -9,6 +9,15 @@ xmlns:th="http://www.thymeleaf.org">
 	 </header>
 
       <h1 class="underline"> All Products </h1>
+      <br>
+
+      <div id="product_category">
+         <button class="btn-outline-secondary"> Lights </button>
+         <button class="btn-outline-secondary"> Plants </button>
+         <button class="btn-outline-secondary"> Lamps </button>
+         <button class="btn-outline-secondary"> Artwork </button>
+         <button class="btn-outline-secondary"> Candles </button>
+      </div>
 
          <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
@@ -16,6 +25,7 @@ xmlns:th="http://www.thymeleaf.org">
                   <div th:each="product : ${products}">
                      <div class="col mb-5">
                         <div class="card h-100">
+                        <a th:data-id="${product.id}" onclick="selectItem(this)"> 
                            <!-- Product image-->
                            <img class="card-img-top" th:src="${product.imagePath}" width="450" height="300" th:alt="${product.imagePath}" />
                            <!-- Product details-->
@@ -26,9 +36,10 @@ xmlns:th="http://www.thymeleaf.org">
                                  <span class="text-muted" th:text="${'£'+product.price}"></span>
                               </div>
                            </div>
+                        </a>
                            <!-- Product actions-->
                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                              <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:data-id="${product.id}"  onclick="addToCart(this)" >Add to cart</a></div>
+                              <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:data-id="${product.id}"  onclick="addToCart(this)">Add to cart</a></div>
                            </div>
 
 
@@ -50,13 +61,9 @@ xmlns:th="http://www.thymeleaf.org">
       <script> 
       function addToCart(div){
          var id = div.getAttribute("data-id");
-
-
-
          // console.log(id);
       //   alert(id);
       
-
         const form = document.createElement('form');
         form.method = 'POST';
         //set form th:action to add-product in basket controller
@@ -75,6 +82,26 @@ xmlns:th="http://www.thymeleaf.org">
         document.body.appendChild(form);
         form.submit();
 
+      }
+
+      function selectItem(a){
+
+         var id = a.getAttribute("data-id");
+          console.log(id);
+      //   alert(id);
+      const form = document.createElement('form');
+        form.method = 'POST';
+        //set form th:action to add-product in basket controller
+        form.action = '/select-item';
+
+        var hiddenField = document.createElement('input');
+        hiddenField.type = 'hidden';
+        hiddenField.name = 'productId';
+        hiddenField.value = id;
+        form.appendChild(hiddenField);
+         document.body.appendChild(form);
+        form.submit();
+      
       }
       </script>
    </body>
