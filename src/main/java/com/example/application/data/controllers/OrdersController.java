@@ -1,26 +1,51 @@
 package com.example.application.data.controllers;
 
-import com.example.application.data.entity.Basket;
-import com.example.application.data.entity.Orders;
-import com.example.application.data.entity.Role;
-import com.example.application.data.entity.User;
+import com.example.application.data.entity.*;
 import com.example.application.data.service.BasketService;
+import com.example.application.data.service.OrdersService;
+import com.example.application.data.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
 public class OrdersController
 {
-
+    @Autowired
     BasketService basketService;
+    @Autowired
+    OrdersService ordersService;
+
+    @Autowired
+    ProductService productService;
 
     @GetMapping("/orders")
-    public String orders(){
-        return "orders";
+    public String orders(HttpSession session, Model model){
+        User user = (User) session.getAttribute("user");
+        if (user == null ) {
+            return  "redirect:login";
+        }else if(!(user.getRole().equals(Role.USER))){
+            return "redirect:/";
+        }else{
+            HashMap<Long,Product> products= new HashMap<>(); // <productId,Product>
+            List<Orders> ordersList = ordersService.findByUser_id(user.getId());
+            for (Orders orders: ordersList){
+                for (OrderItem orderItem: orders.getOrderItems()){
+                    Long productId = orderItem.getProduct_id();
+                    products.put(productId, productService.findProductById(productId));
+                }
+            }
+            model.addAttribute("orders",ordersList);
+            model.addAttribute("products",products);
+            return "orders";
+        }
     }
 
     @GetMapping("/checkout")
@@ -31,12 +56,30 @@ public class OrdersController
         }else if(!(user.getRole().equals(Role.USER))){
             return "redirect:/";
         }else{
-            List<Basket> baskets = basketService.findAllBasketByUserId(user.getId());
+            Long userId=user.getId();
+            List<Basket> baskets = basketService.findAllBasketByUserId(userId);
             if (!baskets.isEmpty()){
-                Orders orders;
-
+                Orders orders = new Orders();
+                orders.setUser_id(userId);
+                orders.setStatus(OrderStatus.Received);
+                orders.setDate(new Date());
+                List<OrderItem> orderItems = new ArrayList<>(); // create orderItems list
+                for (Basket basket : baskets) {
+                    OrderItem orderItem = new OrderItem();
+                    orderItem.setProduct_id(basket.getProduct().getId());
+                    orderItem.setCurrent_price(basket.getProduct().getPrice());
+                    orderItem.setQuantity(basket.getQuantity());
+                    orderItem.setOrders(orders);
+                    orderItems.add(orderItem); // add orderItem to orderItems kust
+                }
+                orders.setOrderItems(orderItems); // add orderItems to orders
+                ordersService.save(orders);
+                basketService.deleteAllBasketByUserId(userId);  // delete all basket items
+                return ("redirect:/orders");
+            } else {
+                model.addAttribute("message", "Your basket is empty");
+                return "basket";
             }
-            return "orders";
         }
     }
 }
