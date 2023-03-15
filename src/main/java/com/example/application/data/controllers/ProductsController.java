@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -34,21 +35,22 @@ public class ProductsController {
     // @Autowired
     @Autowired
     private ProductService productservice;
-    
-
 
 
 
     @RequestMapping("/products")
-    public String products(HttpSession session, Model model) {
-//        User user = (User) session.getAttribute("user");
-//        if (user == null) {
-//            return  "login";
-//        }else {
-            model.addAttribute("products",productservice.findAllProduct());
-            return "products";
-//        }
+    public String products(Model model) {
+        model.addAttribute("products",productservice.findAllProduct());
+        return "products";
     }
+
+    @PostMapping("/products/category")
+    public String selectCategory(@RequestParam("category") String category, Model model) {
+        List<Product> products =productservice.findAllProductByCategory(category);
+        model.addAttribute("products",products);
+        return "products";
+    }
+
 
     @GetMapping("/edit-products")
     public String editProducts(HttpSession session, Model model) {
