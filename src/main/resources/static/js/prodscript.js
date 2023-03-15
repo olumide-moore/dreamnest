@@ -42,3 +42,23 @@ function addToCart(div){
    form.submit();
  
  }
+
+
+ function category_button(cat_name){
+
+  //console.log(cat_name);
+
+   const form = document.createElement('form');
+   form.method = 'POST';
+   //set form th:action to add-product in basket controller
+   form.action = '/products/category';
+
+   var hiddenField = document.createElement('input');
+   hiddenField.type = 'hidden';
+   hiddenField.name = 'category';
+   hiddenField.value = cat_name;
+   form.appendChild(hiddenField);
+  document.body.appendChild(form);
+  form.submit();
+
+ }
