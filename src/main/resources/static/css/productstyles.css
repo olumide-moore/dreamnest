@@ -41,6 +41,14 @@
   padding-right: 50px;
 }
 
+/* select-item image html style */
+
+.prodimg{
+      border-radius: 0.25rem;
+      transition: all 0.3s;
+      box-shadow: 5px 5px 20px black;
+}
+
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
