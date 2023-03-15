@@ -24,7 +24,7 @@
         <div class="col-sm-8">
             <h2>Basket</h2>
             <table class="table table-striped">
-                <thead>
+                <thead th:if="${not basket.isEmpty()}">
                 <tr>
                     <th></th>
                     <th></th>
@@ -36,6 +36,12 @@
                 </tr>
                 </thead>
                 <tbody>
+                  <th:block th:if="${basket.isEmpty()}">
+                      <tr>
+                          <td colspan="5" class="text-center">Your basket is empty</td>
+                      </tr>
+                  </th:block>
+                <th:block th:if="${not basket.isEmpty()}">
                <tr th:each="item : ${basket}" th:data-id="${item.product.id}"  th:with="product=${products.get(item.product.id)}">
                    <td><img th:src="${product.imagePath}" th:if="${product.imagePath!=''}" width="80" height="75" alt="Product Image"></td>
                    <td th:text="${product.name}"></td>
@@ -53,14 +59,16 @@
                     <td></td>
                     <td></td>
                     <td th:text="${total}"></td></tr>
+                </th:block>
                 </tbody>
-            </table>
+           
+              </table>
                 <div class="row">
                     <div class="col-sm-6">
                       <a th:href=@{/products} class="btn btn-sm btn-primary" style="width:25%;">Continue Shopping</a>
                     </div>
-                    <div class="col-sm-6">
-                      <a href="@{/checkout}" class="btn btn-sm btn-success">Checkout</a>
+                    <div th:if="${not basket.isEmpty()}"class="col-sm-6">
+                      <a th:href="@{/checkout}" class="btn btn-sm btn-success">Checkout</a>
                     </div>
                   </div>
         </div>
