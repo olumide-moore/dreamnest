@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<head th:replace="base.html :: head(title='Orders')">
+</head>
+
+<body>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <header th:replace="base.html :: header">
+    </header>
+<div class="container mt-5">
+    <h1>Orders</h1>
+    <table class="table table-bordered mt-4">
+        <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Date</th>
+            <th>Customer Name</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>001</td>
+            <td>2023-03-01</td>
+            <td>John Doe</td>
+            <td><span class="badge badge-success">Delivered</span></td>
+        </tr>
+        <tr>
+            <td>002</td>
+            <td>2023-03-05</td>
+            <td>Jane Smith</td>
+            <td><span class="badge badge-warning">In Progress</span></td>
+        </tr>
+        <tr>
+            <td>003</td>
+            <td>2023-03-10</td>
+            <td>Bob Johnson</td>
+            <td><span class="badge badge-danger">Cancelled</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Include Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

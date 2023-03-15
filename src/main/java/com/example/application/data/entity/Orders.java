@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -15,7 +16,12 @@ public class Orders extends AbstractEntity {
 private Long user_id;
 
 @NotNull
-private String status;
+private OrderStatus status;
+
+
+@NotNull
+private Date date;
+
 @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
 private List<OrderItem> orderItems;
 
@@ -27,11 +33,11 @@ private List<OrderItem> orderItems;
         this.user_id = user_id;
     }
 
-    public String getStatus() {
+    public OrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(OrderStatus status) {
         this.status = status;
     }
 
@@ -42,4 +48,13 @@ private List<OrderItem> orderItems;
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
     }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
 }

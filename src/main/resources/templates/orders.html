@@ -11,35 +11,42 @@
     <header th:replace="base.html :: header">
     </header>
 <div class="container mt-5">
-    <h1>Previous Orders</h1>
+    <h1>Orders</h1>
     <table class="table table-bordered mt-4">
-        <thead>
+        <thead th:if="${not orders.isEmpty()}">
         <tr>
-            <th>Order ID</th>
-            <th>Date</th>
-            <th>Customer Name</th>
+            <th></th>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Total</th>
+            <th>Order placed</th>
             <th>Status</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>001</td>
-            <td>2023-03-01</td>
-            <td>John Doe</td>
-            <td><span class="badge badge-success">Delivered</span></td>
-        </tr>
-        <tr>
-            <td>002</td>
-            <td>2023-03-05</td>
-            <td>Jane Smith</td>
-            <td><span class="badge badge-warning">In Progress</span></td>
-        </tr>
-        <tr>
-            <td>003</td>
-            <td>2023-03-10</td>
-            <td>Bob Johnson</td>
-            <td><span class="badge badge-danger">Cancelled</span></td>
-        </tr>
+        <th:block th:if="${orders.isEmpty()}">
+            <tr>
+                <td colspan="5" class="text-center">No orders found</td>
+            </tr>
+        </th:block>
+        <th:block th:if="${not orders.isEmpty()}">
+             <th:block th:each="order : ${orders}" >
+                <tr th:each="item : ${order.getOrderItems()}" th:with="product=${products.get(item.product_id)}">
+                    <td><img th:src="${product.imagePath}" th:if="${product.imagePath!=''}" width="80" height="75" alt="Product Image"></td>
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${item.quantity}"></td>
+                    <td th:text="${'£' +item.current_price * item.quantity}"></td>
+                    <td th:text="${#dates.format(order.date, 'yyyy-MM-dd')}"></td>
+                    <td th:switch="${order.status.name()}">
+                        <span th:case="Received" th:text="${order.status}"></span>
+                        <span th:case="Processed" class="badge badge-warning" th:text="${order.status}"></span>
+                        <span th:case="Shipped" class="badge badge-success" th:text="${order.status}"></span>
+                        <span th:case="Delivered" class="badge badge-success" th:text="${order.status}"></span>
+                        <span th:case="Cancelled" class="badge badge-danger" th:text="${order.status}"></span>
+                    </td>
+                </tr>
+             </th:block>
+        </th:block>
         </tbody>
     </table>
 </div>

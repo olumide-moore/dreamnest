@@ -21,10 +21,16 @@ public class OrderItem extends AbstractEntity {
     @PositiveOrZero
     private Integer quantity;
 
+    @NotNull
+    @PositiveOrZero
+    private float current_price;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Orders orders;
+
+    
 
     public Long getProduct_id() {
         return product_id;
@@ -48,5 +54,12 @@ public class OrderItem extends AbstractEntity {
 
     public void setOrders(Orders orders) {
         this.orders = orders;
+    }
+    public float getCurrent_price() {
+        return current_price;
+    }
+
+    public void setCurrent_price(float current_price) {
+        this.current_price = current_price;
     }
 }
