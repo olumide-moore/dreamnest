@@ -116,8 +116,12 @@ public class ProductsController {
         return "redirect:/edit-products";
     }
 
-
-   
+    @PostMapping("/select-item")
+    public String select_item(Model model, @RequestParam("productId") Long productId){
+        Product product = productservice.findProductById(productId);
+        model.addAttribute("product", product);
+        return "select-item";
+    }
 
 
 
