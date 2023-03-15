@@ -51,7 +51,7 @@ function addToCart(div){
    const form = document.createElement('form');
    form.method = 'POST';
    //set form th:action to add-product in basket controller
-   form.action = '/products/category';
+   form.action = '/category';
 
    var hiddenField = document.createElement('input');
    hiddenField.type = 'hidden';

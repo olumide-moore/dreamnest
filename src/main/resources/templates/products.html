@@ -12,13 +12,13 @@ xmlns:th="http://www.thymeleaf.org">
      <header th:replace="base.html :: header"></header>
 
 
-      <h1 class="underline"> All Products </h1>
+      <h1 class="title"><strong th:text="${category}"></strong></h1>
       <br>
 
       <div id="product_category">
          <div class="cat_button"><a th:href="@{/products}"><button class="btn-outline-secondary" th:onclick="@{/products}"> All </button></a></div>
-         <div class="cat_button"><button class="btn-outline-secondary" onclick="category_button('lights')"> Lights </button></div>
          <div class="cat_button"><button class="btn-outline-secondary" onclick="category_button('plants')"> Plants </button></div>
+         <div class="cat_button"><button class="btn-outline-secondary" onclick="category_button('lights')"> Lights </button></div>
          <div class="cat_button"><button class="btn-outline-secondary" onclick="category_button('lamps')"> Lamps </button></div>
          <div class="cat_button"><button class="btn-outline-secondary" onclick="category_button('artworks')"> Artworks </button></div>
          <div class="cat_button"><button class="btn-outline-secondary" onclick="category_button('candles')"> Candles </button></div>
