@@ -2,21 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 xmlns:th="http://www.thymeleaf.org">
 
-   <head th:replace="base.html :: head(title='Products')">
+   <head th:replace="base.html :: head(title='Products')"></head>
 
+      
    <body>
-     <header th:replace="base.html :: header">
-	 </header>
+         <!-- Bootstrap icons-->
+         <link rel="stylesheet" th:href="@{/css/productstyles.css}">
+
+     <header th:replace="base.html :: header"></header>
+
 
       <h1 class="underline"> All Products </h1>
       <br>
 
       <div id="product_category">
-         <button class="btn-outline-secondary"> Lights </button>
-         <button class="btn-outline-secondary"> Plants </button>
-         <button class="btn-outline-secondary"> Lamps </button>
-         <button class="btn-outline-secondary"> Artwork </button>
-         <button class="btn-outline-secondary"> Candles </button>
+         <div class="cat_button"><button class="btn-outline-secondary"> Lights </button></div>
+         <div class="cat_button"><button class="btn-outline-secondary"> Plants </button></div>
+         <div class="cat_button"><button class="btn-outline-secondary"> Lamps </button></div>
+         <div class="cat_button"><button class="btn-outline-secondary"> Artwork </button></div>
+         <div class="cat_button"><button class="btn-outline-secondary"> Candles </button></div>
       </div>
 
          <section class="py-5">
@@ -24,8 +28,8 @@ xmlns:th="http://www.thymeleaf.org">
                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
                   <div th:each="product : ${products}">
                      <div class="col mb-5">
-                        <div class="card h-100">
-                        <a th:data-id="${product.id}" onclick="selectItem(this)"> 
+                        <div class="card-prod h-100">
+                        <a id="selectable" th:data-id="${product.id}" onclick="selectItem(this)"> 
                            <!-- Product image-->
                            <img class="card-img-top" th:src="${product.imagePath}" width="450" height="300" th:alt="${product.imagePath}" />
                            <!-- Product details-->
@@ -33,7 +37,7 @@ xmlns:th="http://www.thymeleaf.org">
                               <div class="text-center">
                                  <!-- Product name-->
                                  <h5 class="fw-bolder" th:text="${product.name}"></h5>
-                                 <span class="text-muted" th:text="${'£'+product.price}"></span>
+                                 <span class="text-black" th:text="${'£'+product.price}"></span>
                               </div>
                            </div>
                         </a>
