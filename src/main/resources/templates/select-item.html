@@ -3,16 +3,17 @@
       xmlns:th="http://www.thymeleaf.org">
 <head th:replace="base.html :: head(title='Login')"></head>
 
-
-<body>
-
 <link rel="stylesheet" type="text/css" th:href="@{/css/productstyles.css}">
 
-<header th:replace="base.html :: header">
-</header>
 
-      <!-- <h1 class="underline" th:text="${product.name}"></h1> -->
+<body>
+<header th:replace="base.html :: header"></header>
 
+<div class="back-arrow">
+   <a class="arrow-button" th:href="@{products}"><i class="bi bi-arrow-left-circle-fill"></i> Products <a>
+</div>
+
+<!-----Product Card---->
       <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                <div class="row gx-4 gx-lg-5 align-items-center">
@@ -24,8 +25,8 @@
                            </div>
                            <p class="lead" th:text="${product.description}"></p>
                            <div class="d-flex">
-                              <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                              <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                              <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem"/>
+                              <button class="btn btn-outline-dark flex-shrink-0" type="button" th:data-id="${product.id}" onclick="addToCartItem(this)">
                                  <i class="bi-cart-fill me-1"></i>
                                  Add to cart
                               </button>
@@ -35,8 +36,6 @@
             </div>
       </section>
 
-
-
 <!-----footer---->
 <footer th:replace="base.html :: footer"></footer>
 
@@ -45,5 +44,5 @@
       <!-- Core theme JS-->
       <script type="text/javascript" th:src="@{/js/prodscript.js}"></script>
 
-   </body>
+</body>
 </html>
