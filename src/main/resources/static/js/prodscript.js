@@ -1,3 +1,30 @@
+function addToCartItem(div){
+
+  qty = document.getElementById('inputQuantity').value;
+  var id = div.getAttribute("data-id");
+
+   const form = document.createElement('form');
+   form.method = 'POST';
+   //set form th:action to add-product in basket controller
+   form.action = '/basket/add';
+
+   var hiddenField = document.createElement('input');
+   hiddenField.type = 'hidden';
+   hiddenField.name = 'productId';
+   hiddenField.value = id;
+
+   form.appendChild(hiddenField);
+   hiddenField = document.createElement('input');
+   hiddenField.type='hidden';
+   hiddenField.name= 'quantity';
+   hiddenField.value= qty;
+   form.appendChild(hiddenField);
+   document.body.appendChild(form);
+   form.submit();
+ }
+
+
+
 function addToCart(div){
     var id = div.getAttribute("data-id");
     // console.log(id);
