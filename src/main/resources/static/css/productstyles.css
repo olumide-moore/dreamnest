@@ -55,12 +55,26 @@
 }
 
 /* select-item image html style */
-
 .prodimg{
       border-radius: 0.25rem;
       transition: all 0.3s;
       box-shadow: 5px 5px 20px black;
 }
+
+
+
+/* back button in select item page */
+.back-arrow{
+  padding-left:50px;
+  padding-top: 60px;
+}
+
+.arrow-button{
+  font-size:20px;
+  color:inherit;
+  text-decoration:none;
+}
+
 
 :root {
   --bs-blue: #0d6efd;
