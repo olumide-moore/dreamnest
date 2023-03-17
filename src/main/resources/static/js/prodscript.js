@@ -1,6 +1,6 @@
 function addToCartItem(div){
 
-  qty = document.getElementById('inputQuantity').value;
+  var qty = document.getElementById('inputQuantity').value;
   var id = div.getAttribute("data-id");
 
    const form = document.createElement('form');
