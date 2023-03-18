@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class OrdersController
     }
 
     @GetMapping("/checkout")
-    public String checkout(HttpSession session, Model model){
+    public String checkout(HttpSession session, Model model, RedirectAttributes redirectAttributes){
         User user = (User) session.getAttribute("user");
         if (user == null ) {
             return  "redirect:login";
@@ -59,6 +60,14 @@ public class OrdersController
             Long userId=user.getId();
             List<Basket> baskets = basketService.findAllBasketByUserId(userId);
             if (!baskets.isEmpty()){
+                //Check for stock
+                for (Basket basket : baskets) {
+                    Product product = basket.getProduct();
+                    if (!enoughQuantity(product, basket.getQuantity())) {
+                        redirectAttributes.addFlashAttribute("error", "Not enough quantity in stock for " + product.getName()+". Only "+product.getStock()+" left in stock.");
+                        return "redirect:/basket";
+                    }
+                }
                 Orders orders = new Orders();
                 orders.setUser_id(userId);
                 orders.setStatus(OrderStatus.Received);
@@ -71,6 +80,14 @@ public class OrdersController
                     orderItem.setQuantity(basket.getQuantity());
                     orderItem.setOrders(orders);
                     orderItems.add(orderItem); // add orderItem to orderItems kust
+                    // update stock
+                    Product product = basket.getProduct();
+                    int stock = product.getStock()-basket.getQuantity();
+                    if (stock<0){
+                        stock=0;
+                    }
+                    product.setStock(stock);
+                    productService.saveProduct(product);
                 }
                 orders.setOrderItems(orderItems); // add orderItems to orders
                 ordersService.save(orders);
@@ -81,6 +98,12 @@ public class OrdersController
                 return "basket";
             }
         }
+    }
+    private boolean enoughQuantity(Product product, Integer quantity){
+        if (product.getStock() >= quantity){
+            return true;
+        }
+        return false;
     }
 }
 
