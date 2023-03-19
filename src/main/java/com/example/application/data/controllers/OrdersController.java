@@ -33,7 +33,7 @@ public class OrdersController
 
     @GetMapping("/orders")
     public String orders(HttpSession session, Model model){
-        if (Authenticator.verifyUser(session)==""){
+        if (Authorizer.verifyUser(session)==""){
             User user = (User) session.getAttribute("user");
             HashMap<Long,Product> products= new HashMap<>(); // <productId,Product>
             List<Orders> ordersList = ordersService.findByUser_id(user.getId());
@@ -53,7 +53,7 @@ public class OrdersController
 
     @GetMapping("/edit-orders")
     public String editOrders(HttpSession session, Model model){
-        // String page= Authenticator.verifyStaff(session);
+        // String page= Authorizer.verifyStaff(session);
         // if(page==""){
         HashMap<Long,Product> products= new HashMap<>(); // <productId,Product>
         HashMap<Long,User> users= new HashMap<>(); // <userId,User>
