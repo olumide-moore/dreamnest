@@ -36,8 +36,6 @@ public class ProductsController {
     @Autowired
     private ProductService productservice;
 
-
-
     @RequestMapping("/products")
     public String products(Model model) {
         model.addAttribute("category", "ALL PRODUCTS");
@@ -53,18 +51,15 @@ public class ProductsController {
         return "products";
     }
 
-
     @GetMapping("/edit-products")
     public String editProducts(HttpSession session, Model model) {
-//        User user = (User) session.getAttribute("user");
-//        if(user!=null) {
-//            model.addAttribute("user", user);
-//            if (user.getRole().equals(Role.ADMIN) || user.getRole().equals(Role.EMPLOYEE))
-                model.addAttribute("products",productservice.findAllProduct());
+        // String page= Authorizer.verifyStaff(session);
+        // if(page==""){
+            model.addAttribute("products",productservice.findAllProduct());
                 return "edit-products";
-//        }
-//        return "redirect:/";
-    }
+            // }
+            // return page;
+        }
 
     @PostMapping("/update-products")
     public String updateProducts(Long id, @RequestParam("name") String name, @RequestParam("category") String category, @RequestParam("price") float price, @RequestParam("stock") int stock, @RequestParam("description") String description, @RequestParam("imagePath") MultipartFile imagePath) {
