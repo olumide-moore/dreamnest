@@ -13,7 +13,7 @@
 <div class="container mt-5">
     <h1>Orders</h1>
     <table class="table table-bordered mt-4">
-        <thead th:if="${not orders.isEmpty()}">
+        <thead th:if="${orders !=null and not orders.isEmpty()}">
         <tr>
             <th></th>
             <th>Item</th>
@@ -29,11 +29,13 @@
                 <td colspan="5" class="text-center">No orders found</td>
             </tr>
         </th:block>
-        <th:block th:if="${not orders.isEmpty()}">
+        <th:block th:if="${orders != null and not orders.isEmpty()}">
              <th:block th:each="order : ${orders}" >
                 <tr th:each="item : ${order.getOrderItems()}" th:with="product=${products.get(item.product_id)}">
-                    <td><img th:src="${product.imagePath}" th:if="${product.imagePath!=''}" width="80" height="75" alt="Product Image"></td>
-                    <td th:text="${product.name}"></td>
+                    <th:block th:if="${product !=null}">
+                        <td><img th:src="${product.imagePath}" th:if="${product.imagePath!=''}" width="80" height="75" alt="Product Image"></td>
+                        <td th:text="${product.name}" ></td> 
+                    </th:block>
                     <td th:text="${item.quantity}"></td>
                     <td th:text="${'£' +item.current_price * item.quantity}"></td>
                     <td th:text="${#dates.format(order.date, 'yyyy-MM-dd')}"></td>
