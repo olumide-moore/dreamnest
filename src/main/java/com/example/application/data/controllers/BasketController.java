@@ -25,6 +25,7 @@ import java.util.List;
 
 @Controller
 public class BasketController {
+
     @Autowired
     private BasketService basketService;
 
@@ -33,26 +34,25 @@ public class BasketController {
 
     @RequestMapping("/basket")
     public String basket(HttpSession session, Model model) {
-       User user = (User) session.getAttribute("user");
-       if (user == null ) {
-           return  "redirect:login";
-       }else if(!(user.getRole().equals(Role.USER))){
-              return "redirect:/";
-       }else{
+        String page= Authorizer.verifyUser(session);
+        if (page==""){
+           User user = (User) session.getAttribute("user");
            HashMap<Long,Product> products= new HashMap<>(); // <productId,Product>
            List<Basket> basketList = basketService.findAllBasketByUserId(user.getId());
            float total = 0;
            for (Basket basket : basketList) {
-               Long productId = basket.getProduct().getId();
-               products.put(productId, productService.findProductById(productId));
+                Long productId = basket.getProduct().getId();
+                products.put(productId, productService.findProductById(productId));
                 total += products.get(productId).getPrice() * basket.getQuantity();
            }
-           model.addAttribute("basket",basketList);
-           model.addAttribute("products",products);
-              model.addAttribute("total",total);
-           return "basket";
+            model.addAttribute("basket",basketList);
+            model.addAttribute("products",products);
+            model.addAttribute("total",total);
+            return "basket";
             }
+            return page;
        }
+
     public String verifyUser(HttpSession session){
         User user = (User) session.getAttribute("user");
         if (user == null ) {
@@ -66,7 +66,8 @@ public class BasketController {
 
     @PostMapping("/basket/update")
     public String updateBasket(HttpSession session, RedirectAttributes redirectAttributes, @RequestParam("productId") Long productId, @RequestParam("quantity") Integer quantity) {
-        if (verifyUser(session)=="") {
+        String page= Authorizer.verifyUser(session);
+        if (page=="") {
             User user = (User) session.getAttribute("user");
             Product product=productService.findProductById(productId);
 //            if (!enoughQuantity(product,quantity)){
@@ -75,13 +76,15 @@ public class BasketController {
 //            }
             Basket basket = basketService.findByUserIdAndProductId(user.getId(), productId);
             basketService.updateBasket(user.getId(), productService.findProductById(productId), quantity);
-        }
             return "redirect:/basket";
+        }
+        return page;
     }
 
     @PostMapping("/basket/add")
     public String addBasket(HttpSession session, RedirectAttributes redirectAttributes, @RequestParam("productId") Long productId, @RequestParam("quantity") Integer quantity) {
-       if (verifyUser(session)==""){
+        String page= Authorizer.verifyUser(session);
+        if (page==""){
             User user = (User) session.getAttribute("user");
             Product product=productService.findProductById(productId);
 //            if (!enoughQuantity(product,quantity)){
@@ -93,8 +96,9 @@ public class BasketController {
                 quantity = basket.getQuantity()+quantity;
             }
             basketService.updateBasket(user.getId(), productService.findProductById(productId), quantity);
-       }
-        return "redirect:/basket";
+            return "redirect:/basket";
+        }
+        return page;
     }
 
     private boolean enoughQuantity(Product product, Integer quantity){
