@@ -4,6 +4,7 @@ import com.example.application.data.entity.*;
 import com.example.application.data.service.BasketService;
 import com.example.application.data.service.OrdersService;
 import com.example.application.data.service.ProductService;
+import com.example.application.data.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,14 +28,13 @@ public class OrdersController
     @Autowired
     ProductService productService;
 
+    @Autowired
+    UserService userService;
+
     @GetMapping("/orders")
     public String orders(HttpSession session, Model model){
-        User user = (User) session.getAttribute("user");
-        if (user == null ) {
-            return  "redirect:login";
-        }else if(!(user.getRole().equals(Role.USER))){
-            return "redirect:/";
-        }else{
+        if (Authenticator.verifyUser(session)==""){
+            User user = (User) session.getAttribute("user");
             HashMap<Long,Product> products= new HashMap<>(); // <productId,Product>
             List<Orders> ordersList = ordersService.findByUser_id(user.getId());
             for (Orders orders: ordersList){
@@ -47,6 +47,31 @@ public class OrdersController
             model.addAttribute("products",products);
             return "orders";
         }
+        return "redirect:/login";
+
+    }
+
+    @GetMapping("/edit-orders")
+    public String editOrders(HttpSession session, Model model){
+        // String page= Authenticator.verifyStaff(session);
+        // if(page==""){
+        HashMap<Long,Product> products= new HashMap<>(); // <productId,Product>
+        HashMap<Long,User> users= new HashMap<>(); // <userId,User>
+            List<Orders> ordersList = ordersService.findAllOrders();
+            for (Orders orders: ordersList){
+                for (OrderItem orderItem: orders.getOrderItems()){
+                    Long productId = orderItem.getProduct_id();
+                    products.put(productId, productService.findProductById(productId));
+                }
+                Long userId=orders.getUser_id();
+                users.put(userId,userService.getUserById(userId));
+            }
+            model.addAttribute("orders",ordersList);
+            model.addAttribute("products",products);
+            model.addAttribute("users",users);
+            return "edit-orders";
+        // }
+        // return page;
     }
 
     @GetMapping("/checkout")
@@ -72,6 +97,7 @@ public class OrdersController
                 orders.setUser_id(userId);
                 orders.setStatus(OrderStatus.Received);
                 orders.setDate(new Date());
+                float total = 0;
                 List<OrderItem> orderItems = new ArrayList<>(); // create orderItems list
                 for (Basket basket : baskets) {
                     OrderItem orderItem = new OrderItem();
@@ -88,7 +114,9 @@ public class OrdersController
                     }
                     product.setStock(stock);
                     productService.saveProduct(product);
+                    total += basket.getProduct().getPrice() * basket.getQuantity();
                 }
+                orders.setTotal(total);
                 orders.setOrderItems(orderItems); // add orderItems to orders
                 ordersService.save(orders);
                 basketService.deleteAllBasketByUserId(userId);  // delete all basket items
