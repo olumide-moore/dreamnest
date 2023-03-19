@@ -4588,6 +4588,7 @@ textarea.form-control-lg {
   border-radius: 0.25rem;
   transition: all 0.3s;
   box-shadow: 5px 5px 20px black;
+  cursor: pointer;
 }
 .card-prod:hover {
   transform: scale(1.10);
