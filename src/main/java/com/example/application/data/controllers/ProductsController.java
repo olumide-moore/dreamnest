@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.engine.AttributeName;
 
 // import org.springframework.web.bind.annotation.*;
 
@@ -42,6 +43,7 @@ public class ProductsController {
     public String products(Model model) {
         model.addAttribute("category", "ALL PRODUCTS");
         model.addAttribute("products",productservice.findAllProduct());
+        model.addAttribute("filter", "Sort by:");
         return "products";
     }
 
@@ -50,8 +52,54 @@ public class ProductsController {
         List<Product> products =productservice.findAllProductByCategory(category);
         model.addAttribute("category",category.toUpperCase());
         model.addAttribute("products",products);
+        model.addAttribute("filter", "Sort by:");
         return "products";
     }
+
+    // Product controller to update front-end from database
+    //@RequestMapping("/search")
+     //public String productSearch(@RequestParam("name") String name, Model model) {
+    // List<Product> products =productservice.findAllProductByCategory(name);
+     //model.addAttribute( "name", name.toUpperCase());
+    // model.addAttribute("products", products);
+    // return "products";
+
+    @PostMapping("/pricelowtohigh")
+    public String selectPrice(Model model) {
+       List<Product> products =productservice.sortPriceLowToHigh();
+        model.addAttribute("category", "ALL PRODUCTS");
+        model.addAttribute("products",products);
+        model.addAttribute("filter", "Sort by: Price (low to high)");
+        return "products";
+    }
+
+    @PostMapping("/pricehightolow")
+    public String selectPrice2(Model model) {
+       List<Product> products =productservice.sortPriceHighToLow();
+        model.addAttribute("category", "ALL PRODUCTS");
+        model.addAttribute("products",products);
+        model.addAttribute("filter", "Sort by: Price (high to low)");
+        return "products";
+    }
+
+    @PostMapping("/nameAtoZ")
+    public String selectNameOrder(Model model) {
+       List<Product> products =productservice.sortNameAtoZ();
+        model.addAttribute("category", "ALL PRODUCTS");
+        model.addAttribute("products",products);
+        model.addAttribute("filter", "Sort by: Name (A - Z)");
+        return "products";
+    }
+
+    @PostMapping("/nameZtoA")
+    public String selectNameOrder2(Model model) {
+       List<Product> products =productservice.sortNameZtoA();
+        model.addAttribute("category", "ALL PRODUCTS");
+        model.addAttribute("products",products);
+        model.addAttribute("filter", "Sort by: Name (Z - A)");
+        return "products";
+    }
+    
 
 
     @GetMapping("/edit-products")
