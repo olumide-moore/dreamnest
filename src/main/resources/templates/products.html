@@ -35,7 +35,7 @@ xmlns:th="http://www.thymeleaf.org">
       </div>
      </div>
      <div id="search_bar_container">
-      <input type="text" id="search_bar" onkeyup="function()" placeholder="Search products">
+      <input type="text" id="search_bar" onkeyup="search()" placeholder="Search products">
   </div>
  </div>
        
@@ -45,7 +45,7 @@ xmlns:th="http://www.thymeleaf.org">
          <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
-                  <div th:each="product : ${products}">
+                  <div class ="prodmain" th:each="product : ${products}">
                      <div class="col mb-5">
                         <div class="card-prod h-100">
                         <a id="selectable" th:data-id="${product.id}" onclick="selectItem(this)"> 
