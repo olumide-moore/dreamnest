@@ -54,7 +54,6 @@ public class ProductsController {
         return "products";
     }
 
-<<<<<<< HEAD
     // Product controller to update front-end from database
     //@RequestMapping("/search")
      //public String productSearch(@RequestParam("name") String name, Model model) {
@@ -100,8 +99,6 @@ public class ProductsController {
     
 
 
-=======
->>>>>>> f07a1dc5a46ac1f3b4515fd536ad0eb8769b0183
     @GetMapping("/edit-products")
     public String editProducts(HttpSession session, Model model) {
         // String page= Authorizer.verifyStaff(session);
