@@ -51,5 +51,10 @@ public class UserService {
         return userRepository.getByEmail(email);
     }
 
+    //get user by id
+    public User getUserById(Long id) {
+        return userRepository.getById(id);
+    }
+
 
 }

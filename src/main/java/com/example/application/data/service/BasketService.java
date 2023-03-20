@@ -52,7 +52,6 @@ public class BasketService {
         basketrepository.save(basket);
     }
 
-
     public void deleteAllBasketByUserId(Long userId) {
         basketrepository.deleteByUser_id(userId);
     }
