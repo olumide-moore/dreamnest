@@ -18,9 +18,13 @@ private Long user_id;
 @NotNull
 private OrderStatus status;
 
-
 @NotNull
 private Date date;
+
+@NotNull
+private float total;
+
+    
 
 @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
 private List<OrderItem> orderItems;
@@ -57,4 +61,11 @@ private List<OrderItem> orderItems;
         this.date = date;
     }
 
+    public float getTotal() {
+        return total;
+    }
+
+    public void setTotal(float total) {
+        this.total = total;
+    }
 }

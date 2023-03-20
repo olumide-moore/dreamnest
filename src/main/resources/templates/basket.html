@@ -17,14 +17,22 @@
 
 <header th:replace="base.html :: header">
 </header>
+<!-- <div  th:if="${error}"  class="alert alert-danger">
+    <p th:text="${error}"></p>
+</div> -->
+<div th:if="${error}" class="alert alert-danger" style="width: 400px; margin-top: 10px; padding-bottom:0px;">
+  <p th:text="${error}"></p>
+</div>
+
 <div class="container-fluid">
 
     <div class="row">
         <!-- Products Table -->
         <div class="col-sm-8">
             <h2>Basket</h2>
+
             <table class="table table-striped">
-                <thead th:if="${not basket.isEmpty()}">
+                <thead th:if="${basket != null and not basket.isEmpty()}">
                 <tr>
                     <th></th>
                     <th></th>
@@ -36,12 +44,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                  <th:block th:if="${basket.isEmpty()}">
+                  <th:block th:if="${basket != null and basket.isEmpty()}">
                       <tr>
                           <td colspan="5" class="text-center">Your basket is empty</td>
                       </tr>
                   </th:block>
-                <th:block th:if="${not basket.isEmpty()}">
+                <th:block th:if="${basket!=null and not basket.isEmpty()}">
                <tr th:each="item : ${basket}" th:data-id="${item.product.id}"  th:with="product=${products.get(item.product.id)}">
                    <td><img th:src="${product.imagePath}" th:if="${product.imagePath!=''}" width="80" height="75" alt="Product Image"></td>
                    <td th:text="${product.name}"></td>
@@ -67,7 +75,7 @@
                     <div class="col-sm-6">
                       <a th:href=@{/products} class="btn btn-sm btn-primary" style="width:25%;">Continue Shopping</a>
                     </div>
-                    <div th:if="${not basket.isEmpty()}"class="col-sm-6">
+                    <div th:if="${basket !=null and not basket.isEmpty()}"class="col-sm-6">
                       <a th:href="@{/checkout}" class="btn btn-sm btn-success">Checkout</a>
                     </div>
                   </div>
@@ -78,7 +86,7 @@
 <footer th:replace="base.html :: footer"></footer>
 
 
-<script> 
+<script defer> 
     function updateQuantity(button, operation){
     const productId = button.closest('tr').getAttribute('data-id');
     const quantity = button.closest('td').querySelector('span').innerText;
@@ -112,7 +120,7 @@
           hiddenField.value = parseInt(quantity) + operation;
         }
       form.appendChild(hiddenField);
-      
+
       document.body.appendChild(form);
       form.submit();
     }
