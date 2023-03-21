@@ -50,7 +50,7 @@ xmlns:th="http://www.thymeleaf.org">
                         <div class="card-prod h-100">
                         <a id="selectable" th:data-id="${product.id}" onclick="selectItem(this)"> 
                            <!-- Product image-->
-                           <img class="card-img-top" th:src="${product.imagePath}" width="450" height="300" th:alt="${product.imagePath}" />
+                           <img class="card-img-top" th:src="@{${'images/' + product.imagePath}}" width="450" height="300" th:alt="${product.imagePath}" />
                            <!-- Product details-->
                            <div class="card-body p-4">
                               <div class="text-center">

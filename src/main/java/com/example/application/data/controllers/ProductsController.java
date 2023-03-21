@@ -29,6 +29,8 @@ import java.util.UUID;
 @Controller
 public class ProductsController {
 
+    public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/resources/static/images/";
+
     // inject via application.properties
 //    @Value("${welcome.message}")
 //    private String message;
@@ -110,7 +112,7 @@ public class ProductsController {
         }
 
     @PostMapping("/update-products")
-    public String updateProducts(Long id, @RequestParam("name") String name, @RequestParam("category") String category, @RequestParam("price") float price, @RequestParam("stock") int stock, @RequestParam("description") String description, @RequestParam("imagePath") MultipartFile imagePath) {
+    public String updateProducts(Long id, @RequestParam("name") String name, @RequestParam("category") String category, @RequestParam("price") float price, @RequestParam("stock") int stock, @RequestParam("description") String description, @RequestParam("imagePath") MultipartFile imagePath) throws IOException {
         Product product;
         if (id == null) {
             product = new Product();
@@ -122,44 +124,59 @@ public class ProductsController {
         product.setPrice(price);
         product.setStock(stock);
         product.setDescription(description);
-
-        if (!imagePath.isEmpty()){
-            try {
-
-                // File file = new File("src/main/resources/static/images/" + imagePath.getOriginalFilename());
-                // imagePath.transferTo(file);
-                // String fileName = imagePath.getOriginalFilename();
-                // String extension = fileName.substring(fileName.lastIndexOf("."));
-                // // Generate a unique file name
-                // String newFileName = UUID.randomUUID().toString() + extension;
-
-                // // Get the bytes of the file
-                // byte[] bytes = fileName.getBytes();
-
-                // // Create a new file in the resources folder
-                // Path path = Paths.get("src/main/resources/static/images/" + newFileName);
-                // Files.write(path, bytes);
-
-                byte[] bytes = imagePath.getBytes();
-                Path path = Paths.get("src/main/resources/static/images/" + imagePath.getOriginalFilename());
-                Files.write(path, bytes);
-
-
-                // Set the imagePath property of the product object
-                product.setImagePath("/images/" + imagePath.getOriginalFilename());
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
+        String imageUUID;
+        if(!imagePath.isEmpty()){
+            imageUUID = imagePath.getOriginalFilename();
+            Path fileNameAndPath = Paths.get(uploadDirectory, imageUUID);
+            Files.write(fileNameAndPath, imagePath.getBytes());
+        }else{
+            imageUUID = "File wasn't uploaded to the database";
         }
-        //        product.setImagePath(imagePath);
+        product.setImagePath(imageUUID);
+
+//        if (!imagePath.isEmpty()){
+//            try {
+//                // File file = new File("src/main/resources/static/images/" + imagePath.getOriginalFilename());
+//                // imagePath.transferTo(file);
+//                // String fileName = imagePath.getOriginalFilename();
+//                // String extension = fileName.substring(fileName.lastIndexOf("."));
+//                // // Generate a unique file name
+//                // String newFileName = UUID.randomUUID().toString() + extension;
+//
+//                // // Get the bytes of the file
+//                // byte[] bytes = fileName.getBytes();
+//
+//                // // Create a new file in the resources folder
+//                // Path path = Paths.get("src/main/resources/static/images/" + newFileName);
+//                // Files.write(path, bytes);
+//
+//                byte[] bytes = imagePath.getBytes();
+//                Path path = Paths.get("src/main/resources/upload/" + imagePath.getOriginalFilename());
+//                Files.write(path, bytes);
+//
+//
+//                // Set the imagePath property of the product object
+//                product.setImagePath("/upload/" + imagePath.getOriginalFilename());
+//            }
+//            catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+        //  product.setImagePath(imagePath);
         productservice.saveProduct(product);
         return "redirect:/edit-products";
     }
 
-    @PostMapping("/delete-product")
-    public String deleteProduct(@RequestParam("id") Long id) {
-        productservice.deleteProduct(productservice.findProductById(id));
+    @PostMapping("/delete-products")
+    public String deleteProduct(Long deleteid) throws IOException {
+        String filepath = productservice.findProductById(deleteid).getImagePath();
+        File myObj = new File(uploadDirectory + filepath);
+        if (myObj.delete()) {
+            System.out.println("Deleted the file: " + myObj.getName());
+        } else {
+            System.out.println("Failed to delete the file.");
+        }
+        productservice.deleteProduct(productservice.findProductById(deleteid));
         return "redirect:/edit-products";
     }
 

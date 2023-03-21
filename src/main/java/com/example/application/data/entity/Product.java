@@ -24,12 +24,9 @@ public class Product extends AbstractEntity {
 
     private String imagePath = "";
 
-
-
-    @Override
-    public String toString() {
-        return category + ": " + name;
-    }
+//    public Product(Product productById) {
+//        super();
+//    }
 
 
     public String getDescription() {
@@ -78,5 +75,21 @@ public class Product extends AbstractEntity {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public Product(){
+
+    }
+
+
+    public String toString() {
+        return "Product{" +
+                "category='" + category + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", stock=" + stock +
+                ", imagePath='" + imagePath + '\'' +
+                '}';
     }
 }
