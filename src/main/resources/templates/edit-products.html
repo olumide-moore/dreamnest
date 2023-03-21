@@ -53,13 +53,15 @@
                     <td th:text="${product.price}"></td>
                     <td th:text="${product.stock}"></td>
                     <td th:text="${product.imagePath}"></td>
-                     <td ><img th:src="${product.imagePath}" th:if="${product.imagePath!=''}" width="80" height="75" alt="Product Image"></td>
+                     <td ><img th:src="@{${'images/' + product.imagePath}}" th:if="${product.imagePath!=''}" width="80" height="75" alt="Product Image"></td>
 
                     <!-- <img th:src="@{/images/{imagePath}(imagePath=${product.imagePath})}" alt="image" width="100" height="100"> -->
-                    <td>
-                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#productModal">Edit</button>
-                        <a><button type="button" onclick="deleteProduct(this)" class="btn btn-sm btn-danger">Delete</button></a>
-                    </td></tr>   
+                     <td>
+                         <form th:action="@{/delete-products}" method="post">
+                             <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#productModal">Edit</button>
+                             <button type="submit" th:value="${product.id}" name="deleteid"  class="btn btn-sm btn-danger">Delete</button>
+                         </form>
+                     </td></tr>
                 </tbody>
             </table>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productModal" id="addProduct">New Product</button>
@@ -110,7 +112,7 @@
                                     <label for="imagePath">Image Path</label>
                                     <input type="file" class="form-control" id="imagePath" name="imagePath" placeholder="Enter image path" accept="image/*">
                                 </div>
-                                <input type="hidden" id="id" name="id">
+                                <input type="hidden" id="id" name="imageName">
                                 <input type="submit" class="btn btn-primary" value="Submit">
                             </form>
                        </div>
