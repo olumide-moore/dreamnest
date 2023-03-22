@@ -129,10 +129,9 @@ public class ProductsController {
             imageUUID = imagePath.getOriginalFilename();
             Path fileNameAndPath = Paths.get(uploadDirectory, imageUUID);
             Files.write(fileNameAndPath, imagePath.getBytes());
-        }else{
-            imageUUID = "File wasn't uploaded to the database";
+            product.setImagePath(imageUUID);
+
         }
-        product.setImagePath(imageUUID);
 
 //        if (!imagePath.isEmpty()){
 //            try {
