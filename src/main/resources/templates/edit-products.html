@@ -84,15 +84,15 @@
                             <form id="productForm" th:action="@{/update-products}" method="post"  enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label for="name">Name</label>
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter name" th:disabled="" required>
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter name"  required th:disabled="${user.role.name() != 'ADMIN'}">
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <textarea class="form-control" id="description" rows="3" name="description" placeholder="Enter description"></textarea>
+                                    <textarea class="form-control" id="description" rows="3" name="description" placeholder="Enter description" th:disabled="${user.role.name() != 'ADMIN'}"></textarea>
                                 </div>
                                 <div class="form-group">
                                 <label for="category">Category</label>
-                                <select class="form-control" name="category" id="category" required>
+                                <select class="form-control" name="category" id="category" required th:disabled="${user.role.name() != 'ADMIN'}">
                                 <option value="Plants">Plants</option>
                                 <option value="Lights">Lights</option>
                                 <option value="Artworks">Artworks</option>
@@ -102,7 +102,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="price">Price</label>
-                                    <input type="number" class="form-control" id="price" name="price" placeholder="Enter price" step="0.01" min="0" required>
+                                    <input type="number" class="form-control" id="price" name="price" placeholder="Enter price" step="0.01" min="0" required th:disabled="${user.role.name() != 'ADMIN'}"> 
                                 </div>
                                 <div class="form-group">
                                     <label for="stock">Stock</label>
@@ -110,7 +110,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="imagePath">Image Path</label>
-                                    <input type="file" class="form-control" id="imagePath" name="imagePath" placeholder="Enter image path" accept="image/*">
+                                    <input type="file" class="form-control" id="imagePath" name="imagePath" placeholder="Enter image path" accept="image/*" th:disabled="${user.role.name() != 'ADMIN'}">
                                 </div>
                                 <input type="hidden" id="id" name="imageName">
                                 <input type="submit" class="btn btn-primary" value="Submit">
