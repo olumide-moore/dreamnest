@@ -61,8 +61,9 @@
                              <option th:value="'EMPLOYEE'" th:text="EMPLOYEE" th:selected="${staff.role.name() == 'EMPLOYEE'}"></option>
                          </select>
                      <td>
-                         <form th:action="@{/delete-staff}" method="post">
-                             <button type="submit" th:value="${staff.id}" name="Id"  class="btn btn-sm btn-danger">Delete</button>
+                         <form th:action="@{/delete-staff}" method="post" th:if="${staff.email ne 'admin@admin.com'}">
+                             <button type="submit" th:value="${staff.id}" name="Id"  class="btn btn-sm btn-danger">Unassign</button>
+
                          </form>
                      </td>
                  </tr>
@@ -72,9 +73,44 @@
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staffModal" id="addStaff">Staff Assign</button>
             </div>
         </div>
+</div>
+<!--<div  th:if="${error}" class="alert alert-danger">-->
+<!--    <p th:text="${error}"></p>-->
+<!--</div>-->
+<div class="col-sm-4">
+    <div class="modal fade" id="staffModal" tabindex="-1" role="dialog" aria-labelledby="staffModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staffModalLabel">Assign Staff</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="staffForm" method="post" enctype="multipart/form-data" th:action="@{/assign-staff}">
+                        <div  th:if="${error}" class="alert alert-danger" id="error">
+                            <p th:text="${error}"></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Enter e-mail" required>
+                        </div>
 
-
-
+                        <div class="form-group">
+                            <label for="role">Role</label>
+                            <select class="form-control" name="role" id="role" required>
+                                <option value="2">ADMIN</option>
+                                <option value="1">EMPLOYEE</option>
+                            </select>
+                        </div>
+                        <input type="submit" class="btn btn-primary" value="Submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
     function updateStaffRole(obj, role) {
@@ -95,6 +131,7 @@
         document.body.appendChild(form);
         form.submit();
     }
+
 </script>
 </body>
 </html>
