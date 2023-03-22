@@ -2,10 +2,10 @@ package com.example.application.data.controllers;
 
 import com.example.application.data.entity.Role;
 import com.example.application.data.entity.User;
+import com.example.application.data.service.AuthService;
 import com.example.application.data.service.UserService;
 
 import com.vaadin.flow.component.UI;
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,9 +21,13 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class AuthController {
 
-
     @Autowired
     private UserService userService;
+
+    public AuthController(UserService userService){
+        this.userService= userService;
+    }
+
 
     @GetMapping("/")
     public String welcome(HttpSession session, Model model) {
