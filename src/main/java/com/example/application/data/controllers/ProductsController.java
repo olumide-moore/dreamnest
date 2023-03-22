@@ -103,50 +103,60 @@ public class ProductsController {
 
     @GetMapping("/edit-products")
     public String editProducts(HttpSession session, Model model) {
-        // String page= Authorizer.verifyStaff(session);
-        // if(page==""){
+         String page= Authorizer.verifyStaff(session);
+         if(page==""){
+             User user = (User) session.getAttribute("user");
+             model.addAttribute("user", user);
             model.addAttribute("products",productservice.findAllProduct());
                 return "edit-products";
-            // }
-            // return page;
+             }
+             return page;
         }
 
     @PostMapping("/update-products")
-    public String updateProducts(Long id, @RequestParam("name") String name, @RequestParam("category") String category, @RequestParam("price") float price, @RequestParam("stock") int stock, @RequestParam("description") String description, @RequestParam("imagePath") MultipartFile imagePath) throws IOException {
-        Product product;
-        if (id == null) {
-            product = new Product();
-        } else {
-            product = productservice.findProductById(id);
-        }
-        product.setName(name);
-        product.setCategory(category);
-        product.setPrice(price);
-        product.setStock(stock);
-        product.setDescription(description);
-        String imageUUID;
-        if(!imagePath.isEmpty()){
-            imageUUID = imagePath.getOriginalFilename();
-            Path fileNameAndPath = Paths.get(uploadDirectory, imageUUID);
-            Files.write(fileNameAndPath, imagePath.getBytes());
-            product.setImagePath(imageUUID);
-        }
+    public String updateProducts(HttpSession session, Long id, @RequestParam("name") String name, @RequestParam("category") String category, @RequestParam("price") float price, @RequestParam("stock") int stock, @RequestParam("description") String description, @RequestParam("imagePath") MultipartFile imagePath) throws IOException {
+        String page= Authorizer.verifyStaff(session);
+        if(page==""){
+            Product product;
+            if (id == null) {
+                product = new Product();
+            } else {
+                product = productservice.findProductById(id);
+            }
+            product.setName(name);
+            product.setCategory(category);
+            product.setPrice(price);
+            product.setStock(stock);
+            product.setDescription(description);
+            String imageUUID;
+            if(!imagePath.isEmpty()){
+                imageUUID = imagePath.getOriginalFilename();
+                Path fileNameAndPath = Paths.get(uploadDirectory, imageUUID);
+                Files.write(fileNameAndPath, imagePath.getBytes());
+                product.setImagePath(imageUUID);
+            }
 
-        productservice.saveProduct(product);
-        return "redirect:/edit-products";
+            productservice.saveProduct(product);
+            return "redirect:/edit-products";
+        }
+        return page;
     }
 
     @PostMapping("/delete-products")
-    public String deleteProduct(Long deleteid) throws IOException {
-        String filepath = productservice.findProductById(deleteid).getImagePath();
-        File myObj = new File(uploadDirectory + filepath);
-        if (myObj.delete()) {
-            System.out.println("Deleted the file: " + myObj.getName());
-        } else {
-            System.out.println("Failed to delete the file.");
+    public String deleteProduct(HttpSession session, Long deleteid) throws IOException {
+        String page= Authorizer.verifyStaff(session);
+        if(page==""){
+            String filepath = productservice.findProductById(deleteid).getImagePath();
+            File myObj = new File(uploadDirectory + filepath);
+            if (myObj.delete()) {
+                System.out.println("Deleted the file: " + myObj.getName());
+            } else {
+                System.out.println("Failed to delete the file.");
+            }
+            productservice.deleteProduct(productservice.findProductById(deleteid));
+            return "redirect:/edit-products";
         }
-        productservice.deleteProduct(productservice.findProductById(deleteid));
-        return "redirect:/edit-products";
+        return page;
     }
 
     @PostMapping("/select-item")
