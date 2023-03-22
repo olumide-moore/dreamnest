@@ -84,7 +84,7 @@
                             <form id="productForm" th:action="@{/update-products}" method="post"  enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label for="name">Name</label>
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter name" required>
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter name" th:disabled="" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Description</label>

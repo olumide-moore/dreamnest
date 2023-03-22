@@ -1,8 +1,4 @@
 
-
-
-
-                 
 INSERT INTO dreamnest.product ( category, name, price, stock, image_path)
 VALUES('Lights','Nano Leaf',25.00,8,'light1.jpeg'),
     ('Lights','Palm Springs',20.00,5,'light2.jpeg'),
