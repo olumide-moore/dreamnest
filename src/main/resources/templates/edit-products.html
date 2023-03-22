@@ -34,7 +34,7 @@
             <div style="display:flex; align-items: center; justify-content: space-around; margin:5px;">
                 <h2 style="margin-right: 10px;">Products Admin</h2>
             </div>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productModal" id="addProduct" style="margin-top: 20px;">New Product</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productModal" id="addProduct" style="margin-top: 20px;" th:if="${user.role.name() == 'ADMIN'}">New Product</button>
 
             <table class="table table-striped">
                 <thead>
@@ -63,7 +63,7 @@
                      <td>
                          <form th:action="@{/delete-products}" method="post">
                              <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#productModal">Edit</button>
-                             <button type="submit" th:value="${product.id}" name="deleteid"  class="btn btn-sm btn-danger">Delete</button>
+                             <button type="submit" th:value="${product.id}" name="deleteid"  class="btn btn-sm btn-danger" th:if="${user.role.name() == 'ADMIN'}">Delete</button>
                          </form>
                      </td></tr>
                 </tbody>
