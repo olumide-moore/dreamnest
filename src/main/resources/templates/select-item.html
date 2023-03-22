@@ -33,7 +33,7 @@
                                  Add to cart
                               </button>
 
-                               <button class="btn btn-outline-dark flex-shrink-0" type="button" th:if="${product.stock le 0 }">
+                               <button class="btn btn-outline-dark flex-shrink-0 alert-danger" th:if="${product.stock le 0 }">
                                    Out of stock
                                </button>
                            </div><br>
