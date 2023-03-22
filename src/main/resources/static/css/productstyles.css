@@ -203,6 +203,10 @@ box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.4);
   color: #b3b3b3;
 }
 
+.bar-icon{
+  padding-left:8px;
+}
+
 .fas fa-search {
  padding:2px;
  display:flex;
