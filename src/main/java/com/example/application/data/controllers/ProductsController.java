@@ -29,7 +29,7 @@ import java.util.UUID;
 @Controller
 public class ProductsController {
 
-    public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/resources/static/images/";
+    public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/resources/static/images/products";
 
     // inject via application.properties
 //    @Value("${welcome.message}")
