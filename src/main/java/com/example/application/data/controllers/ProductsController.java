@@ -130,38 +130,8 @@ public class ProductsController {
             Path fileNameAndPath = Paths.get(uploadDirectory, imageUUID);
             Files.write(fileNameAndPath, imagePath.getBytes());
             product.setImagePath(imageUUID);
-
         }
 
-//        if (!imagePath.isEmpty()){
-//            try {
-//                // File file = new File("src/main/resources/static/images/" + imagePath.getOriginalFilename());
-//                // imagePath.transferTo(file);
-//                // String fileName = imagePath.getOriginalFilename();
-//                // String extension = fileName.substring(fileName.lastIndexOf("."));
-//                // // Generate a unique file name
-//                // String newFileName = UUID.randomUUID().toString() + extension;
-//
-//                // // Get the bytes of the file
-//                // byte[] bytes = fileName.getBytes();
-//
-//                // // Create a new file in the resources folder
-//                // Path path = Paths.get("src/main/resources/static/images/" + newFileName);
-//                // Files.write(path, bytes);
-//
-//                byte[] bytes = imagePath.getBytes();
-//                Path path = Paths.get("src/main/resources/upload/" + imagePath.getOriginalFilename());
-//                Files.write(path, bytes);
-//
-//
-//                // Set the imagePath property of the product object
-//                product.setImagePath("/upload/" + imagePath.getOriginalFilename());
-//            }
-//            catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-        //  product.setImagePath(imagePath);
         productservice.saveProduct(product);
         return "redirect:/edit-products";
     }
