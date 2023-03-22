@@ -55,8 +55,8 @@ public class OrdersController
 
     @GetMapping("/edit-orders")
     public String editOrders(HttpSession session, Model model){
-        // String page= Authorizer.verifyStaff(session);
-        // if(page==""){
+         String page= Authorizer.verifyStaff(session);
+         if(page==""){
         HashMap<Long,Product> products= new HashMap<>(); // <productId,Product>
         HashMap<Long,User> users= new HashMap<>(); // <userId,User>
             List<Orders> ordersList = ordersService.findAllOrders();
@@ -72,20 +72,20 @@ public class OrdersController
             model.addAttribute("products",products);
             model.addAttribute("users",users);
             return "edit-orders";
-        // }
-        // return page;
+         }
+         return page;
     }
 
     @PostMapping("/update-orders")
     public String updateOrders(HttpSession session, @RequestParam("orderId") Long orderId, @RequestParam("status") String status){
-        // String page= Authorizer.verifyStaff(session);
-        // if(page==""){
+         String page= Authorizer.verifyStaff(session);
+         if(page==""){
             Orders orders = ordersService.getById(orderId);
             orders.setStatus(OrderStatus.valueOf(status));
             ordersService.save(orders);
             return "redirect:/edit-orders";
-        // }
-        // return page;
+         }
+         return page;
     }
 
     @GetMapping("/checkout")
