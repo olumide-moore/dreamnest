@@ -51,7 +51,7 @@
                   </th:block>
                 <th:block th:if="${basket!=null and not basket.isEmpty()}">
                <tr th:each="item : ${basket}" th:data-id="${item.product.id}"  th:with="product=${products.get(item.product.id)}">
-                   <td><img th:src="${product.imagePath}" th:if="${product.imagePath!=''}" width="80" height="75" alt="Product Image"></td>
+                   <td><img th:src="${'images/products/' + product.imagePath}" th:if="${product.imagePath!=''}" width="80" height="75" alt="Product Image"></td>
                    <td th:text="${product.name}"></td>
                    <td th:text="${product.price}"></td>
                    <td><button class="btn btn-sm btn-secondary" id="minus-btn" onclick = "updateQuantity(this, -1)">-</button><span th:text="${item.quantity}" style="padding: 4px;">
