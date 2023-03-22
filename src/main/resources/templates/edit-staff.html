@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Staff Management</title>
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous"> -->
+    <!-- <style>
+        .selected {
+            background-color: #88b9eb;
+        }
+    </style> -->
+    <link rel="stylesheet" href=
+    "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+     
+        <script src=
+    "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+        </script>
+     
+        <script src=
+    "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js">
+        </script>
+</head>
+<body>
+<div class="container-fluid">
+
+    <div class="row">
+        <!-- Products Table -->
+        <div class="col-sm-8">
+            <h2>Staff Management</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>E-mail</th>
+                    <th>Role</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                 <tr class="selectable" th:each="staff : ${staffs}" th:data-id="${staff.id}">
+                     <td><th:block th:switch="${staff.role.name()}">
+                         <span th:case="ADMIN" class="badge badge-pill badge-danger" th:text="${staff.role}"></span>
+                         <span th:case="EMPLOYEE" class="badge badge-pill badge-warning" th:text="${staff.role}"></span>
+                     </th:block>
+                     </td>
+                     <td th:text="${staff.firstName+' '+ staff.lastName}"></td>
+                    <td th:text="${staff.email}"></td>
+
+                     <td>
+
+
+                         <select  th:onchange="updateStaffRole(this, this.value)" th:data-id="${staff.id}">
+                             <option th:value="'ADMIN'" th:text="ADMIN" th:selected="${staff.role.name() == 'ADMIN'}"></option>
+                             <option th:value="'EMPLOYEE'" th:text="EMPLOYEE" th:selected="${staff.role.name() == 'EMPLOYEE'}"></option>
+                         </select>
+                     <td>
+                         <form th:action="@{/delete-staff}" method="post">
+                             <button type="submit" th:value="${staff.id}" name="Id"  class="btn btn-sm btn-danger">Delete</button>
+                         </form>
+                     </td>
+                 </tr>
+
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staffModal" id="addStaff">Staff Assign</button>
+            </div>
+        </div>
+
+
+
+</div>
+<script>
+    function updateStaffRole(obj, role) {
+        var staffId = obj.getAttribute("data-id");
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/update-staff/';
+        const hiddenField = document.createElement('input');
+        hiddenField.type = 'hidden';
+        hiddenField.name = 'staffId';
+        hiddenField.value = staffId;
+        form.appendChild(hiddenField);
+        const hiddenField2 = document.createElement('input');
+        hiddenField2.type = 'hidden';
+        hiddenField2.name = 'role';
+        hiddenField2.value = role;
+        form.appendChild(hiddenField2);
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
+</body>
+</html>
