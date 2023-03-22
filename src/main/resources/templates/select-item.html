@@ -17,7 +17,9 @@
       <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                <div class="row gx-4 gx-lg-5 align-items-center">
-                     <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0 prodimg" th:src="${product.imagePath}" width="700" height="600" alt="..." /></div>
+                     <div class="col-md-6">
+                         <img class="card-img-top mb-5 mb-md-0 prodimg" th:src="${'images/products/' + product.imagePath}" width="700" height="600" alt="..." />
+                     </div>
                      <div class="col-md-6">
                         <h1 class="display-5 fw-bolder" th:text="${product.name}"></h1> 
                            <div class="fs-5 mb-5">
@@ -26,11 +28,16 @@
                            <p class="lead" th:text="${product.description}"></p>
                            <div class="d-flex">
                               <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem"/>
-                              <button class="btn btn-outline-dark flex-shrink-0" type="button" th:data-id="${product.id}" onclick="addToCartItem(this)">
+                              <button class="btn btn-outline-dark flex-shrink-0" type="button" th:data-id="${product.id}" onclick="addToCartItem(this)" th:if="${product.stock gt 0 }">
                                  <i class="bi-cart-fill me-1"></i>
                                  Add to cart
                               </button>
-                           </div>
+
+                               <button class="btn btn-outline-dark flex-shrink-0" type="button" th:if="${product.stock le 0 }">
+                                   Out of stock
+                               </button>
+                           </div><br>
+                         <div class="alert alert-danger" role="alert" th:if="${product.stock lt 6 and product.stock ne 0 }" style="width:45%;"> Low Stock </div>
                      </div>
                </div>
             </div>
