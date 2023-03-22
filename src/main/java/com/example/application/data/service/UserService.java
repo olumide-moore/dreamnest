@@ -56,5 +56,6 @@ public class UserService {
         return userRepository.getById(id);
     }
 
+    public List<User> getAllStaff(){return userRepository.getAllStaff();}
 
 }
