@@ -20,33 +20,35 @@
         <h1 class="underline">Contact Us!</h1>
     </div>
 
-    <div class="row">
+    <div class="row pb-4">
         <div class="col-7 shadow rounded">
             <div class="row">
+                <form onSubmit="alert('Your message has been sent.')"> <!-- browser alert confirmation message-->
                 <div class="col mb-3">
-                    <label class="form-label" style="color:black;">First Name: *</label>
-                    <input type="text" class="form-control" placeholder="First Name">
+                        <label class="form-label" style="color:black;">First Name: *</label>
+                        <input type="text" class="form-control" placeholder="First Name" required>
+                    </div>
+                    <div class="col mb-3">
+                        <label class="form-label" style="color:black;">Last Name: *</label>
+                        <input type="text" class="form-control" placeholder="Last Name" required>
+                    </div>
                 </div>
-                <div class="col mb-3">
-                    <label class="form-label" style="color:black;">Last Name: *</label>
-                    <input type="text" class="form-control" placeholder="Last Name">
+                <div class="mb-3">
+                    <label class="form-label" style="color:black;">Email: *</label>
+                    <input type="email" class="form-control" placeholder="Name@Example.com" required>
                 </div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" style="color:black;">Email: *</label>
-                <input type="text" class="form-control" placeholder="Name@Example.com">
-            </div>
-            <div class="mb-3">
-                <label class="form-label" style="color:black;">Order Number (Optional): </label>
-                <input type="text" class="form-control" placeholder="XXXX-XXXX-XXXX">
-            </div>
-            <div class="mb-3">
-                <label class="form-label" style="color:black;">Message: *</label>
-                <input type="text" class="form-control" placeholder="Type Message here...">
-            </div>
-            <div class="mb-3">
-                <button type="button" class="btn btn-dark">Submit</button>
-            </div>
+                <div class="mb-3">
+                    <label class="form-label" style="color:black;">Order Number (Optional): </label>
+                    <input type="number" class="form-control" placeholder="XXXX-XXXX-XXXX" >
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" style="color:black;">Message: *</label>
+                    <input type="text" class="form-control" placeholder="Type Message here..." required>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-dark">Submit</button>
+                </div>
+                </form>
             <!-- <div class="mb-3 fa-3x">
                 <a href="https://www.facebook.com/"><i class="fab fa-facebook-f" style="color:black"></i></a>
                 <a href="https://www.twitter.com/"><i class="fab fa-twitter" style="color:black"></i></a>

@@ -73,8 +73,15 @@
                      <!-- Product actions-->
                      <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                         <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:data-id="${product.id}"
-                              onclick="addToCart(this)">Add to cart</a></div>
+                              onclick="addToCart(this)" th:if="${product.stock gt 0 }">Add to cart</a></div>
                      </div>
+
+                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center">
+                           <div class="alert alert-danger" role="alert" th:if="${product.stock le 0 }"> Out Of Stock </div>
+                        </div>
+                     </div>
+
 
 
                   </div>

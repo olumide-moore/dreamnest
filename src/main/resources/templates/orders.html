@@ -34,7 +34,7 @@
                  <tr><td colspan="6"></td></tr>
                 <tr th:each="item : ${order.getOrderItems()}" th:with="product=${products.get(item.product_id)}">
                     <th:block th:if="${product !=null}">
-                        <td><img th:src="${product.imagePath}" th:if="${product.imagePath!=''}" width="80" height="75" alt="Product Image"></td>
+                        <td><img th:src="${'images/products/' + product.imagePath}" th:if="${product.imagePath!=''}" width="80" height="75" alt="Product Image"></td>
                         <td th:text="${product.name}" ></td> 
                     </th:block>
                     <td th:text="${item.quantity}"></td>
