@@ -7,43 +7,116 @@
 </head>
 
 <body>
+<link rel="stylesheet" th:href="@{/css/edit-orders.css}">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <header th:replace="base.html :: header">
     </header>
+<h1>Orders Management</h1>
+<div>
+    <select id="statusSelect" onchange="filterTableByStatus()">
+        <option value="">Filter by status...</option>
+        <option value="Received">Received</option>
+        <option value="Processed">Processing</option>
+        <option value="Shipped">Shipped</option>
+        <option value="Delivered">Delivered</option>
+        <option value="Cancelled">Cancelled</option>
+    </select>
+</div>
 <div class="container mt-5">
-    <h1>Orders</h1>
+
     <table class="table table-bordered mt-4">
-        <thead>
+        <thead th:if="${orders !=null and not orders.isEmpty()}">
         <tr>
-            <th>Order ID</th>
-            <th>Date</th>
-            <th>Customer Name</th>
+            <th>ID</th>
+            <th>Customer</th>
+            <th>Order placed</th>
+            <th>Products</th>
+            <th>Total</th>
             <th>Status</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-            <td>001</td>
-            <td>2023-03-01</td>
-            <td>John Doe</td>
-            <td><span class="badge badge-success">Delivered</span></td>
-        </tr>
-        <tr>
-            <td>002</td>
-            <td>2023-03-05</td>
-            <td>Jane Smith</td>
-            <td><span class="badge badge-warning">In Progress</span></td>
-        </tr>
-        <tr>
-            <td>003</td>
-            <td>2023-03-10</td>
-            <td>Bob Johnson</td>
-            <td><span class="badge badge-danger">Cancelled</span></td>
-        </tr>
+        <tbody id="orderTable">
+            <tr th:if="${orders != null and orders.isEmpty()}">
+                <td colspan="8" class="text-center">No orders found</td>
+            </tr>
+            <tr th:if="${orders != null and not orders.isEmpty()}" th:each="order : ${orders}" th:with="customer=${users.get(order.user_id)}">
+                <td th:text="${order.id}"></td>
+                <td th:text="${customer.firstName + ' '+customer.lastName}"></td>
+                <td th:text="${#dates.format(order.date, 'yyyy-MM-dd')}"></td>
+                <td>
+                    <ul th:each="item : ${order.getOrderItems()}" th:with="product=${products.get(item.product_id)}">
+                        <li th:text="${product.name +' - ' +item.quantity +'x'}"></li>
+                    </ul>
+                </td>
+                <td th:text="${order.total}"></td>
+                <td>
+                    <th:block th:switch="${order.status.name()}">
+                        <span th:case="Received" class="badge badge-pill badge-secondary" th:text="${order.status}"></span>
+                        <span th:case="Processed" class="badge badge-pill badge-warning" th:text="${order.status}"></span>
+                        <span th:case="Shipped" class="badge badge-pill badge-warning" style="background-color: brown;" th:text="${order.status}"></span>
+                        <span th:case="Delivered" class="badge badge-pill badge-success" th:text="${order.status}"></span>
+                        <span th:case="Cancelled" class="badge badge-pill badge-danger" th:text="${order.status}"></span>
+                    </th:block>
+
+                    <select  th:onchange="updateOrderStatus(this, this.value)" th:data-id="${order.id}">
+                        <option th:value="'Received'" th:text="Received" th:selected="${order.status.name() == 'Received'}"></option>
+                        <option th:value="'Processed'" th:text="Processed" th:selected="${order.status.name() == 'Processed'}"></option>
+                        <option th:value="'Shipped'" th:text="Shipped" th:selected="${order.status.name() == 'Shipped'}"></option>
+                        <option th:value="'Delivered'" th:text="Delivered" th:selected="${order.status.name() == 'Delivered'}"></option>
+                        <option th:value="'Cancelled'" th:text="Cancelled" th:selected="${order.status.name() == 'Cancelled'}"></option>
+                    </select>
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>
 
+<script>
+    function updateOrderStatus(obj, status) {
+        var orderId = obj.getAttribute("data-id");
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/update-orders/';
+        const hiddenField = document.createElement('input');
+        hiddenField.type = 'hidden';
+        hiddenField.name = 'orderId';
+        hiddenField.value = orderId;
+        form.appendChild(hiddenField);
+        const hiddenField2 = document.createElement('input');
+        hiddenField2.type = 'hidden';
+        hiddenField2.name = 'status';
+        hiddenField2.value = status;
+        form.appendChild(hiddenField2);
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    // Filter table by status
+    function filterTableByStatus() {
+        // Declare variables
+        var select, filter, table, tr, td, i;
+        select = document.getElementById("statusSelect");
+        filter = select.value.toUpperCase();
+        tbody = document.getElementById("orderTable");
+        tr = tbody.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the selected option
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[5];
+            if (td) {
+                if (filter === "" || td.getElementsByTagName("select")[0].value.toUpperCase() === filter) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+
+
+</script>
 <!-- Include Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
