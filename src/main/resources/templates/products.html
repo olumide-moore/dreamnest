@@ -1,87 +1,97 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-   <head th:replace="base.html :: head(title='Products')"></head>
-
-      
-   <body>
-         <!-- Bootstrap icons-->
-         <link rel="stylesheet" th:href="@{/css/productstyles.css}">
-
-     <header th:replace="base.html :: header"></header>
+<head th:replace="base.html :: head(title='Products')"></head>
 
 
-      <h1 class="title"><strong th:text="${category}"></strong></h1>
-      <br>
+<body>
+   <!-- Bootstrap icons-->
+   <link rel="stylesheet" th:href="@{/css/productstyles.css}">
 
-      <div id="product_category">
-         <div class="cat_button"><a th:href="@{/products}"><button class="btn-outline-secondary" th:onclick="@{/products}"> All </button></a></div>
-         <div class="cat_button"><button class="btn-outline-secondary" onclick="category_button('plants')"> Plants </button></div>
-         <div class="cat_button"><button class="btn-outline-secondary" onclick="category_button('lights')"> Lights </button></div>
-         <div class="cat_button"><button class="btn-outline-secondary" onclick="category_button('lamps')"> Lamps </button></div>
-         <div class="cat_button"><button class="btn-outline-secondary" onclick="category_button('artworks')"> Artworks </button></div>
-         <div class="cat_button"><button class="btn-outline-secondary" onclick="category_button('candles')"> Candles </button></div>
+   <header th:replace="base.html :: header"></header>
+
+
+   <h1 class="title"><strong th:text="${category}"></strong></h1>
+   <br>
+
+   <div id="product_category">
+      <div class="cat_button"><a th:href="@{/products}"><button class="btn-outline-secondary" th:onclick="@{/products}">
+               All </button></a></div>
+      <div class="cat_button"><button class="btn-outline-secondary" onclick="category_button('plants')"> Plants
+         </button></div>
+      <div class="cat_button"><button class="btn-outline-secondary" onclick="category_button('lights')"> Lights
+         </button></div>
+      <div class="cat_button"><button class="btn-outline-secondary" onclick="category_button('lamps')"> Lamps </button>
       </div>
-      <br>
-      <div id="product_filter">
-       <div class="filter_options">
-        <div class="filter_option" id="sort" onclick="showOptions()" th:text="${filter}"></div>
-        <div class="filter_options_dropdown" id="filter_options_dropdown" style="display: none;">
-        <div class="filter_option" onclick="price_button('lowToHigh'); setLabel('Price (low to high)');">Price (low to high)</div>
-        <div class="filter_option" onclick="price_button2('Hightolow'); setLabel('Price (high to low)');">Price (high to low)</div>
-        <div class="filter_option" onclick="name_order('AtoZ'); setLabel('Name (A - Z)');">Name (A - Z)</div>
-        <div class="filter_option" onclick="name_order2('ZtoA'); setLabel('Name (Z - A)');">Name (Z - A)</div>
+      <div class="cat_button"><button class="btn-outline-secondary" onclick="category_button('artworks')"> Artworks
+         </button></div>
+      <div class="cat_button"><button class="btn-outline-secondary" onclick="category_button('candles')"> Candles
+         </button></div>
+   </div>
+   <br>
+   <div id="product_filter">
+      <div class="filter_options">
+         <div class="filter_option" id="sort" onclick="showOptions()" th:text="${filter}"></div>
+         <div class="filter_options_dropdown" id="filter_options_dropdown" style="display: none;">
+            <div class="filter_option" onclick="price_button('lowToHigh'); setLabel('Price (low to high)');">Price (low
+               to high)</div>
+            <div class="filter_option" onclick="price_button2('Hightolow'); setLabel('Price (high to low)');">Price
+               (high to low)</div>
+            <div class="filter_option" onclick="name_order('AtoZ'); setLabel('Name (A - Z)');">Name (A - Z)</div>
+            <div class="filter_option" onclick="name_order2('ZtoA'); setLabel('Name (Z - A)');">Name (Z - A)</div>
+         </div>
       </div>
-     </div>
-     <div id="search_bar_container">
+      <div id="search_bar_container">
          <input type="text" id="search_bar" onkeyup="search()" placeholder="Search">
-      <div class="bar-icon">
-         <i class="fas fa-search"></i>
+         <div class="bar-icon">
+            <i class="fas fa-search"></i>
+         </div>
       </div>
-     </div>
- </div>
+   </div>
 
-      </div>
+   </div>
 
-         <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-               <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
-                  <div class ="prodmain" th:each="product : ${products}">
-                     <div class="col mb-5">
-                        <div class="card-prod h-100">
-                        <a id="selectable" th:data-id="${product.id}" onclick="selectItem(this)"> 
-                           <!-- Product image-->
-                           <img class="card-img-top" th:src="@{${'images/' + product.imagePath}}" width="450" height="300" th:alt="${product.imagePath}" />
-                           <!-- Product details-->
-                           <div class="card-body p-4">
-                              <div class="text-center">
-                                 <!-- Product name-->
-                                 <h5 class="fw-bolder" th:text="${product.name}"></h5>
-                                 <span class="text-black" th:text="${'£'+product.price}"></span>
-                              </div>
+   <section class="py-5">
+      <div class="container px-4 px-lg-5 mt-5">
+         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
+            <div class="prodmain" th:each="product : ${products}">
+               <div class="col mb-5">
+                  <div class="card-prod h-100">
+                     <a id="selectable" th:data-id="${product.id}" onclick="selectItem(this)">
+                        <!-- Product image-->
+                        <img class="card-img-top" th:src="${'images/products/' + product.imagePath}" width="450" height="300"
+                           th:alt="${product.imagePath}" />
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                           <div class="text-center">
+                              <!-- Product name-->
+                              <h5 class="fw-bolder" th:text="${product.name}"></h5>
+                              <span class="text-black" th:text="${'£'+product.price}"></span>
                            </div>
-                        </a>
-                           <!-- Product actions-->
-                           <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                              <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:data-id="${product.id}"  onclick="addToCart(this)">Add to cart</a></div>
-                           </div>
-
-
                         </div>
+                     </a>
+                     <!-- Product actions-->
+                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:data-id="${product.id}"
+                              onclick="addToCart(this)">Add to cart</a></div>
                      </div>
+
+
                   </div>
                </div>
             </div>
-         </section>
+         </div>
+      </div>
+   </section>
 
-<!-----footer----->
-<footer th:replace="base.html :: footer"></footer>
+   <!-----footer----->
+   <footer th:replace="base.html :: footer"></footer>
 
-      <!-- Bootstrap core JS-->
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-      <!-- Core theme JS-->
-      <script type="text/javascript" th:src="@{/js/prodscript.js}"></script>
+   <!-- Bootstrap core JS-->
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+   <!-- Core theme JS-->
+   <script type="text/javascript" th:src="@{/js/prodscript.js}"></script>
 
-   </body>
+</body>
+
 </html>
