@@ -27,8 +27,8 @@
 			<ul id="navbar">
 				<li th:if="${user==null or user.getRole().name()=='USER'}"><a  th:href="@{/}">Home</a></li>
 				<li th:if="${user==null or user.getRole().name()=='USER'}"><a th:href="@{/products}">Products</a></li>
-				<li th:if="${user==null or user.getRole().name()=='USER'}"><a th:href="@{/aboutus}">About Us</a></li>
-				<li th:if="${user==null or user.getRole().name()=='USER'}"><a th:href="@{/contactus}">Contact</a></li>
+<!--				<li th:if="${user==null or user.getRole().name()=='USER'}"><a th:href="@{/aboutus}">About Us</a></li>-->
+<!--				<li th:if="${user==null or user.getRole().name()=='USER'}"><a th:href="@{/contactus}">Contact</a></li>-->
 <!--                <li th:if="${user==null or user.getRole().name()=='USER'}"><a th:href="@{/basket}"><i class="fa fa-basket-shopping"></i></a></li>-->
                 <li th:if="${user==null or user.getRole().name()=='USER'}"><a th:href="@{/basket}">Basket</a></li>
                 <li th:if="${user==null or user.getRole().name()=='USER'}"><a th:href="@{/orders}">Orders</a></li>
