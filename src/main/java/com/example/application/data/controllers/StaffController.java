@@ -26,44 +26,53 @@ public class StaffController {
 
     @GetMapping("/edit-staff")
     public String editProducts(HttpSession session, Model model) {
-//        User user = (User) session.getAttribute("user");
-//        if(user!=null) {
-//            model.addAttribute("user", user);
-//            if (user.getRole().equals(Role.ADMIN) || user.getRole().equals(Role.EMPLOYEE))
-        model.addAttribute("staffs", userService.getAllStaff());
-        return "edit-staff";
-//        }
-//        return "redirect:/";
-
-
+        String page= Authorizer.verifyAdmin(session);
+        if(page==""){
+            model.addAttribute("staffs", userService.getAllStaff());
+            return "edit-staff";
+        }
+         return page;
     }
 
     @PostMapping("/update-staff")
     public String updateStaff(HttpSession session, @RequestParam("staffId") Long staffId, @RequestParam("role") String role) {
-        // String page= Authorizer.verifyStaff(session);
-        // if(page==""){
-        User user = userService.getUserById(staffId);
-        user.setRole(user.getRole().valueOf(role));
-        userService.saveUser(user);
-        return "redirect:/edit-staff";
-        // }
-        // return page;
+         String page= Authorizer.verifyAdmin(session);
+         if(page==""){
+            User user = userService.getUserById(staffId);
+            user.setRole(Role.valueOf(role));
+            userService.saveUser(user);
+            return "redirect:/edit-staff";
+         }
+         return page;
     }
 
     @PostMapping("/delete-staff")
-    public String deleteStaff(Long Id) throws IOException {
-        User user = userService.getUserById(Id);
-        user.setRole(Role.USER);
-        userService.saveUser(user);
-        return "redirect:/edit-staff";
+    public String deleteStaff(HttpSession session,Long Id) throws IOException {
+        String page= Authorizer.verifyAdmin(session);
+        if(page==""){
+
+            User user = userService.getUserById(Id);
+            user.setRole(Role.USER);
+            userService.saveUser(user);
+            return "redirect:/edit-staff";
+        }
+        return page;
     }
 
     @PostMapping("/assign-staff")
     public String assignStaff(HttpSession session, Model model, RedirectAttributes redirectAttributes, @RequestParam("email") String email, @RequestParam("role") String role) {
-        User user = userService.getUserByEmail(email);
-        if (user == null){
-            redirectAttributes.addFlashAttribute("error", "E-mail non-existent.");
+        String page= Authorizer.verifyAdmin(session);
+        if(page==""){
+            User user = userService.getUserByEmail(email);
+            if (user == null){
+                redirectAttributes.addFlashAttribute("error", "An account with " +email+" was not found.");
+            }else{
+                user.setRole(Role.valueOf(role));
+                userService.saveUser(user);
+            }
+            return "redirect:/edit-staff";
         }
-        return "redirect:/edit-staff";
+        return page;
+
     }
 }
