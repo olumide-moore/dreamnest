@@ -10,8 +10,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <header th:replace="base.html :: header">
     </header>
-<div class="container mt-5">
     <h1>Orders</h1>
+        <div th:if="${message != null}" class="alert alert-success" role="alert">
+            <p th:text="${message}"></p>
+        </div>
+<div class="container mt-5">
+    
+    
     <table class="table table-bordered mt-4">
         <thead th:if="${orders !=null and not orders.isEmpty()}">
         <tr>
