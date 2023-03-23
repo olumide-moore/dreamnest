@@ -2,16 +2,13 @@ package com.example.application.data.controllers;
 
 import com.example.application.data.entity.Role;
 import com.example.application.data.entity.User;
-import com.example.application.data.service.AuthService;
 import com.example.application.data.service.UserService;
 
-import com.vaadin.flow.component.UI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 // import org.springframework.web.bind.annotation.*;
@@ -31,11 +28,13 @@ public class AuthController {
 
     @GetMapping("/")
     public String welcome(HttpSession session, Model model) {
-        User user = (User) session.getAttribute("user");
-        if(user!=null) {
-            model.addAttribute("user", user);
+        String page= Authorizer.verifyNotStaff(session); //if not staff go to home page
+        if(page=="") {
+            model.addAttribute("user", session.getAttribute("user"));
+            return "home";
+        }else { //if staff no home page, so direct to edit-products
+            return "redirect:/edit-products";
         }
-        return "home";
 
     }
     @PostMapping("/authenticate") //add session
@@ -93,12 +92,22 @@ public class AuthController {
         }
     }
     @GetMapping("/contactus")
-    public String contactus(){
-        return "contactus";
+    public String contactus(HttpSession session, Model model){
+        String page= Authorizer.verifyNotStaff(session);
+        if(page==""){
+            model.addAttribute("user", session.getAttribute("user"));
+            return "contactus";
+        }
+        return page;
     }
     @GetMapping("/aboutus")
-    public String aboutus(){
-        return "aboutus";
+    public String aboutus(HttpSession session, Model model){
+        String page= Authorizer.verifyNotStaff(session);
+        if(page==""){
+            model.addAttribute("user", session.getAttribute("user"));
+            return "aboutus";
+        }
+        return page;
     }
     @GetMapping("/user")
     public String userClicked(HttpSession session, Model model){
