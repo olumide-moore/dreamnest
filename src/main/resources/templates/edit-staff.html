@@ -32,6 +32,9 @@
         <!-- Products Table -->
         <div class="col-sm-8">
             <h2>Staff Management</h2>
+            <div  th:if="${error}" class="alert alert-danger">
+                <p th:text="${error}"></p>
+            </div>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -54,9 +57,7 @@
                     <td th:text="${staff.email}"></td>
 
                      <td>
-
-
-                         <select  th:onchange="updateStaffRole(this, this.value)" th:data-id="${staff.id}">
+                         <select  th:onchange="updateStaffRole(this, this.value)" th:data-id="${staff.id}" th:disabled="${staff.email eq 'admin@admin.com'}">
                              <option th:value="'ADMIN'" th:text="ADMIN" th:selected="${staff.role.name() == 'ADMIN'}"></option>
                              <option th:value="'EMPLOYEE'" th:text="EMPLOYEE" th:selected="${staff.role.name() == 'EMPLOYEE'}"></option>
                          </select>
@@ -74,9 +75,7 @@
             </div>
         </div>
 </div>
-<!--<div  th:if="${error}" class="alert alert-danger">-->
-<!--    <p th:text="${error}"></p>-->
-<!--</div>-->
+
 <div class="col-sm-4">
     <div class="modal fade" id="staffModal" tabindex="-1" role="dialog" aria-labelledby="staffModalLabel"
          aria-hidden="true">
@@ -90,9 +89,10 @@
                 </div>
                 <div class="modal-body">
                     <form id="staffForm" method="post" enctype="multipart/form-data" th:action="@{/assign-staff}">
-                        <div  th:if="${error}" class="alert alert-danger" id="error">
-                            <p th:text="${error}"></p>
-                        </div>
+<!--                        <div  th:if="${error}" class="alert alert-danger" id="error">-->
+<!--                            <p th:text="${error}"></p>-->
+<!--                        </div>-->
+
                         <div class="form-group">
                             <label for="email">E-mail</label>
                             <input type="email" class="form-control" name="email" id="email" placeholder="Enter e-mail" required>
@@ -101,8 +101,8 @@
                         <div class="form-group">
                             <label for="role">Role</label>
                             <select class="form-control" name="role" id="role" required>
-                                <option value="2">ADMIN</option>
-                                <option value="1">EMPLOYEE</option>
+                                <option value="ADMIN">ADMIN</option>
+                                <option value="EMPLOYEE">EMPLOYEE</option>
                             </select>
                         </div>
                         <input type="submit" class="btn btn-primary" value="Submit">
