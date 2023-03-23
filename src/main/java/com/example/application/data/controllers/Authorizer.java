@@ -40,4 +40,13 @@ public class Authorizer{
         }
             return "";
     }
+
+    public static String verifyNotStaff(HttpSession session){
+        User user = (User) session.getAttribute("user");
+        //If no user is logged in or logged user is a normal user
+        if (user==null || user.getRole().equals(Role.USER)){
+            return  "";
+        }
+        return "redirect:/";
+    }
 }
