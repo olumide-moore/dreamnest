@@ -40,7 +40,8 @@ public class ProductsController {
     private ProductService productservice;
 
     @RequestMapping("/products")
-    public String products(Model model) {
+    public String products(HttpSession session, Model model) {
+        model.addAttribute("user", session.getAttribute("user"));
         model.addAttribute("category", "ALL PRODUCTS");
         model.addAttribute("products",productservice.findAllProduct());
         model.addAttribute("filter", "Sort by:");
@@ -48,24 +49,19 @@ public class ProductsController {
     }
 
     @PostMapping("/category")
-    public String selectCategory(@RequestParam("category") String category, Model model) {
+    public String selectCategory(@RequestParam("category") String category,HttpSession session, Model model) {
         List<Product> products =productservice.findAllProductByCategory(category);
+        model.addAttribute("user", session.getAttribute("user"));
         model.addAttribute("category",category.toUpperCase());
         model.addAttribute("products",products);
         model.addAttribute("filter", "Sort by:");
         return "products";
     }
 
-    // Product controller to update front-end from database
-    //@RequestMapping("/search")
-     //public String productSearch(@RequestParam("name") String name, Model model) {
-    // List<Product> products =productservice.findAllProductByCategory(name);
-     //model.addAttribute( "name", name.toUpperCase());
-    // model.addAttribute("products", products)// return "products";
-
     @PostMapping("/pricelowtohigh")
-    public String selectPrice(Model model) {
+    public String selectPrice(HttpSession session, Model model) {
        List<Product> products =productservice.sortPriceLowToHigh();
+        model.addAttribute("user", session.getAttribute("user"));
         model.addAttribute("category", "ALL PRODUCTS");
         model.addAttribute("products",products);
         model.addAttribute("filter", "Sort by: Price (low to high)");
@@ -73,8 +69,9 @@ public class ProductsController {
     }
 
     @PostMapping("/pricehightolow")
-    public String selectPrice2(Model model) {
+    public String selectPrice2(HttpSession session, Model model) {
        List<Product> products =productservice.sortPriceHighToLow();
+        model.addAttribute("user", session.getAttribute("user"));
         model.addAttribute("category", "ALL PRODUCTS");
         model.addAttribute("products",products);
         model.addAttribute("filter", "Sort by: Price (high to low)");
@@ -82,8 +79,9 @@ public class ProductsController {
     }
 
     @PostMapping("/nameAtoZ")
-    public String selectNameOrder(Model model) {
+    public String selectNameOrder(HttpSession session,Model model) {
        List<Product> products =productservice.sortNameAtoZ();
+        model.addAttribute("user", session.getAttribute("user"));
         model.addAttribute("category", "ALL PRODUCTS");
         model.addAttribute("products",products);
         model.addAttribute("filter", "Sort by: Name (A - Z)");
@@ -91,8 +89,9 @@ public class ProductsController {
     }
 
     @PostMapping("/nameZtoA")
-    public String selectNameOrder2(Model model) {
+    public String selectNameOrder2(HttpSession session, Model model) {
        List<Product> products =productservice.sortNameZtoA();
+        model.addAttribute("user", session.getAttribute("user"));
         model.addAttribute("category", "ALL PRODUCTS");
         model.addAttribute("products",products);
         model.addAttribute("filter", "Sort by: Name (Z - A)");
@@ -160,8 +159,9 @@ public class ProductsController {
     }
 
     @PostMapping("/select-item")
-    public String select_item(Model model, @RequestParam("productId") Long productId){
+    public String select_item(HttpSession session,Model model, @RequestParam("productId") Long productId){
         Product product = productservice.findProductById(productId);
+        model.addAttribute("user", session.getAttribute("user"));
         model.addAttribute("product", product);
         return "select-item";
     }

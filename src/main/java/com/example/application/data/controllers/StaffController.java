@@ -28,6 +28,7 @@ public class StaffController {
     public String editProducts(HttpSession session, Model model) {
         String page= Authorizer.verifyAdmin(session);
         if(page==""){
+            model.addAttribute("user", session.getAttribute("user"));
             model.addAttribute("staffs", userService.getAllStaff());
             return "edit-staff";
         }

@@ -45,6 +45,7 @@ public class OrdersController
                     products.put(productId, productService.findProductById(productId));
                 }
             }
+            model.addAttribute("user", user);
             model.addAttribute("orders",ordersList);
             model.addAttribute("products",products);
             return "orders";
@@ -70,6 +71,8 @@ public class OrdersController
             }
             model.addAttribute("orders",ordersList);
             model.addAttribute("products",products);
+            model.addAttribute("user", session.getAttribute("user"));
+
             model.addAttribute("users",users);
             return "edit-orders";
          }
@@ -134,8 +137,10 @@ public class OrdersController
                 orders.setOrderItems(orderItems); // add orderItems to orders
                 ordersService.save(orders);
                 basketService.deleteAllBasketByUserId(userId);  // delete all basket items
+                redirectAttributes.addFlashAttribute("message", "Your order has been placed!");
                 return ("redirect:/orders");
             } else {
+                model.addAttribute("user", session.getAttribute("user"));
                 model.addAttribute("message", "Your basket is empty");
                 return "basket";
             }
