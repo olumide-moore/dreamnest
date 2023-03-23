@@ -142,7 +142,7 @@ public class ProductsController {
         }
 
     @PostMapping("/update-products")
-    public String updateProducts(HttpSession session, Long id, @RequestParam("name") String name, @RequestParam("category") String category, @RequestParam("price") float price, @RequestParam("stock") int stock, @RequestParam("description") String description, @RequestParam("imagePath") MultipartFile imagePath) throws IOException {
+    public String updateProducts(HttpSession session,@RequestParam("id") Long id, @RequestParam("name") String name, @RequestParam("category") String category, @RequestParam("price") float price, @RequestParam("stock") int stock, @RequestParam("description") String description, @RequestParam("imagePath") MultipartFile imagePath) throws IOException {
         String page= Authorizer.verifyStaff(session);
         if(page==""){
             Product product;
