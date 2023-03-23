@@ -25,20 +25,38 @@
 		<!-----Header----->
 		<div>
 			<ul id="navbar">
-				<li><a  th:href="@{/}">Home</a></li>
-				<li><a th:href="@{/products}">Products</a></li>
-				<li><a th:href="@{/aboutus}">About Us</a></li>
-				<li><a th:href="@{/contactus}">Contact</a></li>
-				 <li><a th:href="@{/user}"><i class="fa-solid fa-user"></i></a></li>
-				<li><a th:href="@{/basket}"><i class="fa fa-basket-shopping"></i></a></li>
-				<li><a th:text="${user!=null ? user.getFirstName() : ''}"></a></li>
+				<li th:if="${user==null or user.getRole().name()=='USER'}"><a  th:href="@{/}">Home</a></li>
+				<li th:if="${user==null or user.getRole().name()=='USER'}"><a th:href="@{/products}">Products</a></li>
+				<li th:if="${user==null or user.getRole().name()=='USER'}"><a th:href="@{/aboutus}">About Us</a></li>
+				<li th:if="${user==null or user.getRole().name()=='USER'}"><a th:href="@{/contactus}">Contact</a></li>
+<!--                <li th:if="${user==null or user.getRole().name()=='USER'}"><a th:href="@{/basket}"><i class="fa fa-basket-shopping"></i></a></li>-->
+                <li th:if="${user==null or user.getRole().name()=='USER'}"><a th:href="@{/basket}">Basket</a></li>
+                <li th:if="${user==null or user.getRole().name()=='USER'}"><a th:href="@{/orders}">Orders</a></li>
+
+                <li th:if="${user!=null and user.getRole().name()!='USER'}"><a th:href="@{/edit-products}">Edit Products</a></li>
+                <li th:if="${user!=null and user.getRole().name()!='USER'}"><a th:href="@{/edit-orders}">Edit Orders</a></li>
+                <li th:if="${user!=null and user.getRole().name()=='ADMIN'}"><a th:href="@{/edit-staff}">Manage Staff</a></li>
+<!--                <li th:if="${user!=null}" th:text="${'Hi ' +user.getFirstName()}"></li>-->
+                <li>
+                    <a th:href="@{/user}">
+                        <i class="fa-solid fa-user"></i>
+                        <span th:if="${user==null}">Login</span>
+                        <span th:unless="${user==null}">Logout</span>
+                    </a>
+                </li>
 
 				<a href="#" id="close"><i class="fa fa-times"></i></a>
 			</ul>
 		</div>
 		<div id="mobile">
-			<a th:href="@{/user}"><i class="fa-solid fa-user"></i></a>
-			<a th:href="@{/basket}"><i class="fa fa-basket-shopping"></i></a>
+
+                <a th:href="@{/user}" style="text-decoration: none;font-size: 16px;font-weight: 600; color: #1a1a1a;">
+                    <i class="fa-solid fa-user"></i>
+                    <span th:if="${user==null}">Login</span>
+                    <span th:unless="${user==null}">Logout</span>
+                </a>
+
+			<a th:if="${user==null or user.getRole().name()=='USER'}" th:href="@{/basket}"><i class="fa fa-basket-shopping"></i></a>
 			<i id="bar" class="fas fa-outdent"></i>
 		</div>
 	</section>
@@ -63,7 +81,7 @@
         </div>
     </div>
 
-    <div class="col">
+    <div class="col" th:if="${user==null or user.getRole().name()=='USER'}">
         <h4>About</h4>
         <a th:href="@{/}">Home Page</a>
         <a th:href="@{/products}">Products Page</a>
@@ -74,8 +92,8 @@
     <div class="col">
         <h4>My Account</h4>
         <a th:href="@{/user}">Sign In</a>
-        <a th:href="@{/basket}">Basket</a>
-        <a href="#">Track My Order</a>
+        <a th:href="@{/basket}" th:if="${user==null or user.getRole().name()=='USER'}">Basket</a>
+        <a href="#" th:if="${user==null or user.getRole().name()=='USER'}">Track My Order</a>
     </div>
 
     <div class="col install">

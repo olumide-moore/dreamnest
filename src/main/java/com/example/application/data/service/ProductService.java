@@ -2,7 +2,6 @@ package com.example.application.data.service;
 
 import com.example.application.data.entity.Product;
 import com.example.application.data.repository.ProductRepository;
-import com.vaadin.flow.component.notification.Notification;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;

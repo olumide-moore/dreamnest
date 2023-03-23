@@ -41,61 +41,90 @@ public class ProductsController {
 
     @RequestMapping("/products")
     public String products(HttpSession session, Model model) {
-        model.addAttribute("user", session.getAttribute("user"));
-        model.addAttribute("category", "ALL PRODUCTS");
-        model.addAttribute("products",productservice.findAllProduct());
-        model.addAttribute("filter", "Sort by:");
-        return "products";
+        String page= Authorizer.verifyNotStaff(session);
+        if(page==""){
+
+            model.addAttribute("user", session.getAttribute("user"));
+            model.addAttribute("category", "ALL PRODUCTS");
+            model.addAttribute("products",productservice.findAllProduct());
+            model.addAttribute("filter", "Sort by:");
+            return "products";
+        }
+        return page;
     }
 
     @PostMapping("/category")
     public String selectCategory(@RequestParam("category") String category,HttpSession session, Model model) {
-        List<Product> products =productservice.findAllProductByCategory(category);
-        model.addAttribute("user", session.getAttribute("user"));
-        model.addAttribute("category",category.toUpperCase());
-        model.addAttribute("products",products);
-        model.addAttribute("filter", "Sort by:");
-        return "products";
+        String page= Authorizer.verifyNotStaff(session);
+        if(page==""){
+            List<Product> products =productservice.findAllProductByCategory(category);
+            model.addAttribute("user", session.getAttribute("user"));
+            model.addAttribute("category",category.toUpperCase());
+            model.addAttribute("products",products);
+            model.addAttribute("filter", "Sort by:");
+            return "products";
+        }
+        return page;
     }
 
     @PostMapping("/pricelowtohigh")
     public String selectPrice(HttpSession session, Model model) {
-       List<Product> products =productservice.sortPriceLowToHigh();
-        model.addAttribute("user", session.getAttribute("user"));
-        model.addAttribute("category", "ALL PRODUCTS");
-        model.addAttribute("products",products);
-        model.addAttribute("filter", "Sort by: Price (low to high)");
-        return "products";
+        String page= Authorizer.verifyNotStaff(session);
+        if(page==""){
+
+            List<Product> products =productservice.sortPriceLowToHigh();
+            model.addAttribute("user", session.getAttribute("user"));
+            model.addAttribute("category", "ALL PRODUCTS");
+            model.addAttribute("products",products);
+            model.addAttribute("filter", "Sort by: Price (low to high)");
+            return "products";
+            }
+            return page;
     }
 
     @PostMapping("/pricehightolow")
     public String selectPrice2(HttpSession session, Model model) {
-       List<Product> products =productservice.sortPriceHighToLow();
-        model.addAttribute("user", session.getAttribute("user"));
-        model.addAttribute("category", "ALL PRODUCTS");
-        model.addAttribute("products",products);
-        model.addAttribute("filter", "Sort by: Price (high to low)");
-        return "products";
+        String page= Authorizer.verifyNotStaff(session);
+        if(page==""){
+
+            List<Product> products =productservice.sortPriceHighToLow();
+            model.addAttribute("user", session.getAttribute("user"));
+            model.addAttribute("category", "ALL PRODUCTS");
+            model.addAttribute("products",products);
+            model.addAttribute("filter", "Sort by: Price (high to low)");
+            return "products";
+        }
+        return page;
     }
 
     @PostMapping("/nameAtoZ")
     public String selectNameOrder(HttpSession session,Model model) {
-       List<Product> products =productservice.sortNameAtoZ();
-        model.addAttribute("user", session.getAttribute("user"));
-        model.addAttribute("category", "ALL PRODUCTS");
-        model.addAttribute("products",products);
-        model.addAttribute("filter", "Sort by: Name (A - Z)");
-        return "products";
+        String page= Authorizer.verifyNotStaff(session);
+        if(page==""){
+
+            List<Product> products =productservice.sortNameAtoZ();
+            model.addAttribute("user", session.getAttribute("user"));
+            model.addAttribute("category", "ALL PRODUCTS");
+            model.addAttribute("products",products);
+            model.addAttribute("filter", "Sort by: Name (A - Z)");
+            return "products";
+        }
+        return page;
     }
 
     @PostMapping("/nameZtoA")
     public String selectNameOrder2(HttpSession session, Model model) {
-       List<Product> products =productservice.sortNameZtoA();
-        model.addAttribute("user", session.getAttribute("user"));
-        model.addAttribute("category", "ALL PRODUCTS");
-        model.addAttribute("products",products);
-        model.addAttribute("filter", "Sort by: Name (Z - A)");
-        return "products";
+        String page= Authorizer.verifyNotStaff(session);
+        if(page==""){
+
+            List<Product> products =productservice.sortNameZtoA();
+            model.addAttribute("user", session.getAttribute("user"));
+            model.addAttribute("category", "ALL PRODUCTS");
+            model.addAttribute("products",products);
+            model.addAttribute("filter", "Sort by: Name (Z - A)");
+            return "products";
+        }
+        return page;
     }
     
 
@@ -159,10 +188,15 @@ public class ProductsController {
     }
 
     @PostMapping("/select-item")
-    public String select_item(HttpSession session,Model model, @RequestParam("productId") Long productId){
-        Product product = productservice.findProductById(productId);
-        model.addAttribute("user", session.getAttribute("user"));
-        model.addAttribute("product", product);
-        return "select-item";
+    public String select_item(HttpSession session,Model model, Long productId){
+        String page= Authorizer.verifyNotStaff(session);
+        if(page=="") {
+            Product product = productservice.findProductById(productId);
+            model.addAttribute("user", session.getAttribute("user"));
+            model.addAttribute("product", product);
+            return "select-item";
+        }
+        return page;
+
     }
 }

@@ -1,31 +1,23 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Product Management</title>
-    <!-- Bootstrap CSS -->
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-          crossorigin="anonymous"> -->
-    <!-- <style>
-        .selected {
-            background-color: #88b9eb;
-        }
-    </style> -->
-    <link rel="stylesheet" href=
-    "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-     
-        <script src=
-    "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
-        </script>
-     
-        <script src=
-    "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js">
-        </script>
+<head th:replace="base.html :: head(title='Products Management')">
 </head>
+
+
 <body>
+<link rel="stylesheet" href=
+        "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<script src=
+                "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+</script>
+
+<script src=
+                "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js">
+</script>
+<header th:replace="base.html :: header">
+</header>
 <div class="container-fluid">
 
     <div class="row">
@@ -126,6 +118,8 @@
     </div>
 
 </div>
+<footer th:replace="base.html :: footer"></footer>
+
 <script>
     //Connect add product button to reset form
     const addProduct = document.getElementById('addProduct');
@@ -163,5 +157,6 @@
     });
     
   </script>
+
 </body>
 </html>

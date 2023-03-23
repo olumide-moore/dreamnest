@@ -3,12 +3,10 @@
       xmlns:th="http://www.thymeleaf.org">
 
 
-<head th:replace="base.html :: head(title='Orders')">
+<head th:replace="base.html :: head(title='Orders Management')">
 </head>
 
 <body>
-<link rel="stylesheet" th:href="@{/css/edit-orders.css}">
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <header th:replace="base.html :: header">
     </header>
@@ -71,6 +69,8 @@
         </tbody>
     </table>
 </div>
+<footer th:replace="base.html :: footer"></footer>
+
 
 <script>
     function updateOrderStatus(obj, status) {
