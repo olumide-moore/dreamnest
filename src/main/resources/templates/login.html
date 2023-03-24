@@ -20,17 +20,17 @@
                     <div class="input-box">
                         <header>Welcome</header>
                         <form th:action="@{/authenticate}" id="myForm" method="post">
-                            <div th:if="${error}" class="alert alert-warning">
+                            <div th:if="${error}" class="alert alert-warning" style="padding:3px 2px;">
                                 <p th:text="${error}"></p>
                             </div>
 
                             <div class="input-field">
-                                <input type="email" class="input" id="email" name="email" th:value="${param.email}" required>
+                                <input type="email" class="input" id="email" name="email" th:value="${param.email}" required onchange="this.setAttribute('value', this.value);">
                                 <label for="email">Email</label>
                             </div>
 
                             <div class="input-field">
-                                <input type="password" class="input" id="password" name="password" th:value="${param.password}" required>
+                                <input type="password" class="input" id="password" name="password" th:value="${param.password}" required onchange="this.setAttribute('value', this.value);">
                                 <label for="password">Password</label>
                             </div>
                             <div class="input-field">
