@@ -53,7 +53,7 @@ function addToCart(div){
  function selectItem(a){
 
     var id = a.getAttribute("data-id");
-     console.log(id);
+     //console.log(id);
  //   alert(id);
  const form = document.createElement('form');
    form.method = 'POST';
