@@ -63,8 +63,6 @@
 
 <!----Card------>
 <h2 class="underline"><strong>Featured</strong></h2>
-
-<div class="prodmain" th:each="product : ${products}">
 <div class="row row-cols-1 row-cols-md-3 g-4">
 	<div class="col">
 		<div class="card h-100">
@@ -74,9 +72,7 @@
 				<p class="card-text">£12<br>Great for home offices or to liven up a living space </p>
 			</div>
 			<div class="text-center">
-				<!---- DOES NOT WORK. NEEDS TO BE FIXED IF POSSIBLE.
-				<a th:data-id="${product.id}" onclick="navigateTo(this)"><button type="button" class="btn btn-primary">Shop</button></a>
-				---->
+				<a th:data-id="21" onclick="navigateTo(this)"><button type="button" class="btn btn-primary">Shop</button></a>
 			</div>
 		</div>
 	</div>
@@ -88,9 +84,7 @@
 				<p class="card-text">£8<br>Buy this vanilla scented candle to brighten up your room and make it smell good</p>
 			</div>
 			<div class="text-center">
-				<!---- DOES NOT WORK. NEEDS TO BE FIXED IF POSSIBLE.
 				<a th:data-id="${25}" onclick="selectItem(this)"><button type="button" class="btn btn-primary">Shop</button></a>
-				---->
 			</div>
 		</div>
 	</div>
@@ -102,9 +96,7 @@
 				<p class="card-text">£12<br>Great for home offices or to liven up a living space</p>
 			</div>
 			<div class="text-center">
-				<!---- DOES NOT WORK. NEEDS TO BE FIXED IF POSSIBLE.
 				<a th:data-id="${9}" onclick="selectItem(this)"><button type="button" class="btn btn-primary">Shop</button></a>
-				---->
 			</div>
 		</div>
 	</div>
@@ -116,9 +108,7 @@
 				<p class="card-text">£12<br>Great for home offices or to liven up a living space.</p>
 			</div>
 			<div class="text-center">
-				<!---- DOES NOT WORK. NEEDS TO BE FIXED IF POSSIBLE.
 				<a th:data-id="${17}" onclick="selectItem(this)"><button type="button" class="btn btn-primary">Shop</button></a>
-				---->
 			</div>
 		</div>
 	</div>
@@ -130,9 +120,7 @@
 				<p class="card-text">£12<br>Great for home offices or to liven up a living space</p>
 			</div>
 			<div class="text-center">
-				<!---- DOES NOT WORK. NEEDS TO BE FIXED IF POSSIBLE.
 				<a th:data-id="${1}" onclick="selectItem(this)"><button type="button" class="btn btn-primary">Shop</button></a>
-				---->
 			</div>
 		</div>
 	</div>
@@ -144,13 +132,10 @@
 				<p class="card-text">£12<br>Great for home offices or to liven up a living space</p>
 			</div>
 			<div class="text-center">
-				<!---- DOES NOT WORK. NEEDS TO BE FIXED IF POSSIBLE.
 				<a th:data-id="${7}" onclick="selectItem(this)"><button type="button" class="btn btn-primary">Shop</button></a>
-				---->
 			</div>
 		</div>
 	</div>
-</div>
 </div>
 
 <!-----Who we are box----->

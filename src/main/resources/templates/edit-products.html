@@ -46,6 +46,8 @@
                     <th>Price</th>
                     <th>Stock</th>
                     <th>Image Path</th>
+                    <th>Featured</th>
+
                     <th></th>
                 </tr>
                 </thead>
@@ -58,6 +60,7 @@
                     <td th:text="${product.price}"></td>
                     <td th:text="${product.stock}"></td>
                     <td th:text="${product.imagePath}"></td>
+                    <td><input type="checkbox" th:data-id="${product.id}" th:checked="${product.featured}" onchange="changeFeatured(this)"></td>
                      <td ><img th:src="${'images/products/' + product.imagePath}" th:if="${product.imagePath!=''}" width="80" height="75" alt="Product Image"></td>
 
                     <!-- <img th:src="@{/images/{imagePath}(imagePath=${product.imagePath})}" alt="image" width="100" height="100"> -->
@@ -132,6 +135,24 @@
 <!--<footer th:replace="base.html :: footer"></footer>-->
 
 <script>
+    //funtionality for the featured button in edit admin
+    function changeFeatured(checked){
+        var id = checked.getAttribute("data-id");
+
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/change-featured';
+
+        var hiddenField = document.createElement('input');
+        hiddenField.type = 'hidden';
+        hiddenField.name = 'productId';
+        hiddenField.value = id;
+        form.appendChild(hiddenField);
+        document.body.appendChild(form);
+        form.submit();
+
+    }
+
     //Connect add product button to reset form
     const addProduct = document.getElementById('addProduct');
     addProduct.addEventListener('click', () => {
