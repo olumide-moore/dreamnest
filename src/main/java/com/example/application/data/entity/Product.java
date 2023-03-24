@@ -11,6 +11,9 @@ public class Product extends AbstractEntity {
     private String category = "";
 
     @NotEmpty
+    private boolean featured = false;
+
+    @NotEmpty
     private String name = "";
 
     private String description="";
