@@ -1,186 +1,196 @@
-body {
-    /* background-color: #f0f0f0; */
-    margin: 0;
-    padding: 0;
-    font-family: 'Open Sans', sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap');
+* {
+    font-family: 'Poppins', sans-serif;
 }
 
-.login-container {
-    position: relative;
-    width: 100%;
-    height: 100vh;
+.wrapper {
+    background: #ececec;
+    padding: 0 20px 0 20px;
+}
+
+.main {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    min-height: 100vh;
 }
 
-.image {
-    width: 100%;
-    max-width: 400px;
-    height: 60%;
-    background-color: #ffffff;
-    overflow: hidden;
-    box-shadow: 0px 0px 10px #000;
+.row {
+    width: 900px;
+    height: 550px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 5px 5px 10px 1px rgba(0, 0, 0, 0.2);
 }
 
-.image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    max-height: 100%;
+.side-image {
+    background-image: url("/images/1.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    border-radius: 10px 0 0 10px;
 }
 
-.form-wrapper {
-    width: 100%;
-    max-width: 400px;
-    height: 60%;
-    background-color: #ffffff;
-    padding-left: 20px;
-    padding-right: 20px;
+.side-image-2 {
+    background-image: url("2.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    border-radius: 10px 0 0 10px;
+}
+
+
+/* img {
+    width: 35px;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+} */
+
+.text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.text p {
+    color: #fff;
+    font-size: 18px;
+}
+
+i {
+    font-weight: 400;
+    font-size: 15px;
+}
+
+.right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.input-box {
+    width: 330px;
+    box-sizing: border-box;
+}
+
+.input-box header {
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 45px;
+    color: #6a11cb
+}
+
+.input-field {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    box-shadow: 0px 0px 10px #000;
-}
-
-.Logo-image {
-    width: 200px;
-    margin: 0 auto;
-    text-align: center;
-    max-width: 80%;
-}
-
-.login-h1 {
-    text-align: center;
-    font-size: 25px;
-    margin-bottom: 30px;
+    position: relative;
+    padding: 0 10px 0 10px;
     color: #6a11cb
 }
 
-.login-h2 {
-    text-align: center;
-    font-size: 15px;
-    margin-bottom: 10px;
-    color: grey
-}
-
-.Forgot-pass {
-    margin-top: 40px;
-    font-size: 15px;
-}
-
-.login-label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: #6a11cb
-}
-
-#myForm input[type="email"],
-#myForm input[type="password"],
-#myForm input[type="text"]{
+.input {
+    height: 45px;
     width: 100%;
-    padding: 10px;
-    border-radius: 3px;
-    border: 1px solid #3631e1;
-    margin-bottom: 20px;
-    box-sizing: border-box;
-    border-radius: 30px;
-    box-shadow: 0px 0px 3.5px #6a11cb;
-}
-
-input[type="submit"] {
-    background-color: #3631e1;
-    color: white;
-    padding: 10px 20px;
+    background: transparent;
     border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 16px;
-    width: 100%;
-    box-shadow: 0px 0px 3.5px #000;
+    border-bottom: 1px solid #3631e1;
+    outline: none;
+    margin-bottom: 20px;
+    color: #6a11cb;
 }
 
-input[type="submit"]:hover {
-    background-color: #3631e1;
+.input-box .input-field label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    pointer-events: none;
+    transition: .5s;
+    color: rgb(134, 133, 138)
 }
 
-.error {
-    color: red;
-    font-size: 12px;
-    margin-top: 5px;
+.input-field .input:focus~label {
+    top: -10px;
+    font-size: 13px;
+    color: #6a11cb
 }
 
+input[type="email" i] {
+    padding: 0px 0px;
+}
 
-/* Media queries */
+.input-field .input:valid~label {
+    top: -10px;
+    font-size: 13px;
+    color: #6a11cb
+}
+
+.input-field .input:focus,
+.input-field .input:valid {
+    border-bottom: 1px solid #743ae1;
+}
+
+.submit {
+    border: none;
+    outline: none;
+    height: 45px;
+    background: #743ae1;
+    border-radius: 5px;
+    transition: .4s;
+    color: white
+}
+
+.submit:hover {
+    background: #3631e1;
+    color: #fff;
+}
+
+.signin {
+    text-align: center;
+    font-size: small;
+    margin-top: 25px;
+}
+
+span a {
+    text-decoration: none;
+    font-weight: 700;
+    color: #000;
+    transition: .5s;
+}
+
+span a:hover {
+    text-decoration: underline;
+    color: #000;
+}
 
 @media only screen and (max-width: 768px) {
-    .container {
-        height: auto;
+    .side-image {
+        border-radius: 10px 10px 0 0;
     }
-    .image,
-    .form-wrapper {
-        width: 100%;
-        max-width: none;
-        height: auto;
+    .side-image-2 {
+        border-radius: 10px 10px 0 0;
     }
-    .image img {
-        height: 100%;
+    img {
+        width: 35px;
+        position: absolute;
+        top: 20px;
+        left: 47%;
     }
-    h1 {
-        font-size: 24px;
-    }
-    input[type="text"],
-    input[type="password"] {
-        font-size: 14px;
-    }
-}
-
-@media only screen and (max-width: 1200px) {
-    .container {
-        position: relative;
-        width: 80%;
-        height: 100vh;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-        /* center container */
-        margin: 0 auto;
-        /* needs to be a little higher */
-    }
-    .image {
-        width: 100%;
-        max-width: 400px;
-        height: 70%;
-        background-color: #ffffff;
-        overflow: hidden;
-        box-shadow: 0px 0px 10px #000;
-    }
-    .image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        max-height: 100%;
-    }
-    .form-wrapper {
-        width: 100%;
-        max-width: 400px;
-        height: 70%;
-        background-color: #ffffff;
-        padding-left: 20px;
-        padding-right: 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+    .text {
+        position: absolute;
+        top: 70%;
         text-align: center;
-        box-shadow: 0px 0px 10px #000;
-        /* make it responsive */
-        max-height: 100%;
     }
-
+    .text p,
+    i {
+        font-size: 17px;
+    }
+    .row {
+        max-width: 420px;
+        width: 100%;
+    }
 }
