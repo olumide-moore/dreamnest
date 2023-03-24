@@ -17,7 +17,7 @@
 
 .row {
     width: 900px;
-    height: 550px;
+    height: 570px;
     border-radius: 10px;
     background: #fff;
     box-shadow: 5px 5px 10px 1px rgba(0, 0, 0, 0.2);
@@ -33,7 +33,7 @@
 }
 
 .side-image-2 {
-    background-image: url("2.jpg");
+    background-image: url("/images/5.jpg");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -119,11 +119,8 @@ i {
     color: #6a11cb
 }
 
-input[type="email" i] {
-    padding: 0px 0px;
-}
 
-.input-field .input:valid~label {
+.input-field .input:not([value=""])~label {
     top: -10px;
     font-size: 13px;
     color: #6a11cb
@@ -174,12 +171,12 @@ span a:hover {
     .side-image-2 {
         border-radius: 10px 10px 0 0;
     }
-    img {
+    /* img {
         width: 35px;
         position: absolute;
         top: 20px;
         left: 47%;
-    }
+    } */
     .text {
         position: absolute;
         top: 70%;
