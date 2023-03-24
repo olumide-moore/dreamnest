@@ -3,6 +3,7 @@ package com.example.application.data.controllers;
 import com.example.application.data.entity.Role;
 import com.example.application.data.entity.User;
 import com.example.application.data.entity.Product;
+import com.example.application.data.repository.ProductRepository;
 import com.example.application.data.service.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,8 @@ public class ProductsController {
     // @Autowired
     @Autowired
     private ProductService productservice;
+    @Autowired
+    private ProductRepository productRepository;
 
     @RequestMapping("/products")
     public String products(HttpSession session, Model model) {
@@ -164,6 +167,17 @@ public class ProductsController {
                 product.setImagePath(imageUUID);
             }
 
+            productservice.saveProduct(product);
+            return "redirect:/edit-products";
+        }
+        return page;
+    }
+    @PostMapping("/change-featured")
+    public String changeFeature(HttpSession session, @RequestParam("productId") Long productId, @RequestParam("isChecked") boolean isChecked ){
+        String page= Authorizer.verifyStaff(session);
+        if(page==""){
+            Product product=productservice.findProductById(productId);
+            product.setFeatured(isChecked);
             productservice.saveProduct(product);
             return "redirect:/edit-products";
         }

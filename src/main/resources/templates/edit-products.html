@@ -28,7 +28,6 @@
 <header th:replace="base.html :: header">
 </header>
 <div class="container-fluid">
-
     <div class="row">
         <!-- Products Table -->
         <div class="col-sm-8">
@@ -47,24 +46,23 @@
                     <th>Stock</th>
                     <th>Image Path</th>
                     <th>Featured</th>
-
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
 
                  <tr class="selectable" th:each="product : ${products}" th:data-id="${product.id}">
-                    <td th:text="${product.name}"></td>
-                    <td th:text="${product.description}"></td>
-                    <td th:text="${product.category}"></td>
-                    <td th:text="${product.price}"></td>
-                    <td th:text="${product.stock}"></td>
-                    <td th:text="${product.imagePath}"></td>
+                    <td style="vertical-align: middle;" th:text="${product.name}"></td>
+                    <td style="vertical-align: middle;" th:text="${product.description}"></td>
+                    <td style="vertical-align: middle;" th:text="${product.category}"></td>
+                    <td style="vertical-align: middle;" th:text="${product.price}"></td>
+                     <td style="vertical-align: middle;"><p  th:text="${product.stock}" th:class="${product.stock<6} ? 'btn btn-danger' : ''"  th:style="${product.stock<6} ? ' color:white;' : ''"></p></td>
+                    <td style="vertical-align: middle;" th:text="${product.imagePath}"></td>
                     <td><input type="checkbox" th:data-id="${product.id}" th:checked="${product.featured}" onchange="changeFeatured(this)"></td>
                      <td ><img th:src="${'images/products/' + product.imagePath}" th:if="${product.imagePath!=''}" width="80" height="75" alt="Product Image"></td>
 
                     <!-- <img th:src="@{/images/{imagePath}(imagePath=${product.imagePath})}" alt="image" width="100" height="100"> -->
-                     <td>
+                     <td style="vertical-align: middle;">
                          <form th:action="@{/delete-products}" method="post">
 <!--                             <div style="display:flex; justify-content:space-around;">-->
                              <button type="button" class="btn btn-sm btn-primary" style="width:unset;" data-toggle="modal" data-target="#productModal">Edit</button>
@@ -74,7 +72,6 @@
                      </td></tr>
                 </tbody>
             </table>
-
         </div>
 
         <!-- Add/Edit Product Form -->
@@ -136,8 +133,9 @@
 
 <script>
     //funtionality for the featured button in edit admin
-    function changeFeatured(checked){
-        var id = checked.getAttribute("data-id");
+    function changeFeatured(check){
+        var id = check.getAttribute("data-id");
+        var isChecked= check.checked;
 
         const form = document.createElement('form');
         form.method = 'POST';
@@ -148,16 +146,23 @@
         hiddenField.name = 'productId';
         hiddenField.value = id;
         form.appendChild(hiddenField);
+
+        var hiddenField = document.createElement('input');
+        hiddenField.type = 'hidden';
+        hiddenField.name = 'isChecked';
+        hiddenField.value = isChecked;
+        form.appendChild(hiddenField);
         document.body.appendChild(form);
         form.submit();
-
     }
 
     //Connect add product button to reset form
     const addProduct = document.getElementById('addProduct');
+    if (addProduct){
     addProduct.addEventListener('click', () => {
         document.getElementById('productForm').reset();
     });
+    }
 
     const rows = document.querySelectorAll('.selectable');
   

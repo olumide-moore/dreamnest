@@ -10,7 +10,7 @@ public class Product extends AbstractEntity {
     @NotEmpty
     private String category = "";
 
-    @NotEmpty
+    @NotNull
     private boolean featured = false;
 
     @NotEmpty
@@ -80,9 +80,18 @@ public class Product extends AbstractEntity {
         this.imagePath = imagePath;
     }
 
+
+    public boolean isFeatured() {
+        return featured;
+    }
+
+    public void setFeatured(boolean featured) {
+        this.featured = featured;
+    }
     public Product(){
 
     }
+
 
 
     public String toString() {
@@ -93,6 +102,7 @@ public class Product extends AbstractEntity {
                 ", price=" + price +
                 ", stock=" + stock +
                 ", imagePath='" + imagePath + '\'' +
+                ", featured='" + featured + '\'' +
                 '}';
     }
 }
