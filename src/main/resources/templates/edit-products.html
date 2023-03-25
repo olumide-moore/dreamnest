@@ -118,7 +118,7 @@
                                     <label for="imagePath">Image Path</label>
                                     <input type="file" class="form-control" id="imagePath" name="imagePath" placeholder="Enter image path" accept="image/*" th:disabled="${user.role.name() != 'ADMIN'}">
                                 </div>
-                                <input type="hidden" id="id" name="id">
+                                <input type="hidden" id="id" name="id" value=-1>
                                 <input type="submit" class="btn btn-primary" value="Submit">
                             </form>
                        </div>
