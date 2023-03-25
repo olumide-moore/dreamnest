@@ -10,6 +10,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface BasketRepository extends JpaRepository<Basket, Long> {
+    @Query("select count(b) from Basket b where b.user_id = ?1")
+    long countByUser_id(Long user_id);
     @Transactional
     @Modifying
     @Query("delete from Basket b where b.user_id = ?1")
