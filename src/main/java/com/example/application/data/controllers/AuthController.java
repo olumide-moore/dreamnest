@@ -1,7 +1,10 @@
 package com.example.application.data.controllers;
 
+import com.example.application.data.entity.Basket;
 import com.example.application.data.entity.Role;
 import com.example.application.data.entity.User;
+import com.example.application.data.service.BasketService;
+import com.example.application.data.service.ProductService;
 import com.example.application.data.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,16 +24,26 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ProductService productService;
+
+    @Autowired
+    private BasketService basketService;
+
     public AuthController(UserService userService){
         this.userService= userService;
     }
-
 
     @GetMapping("/")
     public String welcome(HttpSession session, Model model) {
         String page= Authorizer.verifyNotStaff(session); //if not staff go to home page
         if(page=="") {
+            model.addAttribute("featuredProducts", productService.findaAllFeaturedProduct());
             model.addAttribute("user", session.getAttribute("user"));
+            if (Authorizer.isUserLoggedIn(session)){
+                User user= (User) session.getAttribute("user");
+                model.addAttribute("basketCount", basketService.countProductForUser(user.getId()));
+            }
             return "home";
         }else { //if staff no home page, so direct to edit-products
             return "redirect:/edit-products";
@@ -96,6 +109,10 @@ public class AuthController {
         String page= Authorizer.verifyNotStaff(session);
         if(page==""){
             model.addAttribute("user", session.getAttribute("user"));
+            if (Authorizer.isUserLoggedIn(session)){
+                User user= (User) session.getAttribute("user");
+                model.addAttribute("basketCount", basketService.countProductForUser(user.getId()));
+            }
             return "contactus";
         }
         return page;
@@ -105,6 +122,10 @@ public class AuthController {
         String page= Authorizer.verifyNotStaff(session);
         if(page==""){
             model.addAttribute("user", session.getAttribute("user"));
+            if (Authorizer.isUserLoggedIn(session)){
+                User user= (User) session.getAttribute("user");
+                model.addAttribute("basketCount", basketService.countProductForUser(user.getId()));
+            }
             return "aboutus";
         }
         return page;
