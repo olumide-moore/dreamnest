@@ -7,17 +7,22 @@
 <body>
 <header th:replace="base.html :: header">
 </header>
-<link rel="stylesheet" href=
-        "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-<script src=
-                "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
 </script>
 
 <script src=
                 "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js">
 </script>
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
 
+<style>
+    @import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap");
+    * {
+        font-family: 'Montserrat', 'Open Sans', sans-serif, Calibri, Helvetica;
+    }
+</style>
 <div class="container-fluid">
 
     <div class="row">
@@ -27,6 +32,8 @@
             <div  th:if="${error}" class="alert alert-danger">
                 <p th:text="${error}"></p>
             </div>
+            <!-- <div class="table-responsive"> -->
+
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -40,11 +47,23 @@
                 <tbody>
 
                  <tr class="selectable" th:each="staff : ${staffs}" th:data-id="${staff.id}">
-                     <td><th:block th:switch="${staff.role.name()}">
-                         <span th:case="ADMIN" class="badge badge-pill badge-danger" th:text="${staff.role}"></span>
-                         <span th:case="EMPLOYEE" class="badge badge-pill badge-warning" th:text="${staff.role}"></span>
-                     </th:block>
-                     </td>
+                     
+                      <td>
+                        <th:block th:switch="${staff.role.name()}">
+                          <span th:case="ADMIN">
+                            <span class="badge badge-pill bg-danger">
+                              <i class="fa fa-user-shield"></i> <span th:text="${staff.role}"></span>
+                            </span>
+                          </span>
+                          <span th:case="EMPLOYEE">
+                            <span class="badge badge-pill bg-primary">
+                              <i class="fa fa-user"></i> <span th:text="${staff.role}"></span>
+                            </span>
+                          </span>
+                        </th:block>
+                      </td>
+                      
+                      
                      <td th:text="${staff.firstName+' '+ staff.lastName}"></td>
                     <td th:text="${staff.email}"></td>
 
@@ -63,6 +82,7 @@
 
                 </tbody>
             </table>
+            <!-- </div> -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staffModal" id="addStaff">Staff Assign</button>
             </div>
         </div>

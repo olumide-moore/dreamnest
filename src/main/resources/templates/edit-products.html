@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<!--<head th:replace="base.html :: head(title='Products Management')">-->
-<!--</head>-->
-<head>
+<head th:replace="base.html :: head(title='Products Management')">
+</head>
+<body>
 
-    <link rel="stylesheet" th:href="@{/css/headfoot.css}">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
 
@@ -21,9 +20,12 @@
     <script src=
                     "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js">
     </script>
-</head>
-
-<body>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap");
+        * {
+            font-family: 'Montserrat', 'Open Sans', sans-serif, Calibri, Helvetica;
+        }
+    </style>
 
 <header th:replace="base.html :: header">
 </header>
@@ -31,14 +33,13 @@
     <div class="row">
         <!-- Products Table -->
         <div class="col-sm-8">
-            <div style="display:flex; align-items: center; justify-content: space-around; margin:5px;">
-                <h2 style="margin-right: 10px;">Products Admin</h2>
-            </div>
+                <h2 >Products Admin</h2>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productModal" id="addProduct" style="margin-top: 20px; width:unset;" th:if="${user.role.name() == 'ADMIN'}">New Product</button>
-
+            <!-- <div class="table-responsive"> -->
             <table class="table table-striped">
                 <thead>
                 <tr>
+                    <th></th>
                     <th>Name</th>
                     <th>Description</th>
                     <th>Category</th>
@@ -52,11 +53,14 @@
                 <tbody>
 
                  <tr class="selectable" th:each="product : ${products}" th:data-id="${product.id}">
+                    <td style="vertical-align: middle;"><p><span  style="background: rgba(247, 72, 72, 0.8);" class="badge badge-pill bg" th:if="${product.stock<6}"> Low Stock <i class="fas fa-exclamation-circle"></i></span></p></td>
                     <td style="vertical-align: middle;" th:text="${product.name}"></td>
                     <td style="vertical-align: middle;" th:text="${product.description}"></td>
                     <td style="vertical-align: middle;" th:text="${product.category}"></td>
                     <td style="vertical-align: middle;" th:text="${product.price}"></td>
-                     <td style="vertical-align: middle;"><p  th:text="${product.stock}" th:class="${product.stock<6} ? 'btn btn-danger' : ''"  th:style="${product.stock<6} ? ' color:white;' : ''"></p></td>
+                     <td  style="vertical-align: middle;"><p  th:text="${product.stock}"></p></td>
+                     <!-- <td th:if="${product.stock<6}" style="vertical-align: middle;"><p  th:text="${product.stock}" th:class="btn btn-danger"  th:style="color:white"></p><p><span class="low-stock-alert"><i class="fas fa-exclamation-circle"></i> Low stock!</span></p></td>
+                     <td th:less="${product.stock<6}" style="vertical-align: middle;"><p  th:text="${product.stock}" th:class="${product.stock<6} ? 'btn btn-danger' : ''"  th:style="${product.stock<6} ? 'color:white;' : ''"></p><p><span class="low-stock-alert"><i class="fas fa-exclamation-circle"></i> Low stock!</span></p></td> -->
                     <td style="vertical-align: middle;" th:text="${product.imagePath}"></td>
                     <td><input type="checkbox" th:data-id="${product.id}" th:checked="${product.featured}" onchange="changeFeatured(this)"></td>
                      <td ><img th:src="${'images/products/' + product.imagePath}" th:if="${product.imagePath!=''}" width="80" height="75" alt="Product Image"></td>
@@ -72,6 +76,8 @@
                      </td></tr>
                 </tbody>
             </table>
+            <!-- </div> -->
+
         </div>
 
         <!-- Add/Edit Product Form -->
@@ -185,11 +191,11 @@
         // Display selected product details in form for editing
         const form = document.getElementById('productForm');
         form.querySelector('#id').value = id;
-        form.querySelector('#name').value = row.querySelector('td:nth-child(1)').textContent;
-        form.querySelector('#description').value = row.querySelector('td:nth-child(2)').textContent;
-        form.querySelector('#category').value = row.querySelector('td:nth-child(3)').textContent;
-        form.querySelector('#price').value = row.querySelector('td:nth-child(4)').textContent;
-        form.querySelector('#stock').value = row.querySelector('td:nth-child(5)').textContent;
+        form.querySelector('#name').value = row.querySelector('td:nth-child(2)').textContent;
+        form.querySelector('#description').value = row.querySelector('td:nth-child(3)').textContent;
+        form.querySelector('#category').value = row.querySelector('td:nth-child(4)').textContent;
+        form.querySelector('#price').value = row.querySelector('td:nth-child(5)').textContent;
+        form.querySelector('#stock').value = row.querySelector('td:nth-child(6)').textContent;
         // form.querySelector('#imagePath').value = imagePath;
       });
     });
