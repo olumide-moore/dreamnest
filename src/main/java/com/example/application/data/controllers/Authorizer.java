@@ -7,7 +7,13 @@ import javax.servlet.http.HttpSession;
 
 
 public class Authorizer{
-
+    public static boolean isUserLoggedIn(HttpSession session){
+        User user = (User) session.getAttribute("user");
+        if (user!=null && user.getRole().equals(Role.USER)){
+            return true;
+        }
+        return false;
+    }
     public static String verifyUser(HttpSession session){
         return verifyAccess(session, Role.USER);
     }
