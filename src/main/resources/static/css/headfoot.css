@@ -1,9 +1,13 @@
 /* General page styling*/
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap");
+
 *{
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: 'Spartan',sans-serif;
+	/* font-family: 'Spartan',sans-serif; */
+    font-family: 'Montserrat', 'Open Sans', sans-serif, Calibri, Helvetica;
+
 }
 
 body{
@@ -231,7 +235,7 @@ body{
 }
 
 .card:hover{
-	transform: scale(1.04);
+	transform: scale(1.035);
 }
 
 .card-footer{
@@ -263,7 +267,8 @@ body{
 
 .who{
 	align-items: center;
-	font-size: 24px;
+	text-align: center;
+	font-size: 19px;
 	padding: 40px;
 	width: 100%;
 	color: #ffffff;
