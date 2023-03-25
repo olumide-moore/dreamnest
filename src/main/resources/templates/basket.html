@@ -25,64 +25,56 @@
 </div>
 
 <div class="container-fluid">
-
-    <div class="row">
-        <!-- Products Table -->
-        <div class="col-sm-8">
-            <!-- <h2>Basket</h2> -->
-   <h1 class="title"><strong>Basket</strong></h1>
-
-
-            <table class="table table-striped">
-                <thead th:if="${basket != null and not basket.isEmpty()}">
-                <tr>
-                    <th></th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
-<!--                    <th>Product Id</th>-->
-<!--                    <th>Quantity</th>-->
-                </tr>
-                </thead>
-                <tbody>
-                  <th:block th:if="${basket != null and basket.isEmpty()}">
-                      <tr>
-                          <td colspan="5" class="text-center">Your basket is empty</td>
-                      </tr>
-                  </th:block>
-                <th:block th:if="${basket!=null and not basket.isEmpty()}">
-               <tr th:each="item : ${basket}" th:data-id="${item.product.id}"  th:with="product=${products.get(item.product.id)}">
-                   <td><img th:src="${'images/products/' + product.imagePath}" th:if="${product.imagePath!=''}" width="80" height="75" alt="Product Image"></td>
-                   <td th:text="${product.name}"></td>
-                   <td th:text="${product.price}"></td>
-                   <td><button class="btn btn-sm btn-secondary" id="minus-btn" onclick = "updateQuantity(this, -1)">-</button><span th:text="${item.quantity}" style="padding: 4px;">
-
-                   </span>   <button class="btn btn-sm btn-secondary" id="plus-btn" onclick = "updateQuantity(this, 1)">+</button>
-                       <button class="btn btn-sm btn-danger" onclick="updateQuantity(this, 0)">Delete</button>
-                   </td>
-                   <td th:text="${product.price * item.quantity}"></td>
+  <div class="row">
+    <div class="col-sm-8">
+          <h1 class="title"><strong>Basket</strong></h1>
+          <table class="table table-striped">
+            <thead th:if="${basket != null and not basket.isEmpty()}">
+              <tr>
+                  <th></th>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <th:block th:if="${basket != null and basket.isEmpty()}">
+                  <tr>
+                      <td colspan="5" class="text-center">Your basket is empty</td>
+                  </tr>
+              </th:block>
+              <th:block th:if="${basket!=null and not basket.isEmpty()}">
+                <tr th:each="item : ${basket}" th:data-id="${item.product.id}"  th:with="product=${products.get(item.product.id)}">
+                  <td><img th:src="${'images/products/' + product.imagePath}" th:if="${product.imagePath!=''}" width="80" height="75" alt="Product Image"></td>
+                  <td th:text="${product.name}"></td>
+                  <td th:text="${product.price}"></td>
+                  <td><button class="btn btn-sm btn-secondary" id="minus-btn" onclick = "updateQuantity(this, -1)">-</button><span th:text="${item.quantity}" style="padding: 4px;">
+                  </span><button class="btn btn-sm btn-secondary" id="plus-btn" onclick = "updateQuantity(this, 1)">+</button>
+                      <button class="btn btn-sm btn-danger" onclick="updateQuantity(this, 0)">Delete</button>
+                  </td>
+                  <td th:text="${product.price * item.quantity}"></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td th:text="${total}"></td></tr>
-                </th:block>
-                </tbody>
-           
-              </table>
-                <div class="row">
-                    <div class="col-sm-6">
-                      <a th:href=@{/products} class="btn btn-sm btn-primary">Continue Shopping</a>
-                    </div>
-                    <div th:if="${basket !=null and not basket.isEmpty()}"class="col-sm-6">
-                      <a th:href="@{/checkout}" class="btn btn-sm btn-success">Checkout</a>
-                    </div>
-                  </div>
-        </div>
-        </div>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td th:text="${total}"></td>
+                </tr>
+              </th:block>
+            </tbody>
+          </table>
+          <div class="row">
+            <div class="col-sm-6">
+              <a th:href=@{/products} class="btn btn-sm btn-primary">Continue Shopping</a>
+            </div>
+            <div th:if="${basket !=null and not basket.isEmpty()}"class="col-sm-6">
+              <a th:href="@{/checkout}" class="btn btn-sm btn-success">Checkout</a>
+            </div>
+          </div>
+    </div>
+  </div>
 </div>
 <!-----footer----->
 <footer th:replace="base.html :: footer"></footer>
@@ -127,5 +119,6 @@
       form.submit();
     }
     </script>
+    
 </body>
 </html>
