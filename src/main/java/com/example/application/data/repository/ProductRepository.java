@@ -14,6 +14,12 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "or lower(c.category) like lower(concat('%', :searchTerm, '%'))")
     List<Product> search(@Param("searchTerm") String searchTerm);
 
+
+    //find all featured products
+    @Query("select c from Product c " +
+            "where c.featured = 1")
+    List<Product> findAllFeaturedProduct();
+
     //find all products by categories
     @Query("select c from Product c " +
             "where c.category = :category")
