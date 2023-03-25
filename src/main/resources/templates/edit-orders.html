@@ -1,75 +1,108 @@
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-
 <head th:replace="base.html :: head(title='Orders Management')">
 </head>
-
 <body>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <header th:replace="base.html :: header">
-    </header>
-<h1>Orders Management</h1>
-<div>
-    <select id="statusSelect" onchange="filterTableByStatus()">
-        <option value="">Filter by status...</option>
-        <option value="Received">Received</option>
-        <option value="Processed">Processing</option>
-        <option value="Shipped">Shipped</option>
-        <option value="Delivered">Delivered</option>
-        <option value="Cancelled">Cancelled</option>
-    </select>
-</div>
-<div class="container mt-5">
+<header th:replace="base.html :: header">
+</header>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-    <table class="table table-bordered mt-4">
-        <thead th:if="${orders !=null and not orders.isEmpty()}">
-        <tr>
-            <th>ID</th>
-            <th>Customer</th>
-            <th>Order placed</th>
-            <th>Products</th>
-            <th>Total</th>
-            <th>Status</th>
-        </tr>
-        </thead>
-        <tbody id="orderTable">
-            <tr th:if="${orders != null and orders.isEmpty()}">
-                <td colspan="8" class="text-center">No orders found</td>
-            </tr>
-            <tr th:if="${orders != null and not orders.isEmpty()}" th:each="order : ${orders}" th:with="customer=${users.get(order.user_id)}">
-                <td th:text="${order.id}"></td>
-                <td th:text="${customer.firstName + ' '+customer.lastName}"></td>
-                <td th:text="${#dates.format(order.date, 'yyyy-MM-dd')}"></td>
-                <td>
-                    <ul th:each="item : ${order.getOrderItems()}" th:with="product=${products.get(item.product_id)}">
-                        <li th:text="${product.name +' - ' +item.quantity +'x'}"></li>
-                    </ul>
-                </td>
-                <td th:text="${order.total}"></td>
-                <td>
-                    <th:block th:switch="${order.status.name()}">
-                        <span th:case="Received" class="badge badge-pill badge-secondary" th:text="${order.status}"></span>
-                        <span th:case="Processed" class="badge badge-pill badge-warning" th:text="${order.status}"></span>
-                        <span th:case="Shipped" class="badge badge-pill badge-warning" style="background-color: brown;" th:text="${order.status}"></span>
-                        <span th:case="Delivered" class="badge badge-pill badge-success" th:text="${order.status}"></span>
-                        <span th:case="Cancelled" class="badge badge-pill badge-danger" th:text="${order.status}"></span>
-                    </th:block>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+</script>
 
-                    <select  th:onchange="updateOrderStatus(this, this.value)" th:data-id="${order.id}">
-                        <option th:value="'Received'" th:text="Received" th:selected="${order.status.name() == 'Received'}"></option>
-                        <option th:value="'Processed'" th:text="Processed" th:selected="${order.status.name() == 'Processed'}"></option>
-                        <option th:value="'Shipped'" th:text="Shipped" th:selected="${order.status.name() == 'Shipped'}"></option>
-                        <option th:value="'Delivered'" th:text="Delivered" th:selected="${order.status.name() == 'Delivered'}"></option>
-                        <option th:value="'Cancelled'" th:text="Cancelled" th:selected="${order.status.name() == 'Cancelled'}"></option>
+<script src=
+                "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js">
+</script>
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
+<style>
+    @import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap");
+* {
+    font-family: 'Montserrat', 'Open Sans', sans-serif, Calibri, Helvetica;
+}
+
+</style>
+
+<div class="container-fluid">
+    
+    <div class="row mx-auto">
+        <!-- Orders Table -->
+        <!-- <div class="col-12"> -->
+        <div class="col-sm-10">
+            <h2>Orders Management</h2>
+            <div  th:if="${error}" class="alert alert-danger">
+                <p th:text="${error}"></p>
+            </div>
+            <div class="col-sm-4">
+               
+                <div class="filter" style="display: flex;justify-content: space-between; align-items: center; width: 230px; margin-top: 40px; margin-bottom: 15px;">
+                    <label for="statusSelect" style="display: inline-block; vertical-align: middle;">Order status:</label>
+                    <select id="statusSelect"  style="width: 120px;height:24px;" onchange="filterTableByStatus()">
+                        <option value="">All</option>
+                        <option value="Received">Received</option>
+                        <option value="Processed">Processing</option>
+                        <option value="Shipped">Shipped</option>
+                        <option value="Delivered">Delivered</option>
+                        <option value="Cancelled">Cancelled</option>
                     </select>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                </div>
+                
+            </div>
+            <!-- <div class="table-responsive"> -->
+            <table class="table table-striped">
+                <thead th:if="${orders !=null and not orders.isEmpty()}">
+                <tr>
+                    <th></th>
+                    <th>ID</th>
+                    <th>Customer</th>
+                    <th>Order Date</th>
+                    <th>Products</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody id="orderTable">
+                    <tr th:if="${orders != null and orders.isEmpty()}">
+                        <td colspan="8" class="text-center">No orders found</td>
+                    </tr>
+                    <tr class="selectable" th:if="${orders != null and not orders.isEmpty()}" th:each="order : ${orders}" th:with="customer=${users.get(order.user_id)}">
+                        <td th:switch="${order.status.name()}">
+                            <span th:case="Received" class="badge badge-pill bg-secondary" th:text="${order.status}"></span>
+                            <span th:case="Processed" class="badge badge-pill bg-warning" th:text="${order.status}"></span>
+                            <span th:case="Shipped" class="badge badge-pill" style="background-color: #a2d8a2;" th:text="${order.status}"></span>
+                            <span th:case="Delivered" class="badge badge-pill bg-success" th:text="${order.status}"></span>
+                            <span th:case="Cancelled" class="badge badge-pill bg-danger" th:text="${order.status}"></span>
+                        </td>
+                        <td th:text="${order.id}"></td>
+                        <td th:text="${customer.firstName + ' '+customer.lastName}"></td>
+                        <td th:text="${#dates.format(order.date, 'yyyy-MM-dd')}"></td>
+                        <td>
+                            <ul th:each="item : ${order.getOrderItems()}" th:with="product=${products.get(item.product_id)}">
+                                <li style="list-style-type: none;"
+                                th:text="${product.name +' - ' +item.quantity +'x'}"></li>
+                            </ul>
+                        </td>
+                        <td th:text="${order.total}"></td>
+                        <td>
+                            
+        
+                            <select  th:onchange="updateOrderStatus(this, this.value)" th:data-id="${order.id}">
+                                <option th:value="'Received'" th:text="Received" th:selected="${order.status.name() == 'Received'}"></option>
+                                <option th:value="'Processed'" th:text="Processed" th:selected="${order.status.name() == 'Processed'}"></option>
+                                <option th:value="'Shipped'" th:text="Shipped" th:selected="${order.status.name() == 'Shipped'}"></option>
+                                <option th:value="'Delivered'" th:text="Delivered" th:selected="${order.status.name() == 'Delivered'}"></option>
+                                <option th:value="'Cancelled'" th:text="Cancelled" th:selected="${order.status.name() == 'Cancelled'}"></option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- </div> -->
+            </div>
+        </div>
 </div>
-<!--<footer th:replace="base.html :: footer"></footer>-->
 
 
 <script>
@@ -103,7 +136,7 @@
 
         // Loop through all table rows, and hide those who don't match the selected option
         for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[5];
+            td = tr[i].getElementsByTagName("td")[6];
             if (td) {
                 if (filter === "" || td.getElementsByTagName("select")[0].value.toUpperCase() === filter) {
                     tr[i].style.display = "";
@@ -118,8 +151,8 @@
 
 </script>
 <!-- Include Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>-->
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>-->
 </body>
 </html>
