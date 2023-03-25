@@ -14,7 +14,6 @@
     
     <script defer type="text/javascript" th:src="@{/js/script.js}"></script>
 
-
     <title th:text="${title}"></title>
 </head>
 
@@ -29,9 +28,15 @@
 				<li th:if="${user==null or user.getRole().name()=='USER'}"><a th:href="@{/products}">Products</a></li>
 <!--				<li th:if="${user==null or user.getRole().name()=='USER'}"><a th:href="@{/aboutus}">About Us</a></li>-->
 <!--				<li th:if="${user==null or user.getRole().name()=='USER'}"><a th:href="@{/contactus}">Contact</a></li>-->
+<!--                <li th:if="${user==null or user.getRole().name()=='USER'}"><a th:href="@{/basket}">Basket</a></li>-->
+                <li th:if="${user!=null and user.getRole().name()=='USER'}"><a th:href="@{/orders}">Orders</a></li>
 <!--                <li th:if="${user==null or user.getRole().name()=='USER'}"><a th:href="@{/basket}"><i class="fa fa-basket-shopping"></i></a></li>-->
-                <li th:if="${user==null or user.getRole().name()=='USER'}"><a th:href="@{/basket}">Basket</a></li>
-                <li th:if="${user==null or user.getRole().name()=='USER'}"><a th:href="@{/orders}">Orders</a></li>
+                <li th:if="${user==null or user.getRole().name()=='USER'}">
+                    <a class="basket_icon" th:href="@{/basket}">
+                        <i class="fa fa-basket-shopping basket-icon"></i>
+                        <span class="basket-badge" th:if="${basketCount!=null and basketCount!=0}" th:text="${basketCount}"></span>
+                    </a>
+                </li>
 
                 <li th:if="${user!=null and user.getRole().name()!='USER'}"><a th:href="@{/edit-products}">Edit Products</a></li>
                 <li th:if="${user!=null and user.getRole().name()!='USER'}"><a th:href="@{/edit-orders}">Edit Orders</a></li>
