@@ -18,6 +18,9 @@ public class BasketService {
         this.basketrepository = basketrepository;
     }
 
+
+    public long countProductForUser(Long userId){ return basketrepository.countByUser_id(userId);
+    }
     public List<Basket> findAllBasket() {
         return basketrepository.findAll();
     }
