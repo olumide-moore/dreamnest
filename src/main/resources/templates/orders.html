@@ -46,11 +46,11 @@
                     <td th:text="${'£' +item.current_price * item.quantity}"></td>
                     <td th:text="${#dates.format(order.date, 'yyyy-MM-dd')}"></td>
                     <td th:switch="${order.status.name()}">
-                        <span th:case="Received" th:text="${order.status}"></span>
-                        <span th:case="Processed" class="badge badge-warning" th:text="${order.status}"></span>
-                        <span th:case="Shipped" class="badge badge-success" th:text="${order.status}"></span>
-                        <span th:case="Delivered" class="badge badge-success" th:text="${order.status}"></span>
-                        <span th:case="Cancelled" class="badge badge-danger" th:text="${order.status}"></span>
+                        <span th:case="Received" class="badge badge-pill badge-secondary" th:text="${order.status}"></span>
+                        <span th:case="Processed" class="badge badge-pill badge-warning" th:text="${order.status}"></span>
+                        <span th:case="Shipped" class="badge badge-pill badge-warning" style="background-color: #a2d8a2;" th:text="${order.status}"></span>
+                        <span th:case="Delivered" class="badge badge-pill badge-success" th:text="${order.status}"></span>
+                        <span th:case="Cancelled" class="badge badge-pill badge-danger" th:text="${order.status}"></span>
                     </td>
                 </tr>
              </th:block>
