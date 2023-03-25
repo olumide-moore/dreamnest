@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <header th:replace="base.html :: header">
     </header>
-    <h1>Orders</h1>
+    <!-- <h1>Orders</h1> -->
+   <h1 class="title"><strong>Orders</strong></h1>
+
         <div th:if="${message != null}" class="alert alert-success" role="alert">
             <p th:text="${message}"></p>
         </div>
