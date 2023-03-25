@@ -61,7 +61,7 @@
                     <span th:unless="${user==null}">Logout</span>
                 </a>
 
-			<a th:if="${user==null or user.getRole().name()=='USER'}" th:href="@{/basket}"><i class="fa fa-basket-shopping"></i></a>
+			<!-- <a th:if="${user==null or user.getRole().name()=='USER'}" th:href="@{/basket}"><i class="fa fa-basket-shopping"></i></a> -->
 			<i id="bar" class="fas fa-outdent"></i>
 		</div>
 	</section>
@@ -98,7 +98,7 @@
         <h4>My Account</h4>
         <a th:href="@{/user}">Sign In</a>
         <a th:href="@{/basket}" th:if="${user==null or user.getRole().name()=='USER'}">Basket</a>
-        <a href="#" th:if="${user==null or user.getRole().name()=='USER'}">Track My Order</a>
+        <a href="#" th:if="${user!=null and user.getRole().name()=='USER'}">Track My Order</a>
     </div>
 
     <div class="col install">
