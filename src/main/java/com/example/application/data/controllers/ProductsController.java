@@ -4,6 +4,7 @@ import com.example.application.data.entity.Role;
 import com.example.application.data.entity.User;
 import com.example.application.data.entity.Product;
 import com.example.application.data.repository.ProductRepository;
+import com.example.application.data.service.BasketService;
 import com.example.application.data.service.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,11 +43,17 @@ public class ProductsController {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private BasketService basketService;
+
     @RequestMapping("/products")
     public String products(HttpSession session, Model model) {
         String page= Authorizer.verifyNotStaff(session);
         if(page==""){
-
+            if (Authorizer.isUserLoggedIn(session)){
+                User user= (User) session.getAttribute("user");
+                model.addAttribute("basketCount", basketService.countProductForUser(user.getId()));
+            }
             model.addAttribute("user", session.getAttribute("user"));
             model.addAttribute("category", "ALL PRODUCTS");
             model.addAttribute("products",productservice.findAllProduct());
@@ -60,6 +67,10 @@ public class ProductsController {
     public String selectCategory(@RequestParam("category") String category,HttpSession session, Model model) {
         String page= Authorizer.verifyNotStaff(session);
         if(page==""){
+            if (Authorizer.isUserLoggedIn(session)){
+                User user= (User) session.getAttribute("user");
+                model.addAttribute("basketCount", basketService.countProductForUser(user.getId()));
+            }
             List<Product> products =productservice.findAllProductByCategory(category);
             model.addAttribute("user", session.getAttribute("user"));
             model.addAttribute("category",category.toUpperCase());
@@ -74,7 +85,10 @@ public class ProductsController {
     public String selectPrice(HttpSession session, Model model) {
         String page= Authorizer.verifyNotStaff(session);
         if(page==""){
-
+            if (Authorizer.isUserLoggedIn(session)){
+                User user= (User) session.getAttribute("user");
+                model.addAttribute("basketCount", basketService.countProductForUser(user.getId()));
+            }
             List<Product> products =productservice.sortPriceLowToHigh();
             model.addAttribute("user", session.getAttribute("user"));
             model.addAttribute("category", "ALL PRODUCTS");
@@ -89,7 +103,10 @@ public class ProductsController {
     public String selectPrice2(HttpSession session, Model model) {
         String page= Authorizer.verifyNotStaff(session);
         if(page==""){
-
+            if (Authorizer.isUserLoggedIn(session)){
+                User user= (User) session.getAttribute("user");
+                model.addAttribute("basketCount", basketService.countProductForUser(user.getId()));
+            }
             List<Product> products =productservice.sortPriceHighToLow();
             model.addAttribute("user", session.getAttribute("user"));
             model.addAttribute("category", "ALL PRODUCTS");
@@ -104,7 +121,10 @@ public class ProductsController {
     public String selectNameOrder(HttpSession session,Model model) {
         String page= Authorizer.verifyNotStaff(session);
         if(page==""){
-
+            if (Authorizer.isUserLoggedIn(session)){
+                User user= (User) session.getAttribute("user");
+                model.addAttribute("basketCount", basketService.countProductForUser(user.getId()));
+            }
             List<Product> products =productservice.sortNameAtoZ();
             model.addAttribute("user", session.getAttribute("user"));
             model.addAttribute("category", "ALL PRODUCTS");
@@ -119,7 +139,10 @@ public class ProductsController {
     public String selectNameOrder2(HttpSession session, Model model) {
         String page= Authorizer.verifyNotStaff(session);
         if(page==""){
-
+            if (Authorizer.isUserLoggedIn(session)){
+                User user= (User) session.getAttribute("user");
+                model.addAttribute("basketCount", basketService.countProductForUser(user.getId()));
+            }
             List<Product> products =productservice.sortNameZtoA();
             model.addAttribute("user", session.getAttribute("user"));
             model.addAttribute("category", "ALL PRODUCTS");
@@ -205,6 +228,10 @@ public class ProductsController {
     public String select_item(HttpSession session,Model model, Long productId){
         String page= Authorizer.verifyNotStaff(session);
         if(page=="") {
+            if (Authorizer.isUserLoggedIn(session)){
+                User user= (User) session.getAttribute("user");
+                model.addAttribute("basketCount", basketService.countProductForUser(user.getId()));
+            }
             Product product = productservice.findProductById(productId);
             model.addAttribute("user", session.getAttribute("user"));
             model.addAttribute("product", product);

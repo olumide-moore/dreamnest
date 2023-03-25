@@ -45,6 +45,7 @@ public class OrdersController
                     products.put(productId, productService.findProductById(productId));
                 }
             }
+            model.addAttribute("basketCount", basketService.countProductForUser(user.getId()));
             model.addAttribute("user", user);
             model.addAttribute("orders",ordersList);
             model.addAttribute("products",products);
@@ -140,6 +141,7 @@ public class OrdersController
                 redirectAttributes.addFlashAttribute("message", "Your order has been placed!");
                 return ("redirect:/orders");
             } else {
+
                 model.addAttribute("user", session.getAttribute("user"));
                 model.addAttribute("message", "Your basket is empty");
                 return "basket";
