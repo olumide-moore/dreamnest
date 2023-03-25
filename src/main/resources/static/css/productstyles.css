@@ -79,7 +79,6 @@
 }
 
 #sort:hover::after {
-  content: " \25BC";
   padding-left: 5px;
   font-size: 0.7em;
   margin-top: 0.3em;
@@ -87,7 +86,6 @@
 }
 
 #sort.dropdown-open::after {
-  content: " \25BC";
   padding-left: 5px;
   font-size: 0.7em;
   margin-top: 0.3em;
@@ -95,10 +93,8 @@
 }
 
 #filter_options_dropdown .filter_option:hover {
-  content: " \25BC";
-  padding-left: 5px;
-  font-size: 0.75em;
-  vertical-align: middle;
+  /* padding-left: 2px; */
+  font-size: 0.99em;
 }
 
 #product_filter .filter_option {
@@ -901,6 +897,7 @@ progress {
 .col {
   flex: 1 0 0%;
 }
+
 
 .row-cols-auto > * {
   flex: 0 0 auto;
