@@ -57,7 +57,7 @@
                     <th></th>
                     <th>ID</th>
                     <th>Customer</th>
-                    <th>Order Date</th>
+                    <th>Date placed</th>
                     <th>Products</th>
                     <th>Total</th>
                     <th>Status</th>
@@ -75,9 +75,9 @@
                             <span th:case="Delivered" class="badge badge-pill bg-success" th:text="${order.status}"></span>
                             <span th:case="Cancelled" class="badge badge-pill bg-danger" th:text="${order.status}"></span>
                         </td>
-                        <td th:text="${order.id}"></td>
+                        <td th:text="${'#'+order.id}"></td>
                         <td th:text="${customer.firstName + ' '+customer.lastName}"></td>
-                        <td th:text="${#dates.format(order.date, 'yyyy-MM-dd')}"></td>
+                        <td th:text="${#dates.format(order.date, 'dd-MM-yyyy')}"></td>
                         <td>
                             <ul th:each="item : ${order.getOrderItems()}" th:with="product=${products.get(item.product_id)}">
                                 <li style="list-style-type: none;"

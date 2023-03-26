@@ -32,11 +32,12 @@
                   <table id="tabfull">
                         <thead th:if="${orders !=null and not orders.isEmpty()}">
                               <tr>
+                              <th>Order</th>
                               <th></th>
                               <th>Item</th>
                               <th>Qty</th>
                               <th>Total</th>
-                              <th>Order placed</th>
+                              <th>Date placed</th>
                               <th>Status</th>
                               </tr>
                         </thead>
@@ -51,12 +52,13 @@
                                     <tr><td colspan="6"></td></tr>
                                     <tr th:each="item : ${order.getOrderItems()}" th:with="product=${products.get(item.product_id)}">
                                           <th:block th:if="${product !=null}">
+                                          <td th:text="${'#'+order.id}"></td>
                                           <td><img th:src="${'images/products/' + product.imagePath}" th:if="${product.imagePath!=''}" width="80" height="75" alt="Product Image"></td>
                                           <td th:text="${product.name}" ></td>
                                           </th:block>
                                           <td th:text="${item.quantity}"></td>
                                           <td th:text="${'£' +item.current_price * item.quantity}"></td>
-                                          <td  th:text="${#dates.format(order.date, 'yyyy-MM-dd')}"></td>
+                                          <td  th:text="${#dates.format(order.date, 'dd-MM-yyyy')}"></td>
                                           <td th:switch="${order.status.name()}">
                                           <span th:case="Received" class="badge badge-pill badge-secondary" th:text="${order.status}"></span>
                                           <span th:case="Processed" class="badge badge-pill badge-warning" th:text="${order.status}"></span>
