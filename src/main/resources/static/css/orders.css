@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap");
+
 /* Root Variable */
 :root {
     --color-primary: #7380ec;
@@ -25,11 +27,14 @@
 }
 
 /* General page styling*/
+
 *{
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: 'Spartan',sans-serif;
+	/* font-family: 'Spartan',sans-serif; */
+    font-family: 'Montserrat', 'Open Sans', sans-serif, Calibri, Helvetica;
+
 }
 
 body{
@@ -94,7 +99,37 @@ body{
 #close{
 	display: none;
 }
+.basket-icon {
+	width: 20px;
+	height: 20px;
+}
 
+.basket-badge {
+	font-size: 10px;
+	font-weight: bold;
+	background-color: #FF0000;
+	color: white;
+	margin: -10px 0 0 10px;
+	padding: 3px;
+	border-radius: 25%;
+	width: 18px;
+	height: 16px;
+	text-align: center;
+	line-height: 1;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.basket_icon {
+	width: 50px;
+	height: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/* border: 1px solid #1a1a1a; */
+	position: relative;
+}
 /*Media query for header*/
 @media (max-width:799px){
 	#navbar{
@@ -144,9 +179,9 @@ body{
 
 /*Title styling*/
 .underline{
-	font-size: 140px;
 	text-align: justify;
-	font-size: 8vw;
+	padding-top: 40px;
+	font-size: 60px;
 	text-align: center;
 	background-image: url(https://images.unsplash.com/photo-1471696035578-3d8c78d99684?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80);
 	background-size: cover;
