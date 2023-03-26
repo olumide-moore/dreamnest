@@ -42,7 +42,7 @@ public class AuthController {
             model.addAttribute("user", session.getAttribute("user"));
             if (Authorizer.isUserLoggedIn(session)){
                 User user= (User) session.getAttribute("user");
-                model.addAttribute("basketCount", basketService.countProductForUser(user.getId()));
+                model.addAttribute("basketCount", basketService.countProductQuantityForUser(user.getId()));
             }
             return "home";
         }else { //if staff no home page, so direct to edit-products
@@ -111,7 +111,7 @@ public class AuthController {
             model.addAttribute("user", session.getAttribute("user"));
             if (Authorizer.isUserLoggedIn(session)){
                 User user= (User) session.getAttribute("user");
-                model.addAttribute("basketCount", basketService.countProductForUser(user.getId()));
+                model.addAttribute("basketCount", basketService.countProductQuantityForUser(user.getId()));
             }
             return "contactus";
         }
@@ -124,7 +124,7 @@ public class AuthController {
             model.addAttribute("user", session.getAttribute("user"));
             if (Authorizer.isUserLoggedIn(session)){
                 User user= (User) session.getAttribute("user");
-                model.addAttribute("basketCount", basketService.countProductForUser(user.getId()));
+                model.addAttribute("basketCount", basketService.countProductQuantityForUser(user.getId()));
             }
             return "aboutus";
         }

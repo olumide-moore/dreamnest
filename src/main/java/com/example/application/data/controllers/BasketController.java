@@ -47,7 +47,7 @@ public class BasketController {
                 total += products.get(productId).getPrice() * basket.getQuantity();
            }
             model.addAttribute("user", user);
-            model.addAttribute("basketCount", basketService.countProductForUser(user.getId()));
+            model.addAttribute("basketCount", basketService.countProductQuantityForUser(user.getId()));
             model.addAttribute("basket",basketList);
             model.addAttribute("products",products);
             model.addAttribute("total",total);
