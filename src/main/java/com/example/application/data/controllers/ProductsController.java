@@ -52,7 +52,7 @@ public class ProductsController {
         if(page==""){
             if (Authorizer.isUserLoggedIn(session)){
                 User user= (User) session.getAttribute("user");
-                model.addAttribute("basketCount", basketService.countProductForUser(user.getId()));
+                model.addAttribute("basketCount", basketService.countProductQuantityForUser(user.getId()));
             }
             model.addAttribute("user", session.getAttribute("user"));
             model.addAttribute("category", "ALL PRODUCTS");
@@ -69,7 +69,7 @@ public class ProductsController {
         if(page==""){
             if (Authorizer.isUserLoggedIn(session)){
                 User user= (User) session.getAttribute("user");
-                model.addAttribute("basketCount", basketService.countProductForUser(user.getId()));
+                model.addAttribute("basketCount", basketService.countProductQuantityForUser(user.getId()));
             }
             List<Product> products =productservice.findAllProductByCategory(category);
             model.addAttribute("user", session.getAttribute("user"));
@@ -87,7 +87,7 @@ public class ProductsController {
         if(page==""){
             if (Authorizer.isUserLoggedIn(session)){
                 User user= (User) session.getAttribute("user");
-                model.addAttribute("basketCount", basketService.countProductForUser(user.getId()));
+                model.addAttribute("basketCount", basketService.countProductQuantityForUser(user.getId()));
             }
             List<Product> products =productservice.sortPriceLowToHigh();
             model.addAttribute("user", session.getAttribute("user"));
@@ -105,7 +105,7 @@ public class ProductsController {
         if(page==""){
             if (Authorizer.isUserLoggedIn(session)){
                 User user= (User) session.getAttribute("user");
-                model.addAttribute("basketCount", basketService.countProductForUser(user.getId()));
+                model.addAttribute("basketCount", basketService.countProductQuantityForUser(user.getId()));
             }
             List<Product> products =productservice.sortPriceHighToLow();
             model.addAttribute("user", session.getAttribute("user"));
@@ -123,7 +123,7 @@ public class ProductsController {
         if(page==""){
             if (Authorizer.isUserLoggedIn(session)){
                 User user= (User) session.getAttribute("user");
-                model.addAttribute("basketCount", basketService.countProductForUser(user.getId()));
+                model.addAttribute("basketCount", basketService.countProductQuantityForUser(user.getId()));
             }
             List<Product> products =productservice.sortNameAtoZ();
             model.addAttribute("user", session.getAttribute("user"));
@@ -141,7 +141,7 @@ public class ProductsController {
         if(page==""){
             if (Authorizer.isUserLoggedIn(session)){
                 User user= (User) session.getAttribute("user");
-                model.addAttribute("basketCount", basketService.countProductForUser(user.getId()));
+                model.addAttribute("basketCount", basketService.countProductQuantityForUser(user.getId()));
             }
             List<Product> products =productservice.sortNameZtoA();
             model.addAttribute("user", session.getAttribute("user"));
@@ -231,7 +231,7 @@ public class ProductsController {
         if(page=="") {
             if (Authorizer.isUserLoggedIn(session)){
                 User user= (User) session.getAttribute("user");
-                model.addAttribute("basketCount", basketService.countProductForUser(user.getId()));
+                model.addAttribute("basketCount", basketService.countProductQuantityForUser(user.getId()));
             }
             Product product = productservice.findProductById(productId);
             model.addAttribute("user", session.getAttribute("user"));

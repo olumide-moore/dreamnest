@@ -45,7 +45,7 @@ public class OrdersController
                     products.put(productId, productService.findProductById(productId));
                 }
             }
-            model.addAttribute("basketCount", basketService.countProductForUser(user.getId()));
+            model.addAttribute("basketCount", basketService.countProductQuantityForUser(user.getId()));
             model.addAttribute("user", user);
             model.addAttribute("orders",ordersList);
             model.addAttribute("products",products);

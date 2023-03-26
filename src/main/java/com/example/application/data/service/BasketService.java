@@ -21,6 +21,8 @@ public class BasketService {
 
     public long countProductForUser(Long userId){ return basketrepository.countByUser_id(userId);
     }
+    public long countProductQuantityForUser(Long userId){ return basketrepository.sumQuantityByUser_id(userId);
+    }
     public List<Basket> findAllBasket() {
         return basketrepository.findAll();
     }
