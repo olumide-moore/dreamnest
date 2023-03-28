@@ -33,10 +33,20 @@
     <div class="row">
         <!-- Products Table -->
         <div class="col-sm-8">
-                <h2 >Products Admin</h2>
+                <h2 >Products Management</h2>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productModal" id="addProduct" style="margin-top: 20px; width:unset;" th:if="${user.role.name() == 'ADMIN'}">New Product</button>
+            <div style="display: flex;align-items: center;">
+                <div class="filter" style="display: flex;justify-content: space-between; align-items: center; width: 230px; margin-top: 40px; margin-bottom: 15px;">
+                    <label for="stockFilter" style="display: inline-block; vertical-align: middle;">Filter by stock:</label>
+                    <select id="stockFilter"  style="width: 120px;height:24px;" onchange="filterTablebyStock()">
+                        <option value="">All</option>
+                        <option value="Low Stock">Low Stock</option>
+                    </select>
+                </div>
             <!-- Seach box -->
             <input type="text" id="searchBar" placeholder="Search for products..." style="margin-top: 20px; width:500px; height: 30px; margin-left: 160px;" onkeyup="searchFunction()">
+            
+        </div>
             <!-- <div class="table-responsive"> -->
             <table class="table table-striped" id="productTable">
                 <thead>
@@ -48,7 +58,7 @@
                     <th>Price</th>
                     <th>Stock</th>
                     <th>Image Path</th>
-                    <th>Featured</th>
+                    <th th:if="${user.role.name() == 'ADMIN'}">Featured</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -64,7 +74,7 @@
                      <!-- <td th:if="${product.stock<6}" style="vertical-align: middle;"><p  th:text="${product.stock}" th:class="btn btn-danger"  th:style="color:white"></p><p><span class="low-stock-alert"><i class="fas fa-exclamation-circle"></i> Low stock!</span></p></td>
                      <td th:less="${product.stock<6}" style="vertical-align: middle;"><p  th:text="${product.stock}" th:class="${product.stock<6} ? 'btn btn-danger' : ''"  th:style="${product.stock<6} ? 'color:white;' : ''"></p><p><span class="low-stock-alert"><i class="fas fa-exclamation-circle"></i> Low stock!</span></p></td> -->
                     <td style="vertical-align: middle;" th:text="${product.imagePath}"></td>
-                    <td><input type="checkbox" th:data-id="${product.id}" th:checked="${product.featured}" onchange="changeFeatured(this)"></td>
+                    <td><input type="checkbox" th:data-id="${product.id}" th:checked="${product.featured}" th:if="${user.role.name() == 'ADMIN'}" onchange="changeFeatured(this)"></td>
                      <td ><img th:src="${'images/products/' + product.imagePath}" th:if="${product.imagePath!=''}" width="80" height="75" alt="Product Image"></td>
 
                     <!-- <img th:src="@{/images/{imagePath}(imagePath=${product.imagePath})}" alt="image" width="100" height="100"> -->
@@ -140,6 +150,32 @@
 <!--<footer th:replace="base.html :: footer"></footer>-->
 
 <script>
+
+
+    // Filter table by stock
+    function filterTablebyStock() {
+            // Declare variables
+            var select, filter, table, tr, td, i;
+            select = document.getElementById("stockFilter");
+            filter = select.value.toUpperCase();
+            tbody = document.getElementById("productTable");
+            tr = tbody.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those who don't match the selected option
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (filter == "LOW STOCK") {
+                    if (td && td.getElementsByTagName("span")[0]) {
+                        // console.log(td.getElementsByTagName("span")[0].innerText);
+                            tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                } else{
+                    tr[i].style.display = "";
+                }
+            }
+        }
 
     //function for search bar
     function searchFunction() {
