@@ -14,7 +14,7 @@ public interface BasketRepository extends JpaRepository<Basket, Long> {
     long countByUser_id(Long user_id);
 
 
-     @Query("select sum(b.quantity) from Basket b where b.user_id = ?1")
+     @Query("select coalesce(sum(b.quantity), 0) from Basket b where b.user_id = ?1")
      long sumQuantityByUser_id(Long user_id);
 
     @Transactional
