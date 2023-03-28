@@ -35,8 +35,10 @@
         <div class="col-sm-8">
                 <h2 >Products Admin</h2>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productModal" id="addProduct" style="margin-top: 20px; width:unset;" th:if="${user.role.name() == 'ADMIN'}">New Product</button>
+            <!-- Seach box -->
+            <input type="text" id="searchBar" placeholder="Search for products..." style="margin-top: 20px; width:500px; height: 30px; margin-left: 160px;" onkeyup="searchFunction()">
             <!-- <div class="table-responsive"> -->
-            <table class="table table-striped">
+            <table class="table table-striped" id="productTable">
                 <thead>
                 <tr>
                     <th></th>
@@ -138,6 +140,26 @@
 <!--<footer th:replace="base.html :: footer"></footer>-->
 
 <script>
+
+    //function for search bar
+    function searchFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchBar");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("productTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
     //funtionality for the featured button in edit admin
     function changeFeatured(check){
         var id = check.getAttribute("data-id");
