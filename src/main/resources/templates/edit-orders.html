@@ -35,10 +35,11 @@
             <div  th:if="${error}" class="alert alert-danger">
                 <p th:text="${error}"></p>
             </div>
-            <div class="col-sm-4">
-               
+            <div class="col-sm-8">
+                <div style="display: flex; align-items: center;" >
+
                 <div class="filter" style="display: flex;justify-content: space-between; align-items: center; width: 230px; margin-top: 40px; margin-bottom: 15px;">
-                    <label for="statusSelect" style="display: inline-block; vertical-align: middle;">Order status:</label>
+                    <label for="statusSelect" style="display: inline-block; vertical-align: middle; width: 240px;">Filter by status:</label>
                     <select id="statusSelect"  style="width: 120px;height:24px;" onchange="filterTableByStatus()">
                         <option value="">All</option>
                         <option value="Received">Received</option>
@@ -48,10 +49,12 @@
                         <option value="Cancelled">Cancelled</option>
                     </select>
                 </div>
-                
+                            <!-- Seach box -->
+            <input type="text" id="searchBar" placeholder="Search for order..." style="margin-top: 20px; width:500px; ; height: 30px; margin-left: 160px;" onkeyup="searchFunction()">
+                </div>
             </div>
             <!-- <div class="table-responsive"> -->
-            <table class="table table-striped">
+            <table class="table table-striped" id="orderTable">
                 <thead th:if="${orders !=null and not orders.isEmpty()}">
                 <tr>
                     <th></th>
@@ -123,6 +126,32 @@
         form.appendChild(hiddenField2);
         document.body.appendChild(form);
         form.submit();
+    }
+
+    //function for search bar
+    function searchFunction() {
+        var input, filter, table, tr, td, i, idValue, customerValue, dateValue, productsValue;
+        input = document.getElementById("searchBar");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("orderTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            idValue = tr[i].getElementsByTagName("td")[1];
+            customerValue = tr[i].getElementsByTagName("td")[2];
+            dateValue = tr[i].getElementsByTagName("td")[3];
+            productsValue = tr[i].getElementsByTagName("td")[4];
+            if (idValue || customerValue || dateValue || productsValue) {
+                idValue = idValue.textContent || idValue.innerText;
+                customerValue = customerValue.textContent || customerValue.innerText;
+                dateValue = dateValue.textContent || dateValue.innerText;
+                productsValue = productsValue.textContent || productsValue.innerText;
+                if (idValue.toUpperCase().indexOf(filter) > -1 || customerValue.toUpperCase().indexOf(filter) > -1 || dateValue.toUpperCase().indexOf(filter) > -1 || productsValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
     }
 
     // Filter table by status
