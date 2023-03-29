@@ -3,9 +3,9 @@
 Dreamnest E-commerce website developed using Vaadin application with Spring Boot.
 
 ## Running the application
-To run the project, import from IntelliJ or Eclipse
+To run the project, import from IntelliJ or Eclipse and run.
 The project is a standard Maven project. To run it from the command line,
-type `mvnw` (Windows), or `./mvnw` (Mac & Linux), then open
+type `mvnw` (Windows) from the project root, or `./mvnw` (Mac & Linux), then open
 http://localhost:8080 in your browser.
 
 
