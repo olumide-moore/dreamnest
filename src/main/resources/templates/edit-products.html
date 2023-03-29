@@ -182,16 +182,18 @@
 
     //function for search bar
     function searchFunction() {
-        var input, filter, table, tr, td, i, txtValue;
+        var input, filter, table, tr, td, i, txtValue, productName,category;
         input = document.getElementById("searchBar");
         filter = input.value.toUpperCase();
         table = document.getElementById("productTable");
         tr = table.getElementsByTagName("tr");
         for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[1];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            productName= tr[i].getElementsByTagName("td")[1];
+            category= tr[i].getElementsByTagName("td")[3];
+            if (productName || category) {
+                productName = productName.textContent || productName.innerText;
+                category = category.textContent || category.innerText;
+                if (productName.toUpperCase().indexOf(filter) > -1 || category.toUpperCase().indexOf(filter) > -1) {
                     tr[i].style.display = "";
                 } else {
                     tr[i].style.display = "none";
