@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.engine.AttributeName;
 
 // import org.springframework.web.bind.annotation.*;
@@ -168,7 +169,7 @@ public class ProductsController {
         }
 
     @PostMapping("/update-products")
-    public String updateProducts(HttpSession session,@RequestParam("id") Long id, @RequestParam("name") String name, @RequestParam("category") String category, @RequestParam("price") float price, @RequestParam("stock") int stock, @RequestParam("description") String description, @RequestParam("imagePath") MultipartFile imagePath) throws IOException {
+    public String updateProducts(RedirectAttributes redirectAttributes, HttpSession session, @RequestParam("id") Long id, @RequestParam("name") String name, @RequestParam("category") String category, @RequestParam("price") float price, @RequestParam("stock") int stock, @RequestParam("description") String description, @RequestParam("imagePath") MultipartFile imagePath) throws IOException {
         String page= Authorizer.verifyStaff(session);
 
         if(page==""){
@@ -192,6 +193,8 @@ public class ProductsController {
             }
 
             productservice.saveProduct(product);
+            redirectAttributes.addFlashAttribute("message", "Products updated successfully!");
+
             return "redirect:/edit-products";
         }
         return page;

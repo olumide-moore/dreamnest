@@ -34,6 +34,9 @@
         <!-- Products Table -->
         <div class="col-sm-8">
                 <h2 >Products Management</h2>
+            <div th:if="${message != null}" class="alert alert-success" role="alert">
+                <p th:text="${message}"></p>
+            </div>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productModal" id="addProduct" style="margin-top: 20px; width:unset;" th:if="${user.role.name() == 'ADMIN'}">New Product</button>
             <div style="display: flex;align-items: center;">
                 <div class="filter" style="display: flex;justify-content: space-between; align-items: center; width: 230px; margin-top: 40px; margin-bottom: 15px;">
