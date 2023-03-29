@@ -185,7 +185,8 @@ public class ProductsController {
             product.setStock(stock);
             product.setDescription(description);
             String imageUUID;
-            if(!imagePath.isEmpty()){
+            User user = (User)session.getAttribute("user");
+            if(user!=null && user.getRole().equals(Role.ADMIN) && !imagePath.isEmpty()){
                 imageUUID = imagePath.getOriginalFilename();
                 Path fileNameAndPath = Paths.get(uploadDirectory, imageUUID);
                 Files.write(fileNameAndPath, imagePath.getBytes());
