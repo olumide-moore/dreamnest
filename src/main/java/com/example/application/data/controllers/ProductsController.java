@@ -47,6 +47,11 @@ public class ProductsController {
     @Autowired
     private BasketService basketService;
 
+    public ProductsController(ProductService productService){
+        this.productservice= productService;
+    }
+
+
     @RequestMapping("/products")
     public String products(HttpSession session, Model model) {
         String page= Authorizer.verifyNotStaff(session);
